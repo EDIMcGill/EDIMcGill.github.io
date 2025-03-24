@@ -2,7 +2,7 @@ name: Deploy Astro to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change if using a different default branch
+      - main  # Change this if using a different default branch
 
 permissions:
   contents: read
