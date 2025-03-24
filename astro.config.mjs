@@ -7,7 +7,8 @@ import { siteConfig } from './src/data/site.config'
 
 // https://astro.build/config
 export default defineConfig({
-	site: siteConfig.site,
+	site: 'https://ishitahiremath.github.io/',
+	base: '/edi-mcgill-site/',  // Ensure GitHub Pages subdirectory works
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
 		drafts: true,
@@ -23,7 +24,7 @@ export default defineConfig({
 				experimentalThemes: {
 					light: 'vitesse-light',
 					dark: 'material-theme-palenight',
-				  },
+				},
 				wrap: true
 			},
 			drafts: true
@@ -31,4 +32,4 @@ export default defineConfig({
 		sitemap(),
 		tailwind()
 	]
-})
+});
