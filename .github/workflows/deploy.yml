@@ -18,17 +18,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      - name: Install, build, and upload your site
+      - uses: actions/checkout@v4
+
+      - name: Setup PNPM
         uses: withastro/action@v3
         with:
-          path: . # The root location of your Astro project inside the repository. (optional)
-          node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
-          package-manager: pnpm@6.0.0 # Explicitly use pnpm as the package manager
-          cache: null
+          node-version: 20
+          package-manager: pnpm@6.0.0
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: null  # Disable cache
 
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist/
 
   deploy:
     needs: build
