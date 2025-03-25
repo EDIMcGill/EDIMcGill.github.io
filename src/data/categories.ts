@@ -4,6 +4,5 @@ export const CATEGORIES = [
     'Events & Workshops',
     'Resources & Support',
     'Get Involved',
-    'EDI Research & Teaching'
 ] as const;
 
