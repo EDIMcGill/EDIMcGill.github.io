@@ -1,8 +1,9 @@
 // List of categories for blog posts
 export const CATEGORIES = [
-    'Community Voices & Stories',
-    'Events & Workshops',
-    'Resources & Support',
-    'Get Involved',
-] as const;
+	'Category 1',
+	'Category 2',
+	'Category 3',
+	'Category 4',
+	'Category 5'
+] as const
 
