@@ -20,15 +20,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PNPM
-        uses: withastro/action@v3
-        with:
-          node-version: 20
-          package-manager: pnpm@6.0.0
-
-      - name: Install Dependencies
-        run: pnpm install
-
       - name: Build
         run: pnpm run build
 
