@@ -7,8 +7,8 @@ import { siteConfig } from './src/data/site.config'
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://ishitahiremath.github.io/EDI_McGill_Webpage/',
-	base: '/EDI_McGill_Webpage/',  // Ensure GitHub Pages subdirectory works
+	site: 'https://EDI_McGill.github.io/',
+	base: '',  // Ensure GitHub Pages subdirectory works
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
 		drafts: true,
