@@ -12,7 +12,7 @@ interface SiteConfig {
 export const siteConfig: SiteConfig = {
 	site: 'https://EDIMcGill/', // Write here your website url
 	author: 'Ishita', // Site author
-	title: 'McGill EDI', // Site title.
+	title: 'Equity Diversity and Includion for Graduate Students', // Site title.
 	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', // Description to display in the meta tags
 	lang: 'en-GB',
 	ogLocale: 'en_GB',
