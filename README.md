@@ -4,7 +4,7 @@
 
 <hr/>
 
-<h3 align="center">
+<h3 align="center"> 
  ⭐ Leave a star if you like this project! ⭐️
 </h3>
 
