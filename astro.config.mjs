@@ -7,7 +7,7 @@ import { siteConfig } from './src/data/site.config'
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'EDI_McGill.github.io',
+	site: 'EDIMcGill.github.io',
 	base: '',  // Ensure GitHub Pages subdirectory works
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
