@@ -1,9 +1,9 @@
 // List of categories for blog posts
 export const CATEGORIES = [
-	'A',
-	'B',
-	'C',
-	'D',
+	'Home Page',
+	'Blogs & Stories',
+	'Events & Workshops',
+	'Resources & Support',
 	'E'
 ] as const
 
