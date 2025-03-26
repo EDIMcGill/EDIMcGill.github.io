@@ -11,7 +11,9 @@ export const SOCIALNETWORKS = [
 
 	{
 		name: 'Twitter',
-		url: 'https://x.com/mcgillu?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor',
+		url: 'https://x.com/mcgillu',
 		icon: TwitterIcon
 	}
 ] as const
+
+
