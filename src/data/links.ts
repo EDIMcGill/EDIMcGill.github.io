@@ -5,13 +5,13 @@ import GithubIcon from '@/components/icons/GithubIcon'
 export const SOCIALNETWORKS = [
 	{
 		name: 'Github',
-		url: 'https://github.com/danielcgilibert/blog-template',
+		url: 'https://github.com/ishitahiremath/ishitahiremath.github.io',
 		icon: GithubIcon
 	},
 
 	{
 		name: 'Twitter',
-		url: 'https://github.com/danielcgilibert/blog-template',
+		url: 'https://x.com/mcgillu?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor',
 		icon: TwitterIcon
 	}
 ] as const
