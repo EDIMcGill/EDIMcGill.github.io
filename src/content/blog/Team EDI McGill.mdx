@@ -1,52 +1,42 @@
 ---
-title: 'Team EDI McGill'
-description: 'Meet the dedicated team working towards Equity, Diversity, and Inclusion at McGill.'
-pubDate: 'March 23, 2025'
-heroImage: '../../assets/images/team-hero.jpg'
+title: 'Team EDI McGill - Faculty of Engineering'
+description: 'Promoting Equity, Diversity, and Inclusion for Graduate Students in Engineering.'
+pubDate: 'March 23 2025'
+heroImage: '../../assets/images/placeholder-hero.jpg'
 category: 'Home Page'
-tags: ['EDI', 'Community', 'McGill', 'Diversity']
+tags: ['Equity', 'Diversity', 'Inclusion', 'Graduate Students', 'Engineering']
 ---
 
-# **Meet the Team Behind EDI at McGill**
+**At Team EDI McGill, we are committed to fostering an inclusive, diverse, and equitable environment for graduate students in the Faculty of Engineering.** 
 
-At **McGill University**, our team is dedicated to fostering an inclusive, diverse, and equitable environment for students, faculty, and staff. We work on **outreach, mentorship, research, and advocacy** to build a more supportive and welcoming academic community.
-## **Why EDI Matters in Engineering?**
-Engineering is a discipline that shapes the future, and diverse perspectives lead to better innovations. Our EDI initiatives focus on:
-**Equitable access to research opportunities**  
-**Support for underrepresented groups in STEM**  
-**Inclusive mentorship and leadership programs**  
-**Workshops and networking events**  
----
+Our mission is to create a supportive academic community where students from all backgrounds feel valued, respected, and empowered. Through mentorship, advocacy, and community-building initiatives, we strive to break barriers and drive meaningful change in engineering education and research.
 
-## **Get Involved!**
-Join our **EDI initiatives** to create a more inclusive engineering community at McGill. Whether you're looking for **mentorship, advocacy opportunities, or funding resources**, we have something for you.
+## EDI in Engineering Graduate Studies
 
-### **Upcoming EDI Initiatives:**
-**Women in Engineering Leadership Panel** – April 10, 2025  
-**Graduate Student Mentorship Program Launch** – May 5, 2025  
-**Inclusive Research Practices Workshop** – May 20, 2025  
+The Faculty of Engineering is home to a diverse cohort of graduate students, each contributing unique perspectives to research and innovation. However, challenges such as underrepresentation, implicit bias, and accessibility gaps persist. Our goal is to **eliminate barriers to success** and promote inclusivity across all engineering disciplines.
 
-🔗 **[See All Events](#)**  
----
+:::note[Our Mission]
+We focus on **three key pillars**:
+- **Access & Representation:** Advocating for equitable opportunities for underrepresented students.
+- **Support & Mentorship:** Facilitating peer support networks and faculty mentorship programs.
+- **Inclusive Research & Teaching:** Encouraging ethical, unbiased, and diverse research practices in engineering.
+:::
 
-## **How We Support Graduate Students**
-We are dedicated to supporting graduate students in Engineering through:
-**EDI-focused funding and scholarships**  
-**Research & Teaching Inclusivity Training**  
-**Peer Support and Networking**  
+### Graduate Student Support
 
-**Interested in joining our initiatives?** [Get in touch here!](#)
----
-
-## **Dynamic Content in Astro**
-Astro allows you to use **dynamic values** inside components, making it easy to personalize the user experience.
+We offer resources and initiatives tailored to the needs of engineering graduate students:
 
 ```astro
 ---
-const teamName = 'EDI McGill Engineering'
+const supportPrograms = [
+  { name: 'EDI Mentorship Program', description: 'Connect with faculty and senior students for guidance on research and career development.' },
+  { name: 'Workshops & Speaker Series', description: 'Attend events on equity, diversity, and inclusion in engineering research and industry.' },
+  { name: 'Funding & Scholarships', description: 'Explore financial support options for underrepresented graduate students.' }
+];
 ---
 
-<div>
-	<h1>Welcome to {teamName}!</h1>
-	<!-- Outputs <h1>Welcome to EDI McGill Engineering!</h1> -->
-</div
+<ul>
+	{supportPrograms.map(program => (
+		<li><strong>{program.name}:</strong> {program.description}</li>
+	))}
+</ul>
