@@ -10,9 +10,9 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	site: 'https://EDIMcGill/', // Write here your website url
-	author: 'Ishita', // Site author
-	title: 'Equity Diversity and Includion for Graduate Students', // Site title.
+	site: 'https://EDIMcGill.github.io', // GitHub Pages URL
+	author: 'EDI McGill Team', // Site author
+	title: 'Equity, Diversity and Inclusion for Graduate Students', // Site title (fixed typo: Includion -> Inclusion)
 	description: 'Welcome to Team EDI McGill, Faculty of Engineering!', // Description to display in the meta tags
 	lang: 'en-GB',
 	ogLocale: 'en_GB',
