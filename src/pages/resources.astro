@@ -1,0 +1,78 @@
+---
+/**
+ * Resources Page - EDI McGill
+ *
+ * Support materials, guides, external links, and helpful resources
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import TitlePage from '@/components/TitlePage'
+import { getCollection } from 'astro:content'
+import PostCard from '@/components/PostCard'
+
+const title = 'Resources & Support'
+const description = 'Access helpful resources, guides, and support materials for EDI at McGill'
+
+// Fetch resources from the resources collection
+let resources: any[] = []
+let resourcesByType: Record<string, any[]> = {}
+
+try {
+	const allResources = await getCollection('resources', ({ data }) => !data.draft)
+
+	// Sort by date
+	resources = allResources.sort(
+		(a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+	)
+
+	// Group by resource type
+	resources.forEach((resource) => {
+		const type = resource.data.resourceType || 'general'
+		if (!resourcesByType[type]) {
+			resourcesByType[type] = []
+		}
+		resourcesByType[type].push(resource)
+	})
+} catch (error) {
+	console.log('Resources collection not yet populated')
+}
+
+const typeLabels: Record<string, string> = {
+	'mental-health': 'Mental Health Resources',
+	academic: 'Academic Support',
+	external: 'External Resources',
+	guide: 'Guides & Toolkits',
+	general: 'General Resources'
+}
+---
+
+<BaseLayout title={title} description={description}>
+	<TitlePage title={title} />
+
+	<div class='mb-8 prose dark:prose-invert'>
+		<p>
+			Find resources, support materials, and helpful links to assist you in your EDI journey. These
+			resources cover mental health, academic support, and community connections.
+		</p>
+	</div>
+
+	{
+		Object.keys(resourcesByType).length > 0 ? (
+			<div class='space-y-12'>
+				{Object.entries(resourcesByType).map(([type, typeResources]) => (
+					<section>
+						<h2 class='text-2xl font-bold mb-6 dark:text-white'>{typeLabels[type] || type}</h2>
+						<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+							{typeResources.map((resource) => (
+								<PostCard post={resource} />
+							))}
+						</div>
+					</section>
+				))}
+			</div>
+		) : (
+			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
+				<p class='text-lg'>Resources are being compiled. Check back soon!</p>
+			</div>
+		)
+	}
+</BaseLayout>

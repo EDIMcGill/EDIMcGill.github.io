@@ -1,0 +1,80 @@
+---
+/**
+ * Programs Page - EDI McGill
+ *
+ * Landing page for Events & Workshops
+ * Displays upcoming and past events with filtering options
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import TitlePage from '@/components/TitlePage'
+import { getCollection } from 'astro:content'
+import PostCard from '@/components/PostCard'
+
+const title = 'Programs & Events'
+const description = 'Explore EDI workshops, events, and learning opportunities at McGill University'
+
+// Fetch events from the events collection
+let upcomingEvents: any[] = []
+let pastEvents: any[] = []
+
+try {
+	const allEvents = await getCollection('events', ({ data }) => !data.draft)
+	const now = new Date()
+
+	// Sort events by date
+	upcomingEvents = allEvents
+		.filter((event) => event.data.eventDate && new Date(event.data.eventDate) >= now)
+		.sort((a, b) => new Date(a.data.eventDate!).getTime() - new Date(b.data.eventDate!).getTime())
+
+	pastEvents = allEvents
+		.filter((event) => !event.data.eventDate || new Date(event.data.eventDate) < now)
+		.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+} catch (error) {
+	console.log('Events collection not yet populated')
+}
+---
+
+<BaseLayout title={title} description={description}>
+	<TitlePage title={title} />
+
+	<div class='mb-8 prose dark:prose-invert'>
+		<p>
+			Join us for engaging workshops, seminars, and events designed to promote equity, diversity,
+			and inclusion at McGill. Learn, connect, and make a difference.
+		</p>
+	</div>
+
+	{
+		upcomingEvents.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Upcoming Events</h2>
+				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+					{upcomingEvents.map((event) => (
+						<PostCard post={event} />
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		pastEvents.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Past Events</h2>
+				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+					{pastEvents.map((event) => (
+						<PostCard post={event} />
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		upcomingEvents.length === 0 && pastEvents.length === 0 && (
+			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
+				<p class='text-lg'>No events currently scheduled. Check back soon for updates!</p>
+			</div>
+		)
+	}
+</BaseLayout>

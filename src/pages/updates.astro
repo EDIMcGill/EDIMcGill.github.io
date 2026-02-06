@@ -1,0 +1,129 @@
+---
+/**
+ * Updates Feed Page - EDI McGill
+ *
+ * Central updates feed with smart filtering
+ * Shows all content types: events, stories, resources, reports
+ * Features pinned content, filtering chips, and sorting
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import TitlePage from '@/components/TitlePage'
+import FilterChips from '@/components/FilterChips'
+import PinnedContent from '@/components/PinnedContent'
+import ContentCard from '@/components/ContentCard'
+import { getAllContent, getPinnedContent } from '@/utils'
+
+const title = 'Updates'
+const description =
+	'Stay informed with the latest news, events, stories, and resources from EDI McGill'
+
+// Get filter from URL query params
+const url = new URL(Astro.request.url)
+const activeFilter = url.searchParams.get('filter') || 'all'
+
+// Fetch all content
+const allContent = await getAllContent()
+const pinnedContent = await getPinnedContent()
+
+// Prepare pinned items for PinnedContent component
+const pinnedItems = pinnedContent.slice(0, 5).map((item) => ({
+	content: item as any,
+	contentType: item.contentType as any,
+	href: item.collection === 'blog' ? `/post/${item.slug}` : `/${item.collection}/${item.slug}`
+}))
+
+// Filter content based on active filter
+let filteredContent = allContent
+if (activeFilter !== 'all') {
+	filteredContent = allContent.filter((item) => item.contentType === activeFilter)
+}
+
+// Content type labels for display
+const contentTypeLabels: Record<string, string> = {
+	events: 'Event',
+	stories: 'Story',
+	resources: 'Resource',
+	reports: 'Report',
+	blog: 'Blog Post'
+}
+---
+
+<BaseLayout title={title} description={description}>
+	<TitlePage title={title} />
+
+	<div class='mb-8 prose dark:prose-invert'>
+		<p>
+			Explore the latest updates from EDI McGill. Filter by content type to find what interests you.
+		</p>
+	</div>
+
+	<!-- Pinned Content Section -->
+	{pinnedItems.length > 0 && <PinnedContent pinnedItems={pinnedItems} />}
+
+	<!-- Filter Chips -->
+	<FilterChips activeFilter={activeFilter} />
+
+	<!-- Sort Options -->
+	<div class='flex items-center justify-between mb-6'>
+		<p class='text-gray-600 dark:text-gray-400'>
+			{filteredContent.length}
+			{filteredContent.length === 1 ? 'update' : 'updates'}
+		</p>
+		<div class='flex items-center gap-2'>
+			<label class='text-sm text-gray-600 dark:text-gray-400'>Sort by:</label>
+			<select
+				class='border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded px-3 py-1 text-sm'
+				id='sort-select'
+			>
+				<option value='latest'>Latest</option>
+				<option value='oldest'>Oldest</option>
+			</select>
+		</div>
+	</div>
+
+	<!-- Content Grid -->
+	{
+		filteredContent.length > 0 ? (
+			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' id='content-grid'>
+				{filteredContent.map((item) => {
+					const href =
+						item.collection === 'blog' ? `/post/${item.slug}` : `/${item.collection}/${item.slug}`
+					return (
+						<ContentCard content={item as any} contentType={item.contentType as any} href={href} />
+					)
+				})}
+			</div>
+		) : (
+			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
+				<p class='text-lg'>No updates found for this filter.</p>
+			</div>
+		)
+	}
+</BaseLayout>
+
+<script>
+	// Client-side sorting
+	document.addEventListener('DOMContentLoaded', () => {
+		const sortSelect = document.getElementById('sort-select') as HTMLSelectElement
+		const contentGrid = document.getElementById('content-grid')
+
+		if (sortSelect && contentGrid) {
+			sortSelect.addEventListener('change', () => {
+				const cards = Array.from(contentGrid.children)
+				const sorted = cards.sort((a, b) => {
+					const dateA = a.querySelector('time')?.getAttribute('datetime') || ''
+					const dateB = b.querySelector('time')?.getAttribute('datetime') || ''
+
+					if (sortSelect.value === 'latest') {
+						return new Date(dateB).getTime() - new Date(dateA).getTime()
+					} else {
+						return new Date(dateA).getTime() - new Date(dateB).getTime()
+					}
+				})
+
+				contentGrid.innerHTML = ''
+				sorted.forEach((card) => contentGrid.appendChild(card))
+			})
+		}
+	})
+</script>

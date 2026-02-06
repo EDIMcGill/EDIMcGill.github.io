@@ -1,0 +1,110 @@
+---
+/**
+ * Participate Page - EDI McGill
+ *
+ * Get involved with EDI initiatives at McGill
+ * Submit stories, share feedback, volunteer opportunities
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import TitlePage from '@/components/TitlePage'
+
+const title = 'Get Involved'
+const description = 'Join EDI McGill - submit your story, share feedback, or volunteer with us'
+---
+
+<BaseLayout title={title} description={description}>
+	<TitlePage title={title} />
+
+	<div class='mb-8 prose dark:prose-invert'>
+		<p>
+			Your voice matters! There are many ways to get involved with EDI McGill and contribute to
+			building a more inclusive campus community.
+		</p>
+	</div>
+
+	<div class='grid grid-cols-1 md:grid-cols-2 gap-8 mb-12'>
+		<!-- Submit Your Story -->
+		<div
+			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-blue-500 dark:hover:border-blue-400 transition-colors'
+		>
+			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Share Your Story</h2>
+			<p class='text-gray-700 dark:text-gray-300 mb-6'>
+				Have an experience to share? Submit your personal narrative to be featured on our platform
+				and help others understand diverse perspectives.
+			</p>
+			<button
+				class='bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
+			>
+				Submit Story
+			</button>
+			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
+				<em>Story submission form coming soon</em>
+			</p>
+		</div>
+
+		<!-- Share Feedback -->
+		<div
+			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-purple-500 dark:hover:border-purple-400 transition-colors'
+		>
+			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Share Feedback</h2>
+			<p class='text-gray-700 dark:text-gray-300 mb-6'>
+				Help us improve! Share your thoughts, suggestions, and feedback about EDI initiatives at
+				McGill.
+			</p>
+			<button
+				class='bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
+			>
+				Give Feedback
+			</button>
+			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
+				<em>Feedback form coming soon</em>
+			</p>
+		</div>
+
+		<!-- Volunteer -->
+		<div
+			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-green-500 dark:hover:border-green-400 transition-colors'
+		>
+			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Volunteer With Us</h2>
+			<p class='text-gray-700 dark:text-gray-300 mb-6'>
+				Join our team of dedicated volunteers working to promote equity, diversity, and inclusion
+				across campus.
+			</p>
+			<button
+				class='bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
+			>
+				Learn More
+			</button>
+			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
+				<em>Volunteer information coming soon</em>
+			</p>
+		</div>
+
+		<!-- Join Committee -->
+		<div
+			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-orange-500 dark:hover:border-orange-400 transition-colors'
+		>
+			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Join a Committee</h2>
+			<p class='text-gray-700 dark:text-gray-300 mb-6'>
+				Get more involved by joining one of our committees focused on specific EDI initiatives and
+				advocacy work.
+			</p>
+			<button
+				class='bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
+			>
+				View Committees
+			</button>
+			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
+				<em>Committee details coming soon</em>
+			</p>
+		</div>
+	</div>
+
+	<section class='prose dark:prose-invert mx-auto'>
+		<h2>Stay Connected</h2>
+		<p>
+			Follow us on social media and subscribe to our newsletter to stay updated on events,
+			opportunities, and EDI news at McGill.
+		</p>
+	</section>
+</BaseLayout>

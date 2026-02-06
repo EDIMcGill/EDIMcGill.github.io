@@ -1,0 +1,119 @@
+---
+/**
+ * PinnedContent Component
+ *
+ * Horizontal scrollable section for pinned/featured content
+ * Displays 3-5 key items prominently at the top of the Updates feed
+ */
+import { Image } from 'astro:assets'
+import FormattedDate from './FormattedDate.astro'
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+	pinnedItems: Array<{
+		content:
+			| CollectionEntry<'events'>
+			| CollectionEntry<'stories'>
+			| CollectionEntry<'resources'>
+			| CollectionEntry<'reports'>
+		contentType: 'events' | 'stories' | 'resources' | 'reports'
+		href: string
+	}>
+}
+
+const { pinnedItems } = Astro.props
+
+if (pinnedItems.length === 0) {
+	return null
+}
+
+const badgeColors = {
+	events: 'bg-blue-500 text-white',
+	stories: 'bg-purple-500 text-white',
+	resources: 'bg-green-500 text-white',
+	reports: 'bg-orange-500 text-white'
+}
+
+const badgeLabels = {
+	events: 'Event',
+	stories: 'Story',
+	resources: 'Resource',
+	reports: 'Report'
+}
+---
+
+<section class='pinned-content mb-12'>
+	<h2 class='text-2xl font-bold mb-6 dark:text-white flex items-center gap-2'>
+		<span>📌</span>
+		<span>Featured Content</span>
+	</h2>
+
+	<div class='overflow-x-auto pb-4 -mx-5 px-5'>
+		<div class='flex gap-6' style='min-width: max-content;'>
+			{
+				pinnedItems.map(({ content, contentType, href }) => {
+					const { title, description, pubDate, heroImage } = content.data
+
+					return (
+						<article class='pinned-card w-[350px] md:w-[400px] flex-shrink-0'>
+							<a
+								href={href}
+								class='block h-full border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800'
+							>
+								<div class='relative w-full h-56 overflow-hidden bg-gray-200 dark:bg-gray-800'>
+									<Image
+										src={heroImage}
+										alt={title}
+										class='w-full h-full object-cover hover:scale-105 transition-transform duration-300'
+										width={400}
+										height={224}
+									/>
+									<div
+										class={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-bold ${badgeColors[contentType]}`}
+									>
+										{badgeLabels[contentType]}
+									</div>
+								</div>
+
+								<div class='p-6'>
+									<FormattedDate date={pubDate} class='text-sm mb-3' />
+									<h3 class='text-2xl font-bold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors'>
+										{title}
+									</h3>
+									<p class='text-gray-600 dark:text-gray-300 line-clamp-3'>{description}</p>
+								</div>
+							</a>
+						</article>
+					)
+				})
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.overflow-x-auto::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.overflow-x-auto::-webkit-scrollbar-track {
+		background: rgba(0, 0, 0, 0.1);
+		border-radius: 4px;
+	}
+
+	.overflow-x-auto::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.3);
+		border-radius: 4px;
+	}
+
+	.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.line-clamp-3 {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>

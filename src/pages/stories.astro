@@ -1,0 +1,78 @@
+---
+/**
+ * Stories Page - EDI McGill
+ *
+ * Blog posts, personal narratives, interviews, and student experiences
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import TitlePage from '@/components/TitlePage'
+import { getCollection } from 'astro:content'
+import PostCard from '@/components/PostCard'
+
+const title = 'Stories & Experiences'
+const description =
+	'Read personal narratives, interviews, and experiences from the McGill EDI community'
+
+// Fetch stories from the stories collection
+let stories: any[] = []
+let featuredStory: any = null
+
+try {
+	const allStories = await getCollection('stories', ({ data }) => !data.draft)
+
+	// Sort by date, newest first
+	stories = allStories.sort(
+		(a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+	)
+
+	// Find featured story if any
+	featuredStory = stories.find((story) => story.data.featured)
+} catch (error) {
+	console.log('Stories collection not yet populated')
+}
+---
+
+<BaseLayout title={title} description={description}>
+	<TitlePage title={title} />
+
+	<div class='mb-8 prose dark:prose-invert'>
+		<p>
+			Discover personal stories, experiences, and perspectives from members of the McGill community.
+			These narratives help us understand diverse experiences and foster empathy and inclusion.
+		</p>
+	</div>
+
+	{
+		featuredStory && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Featured Story</h2>
+				<div class='bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 p-6 rounded-lg'>
+					<PostCard post={featuredStory} />
+				</div>
+			</section>
+		)
+	}
+
+	{
+		stories.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 dark:text-white'>All Stories</h2>
+				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+					{stories
+						.filter((s) => s !== featuredStory)
+						.map((story) => (
+							<PostCard post={story} />
+						))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		stories.length === 0 && (
+			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
+				<p class='text-lg'>No stories available yet. Check back soon!</p>
+			</div>
+		)
+	}
+</BaseLayout>

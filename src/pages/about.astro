@@ -1,0 +1,55 @@
+---
+/**
+ * About Page - EDI McGill
+ *
+ * This page provides information about EDI McGill's mission, approach, and team.
+ * Content is sourced from static pages collection.
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import TitlePage from '@/components/TitlePage'
+
+const title = 'About EDI McGill'
+const description =
+	'Learn about our mission to promote Equity, Diversity, and Inclusion at McGill University'
+---
+
+<BaseLayout title={title} description={description}>
+	<TitlePage title={title} />
+
+	<div class='prose prose-lg md:prose-xl dark:prose-invert mx-auto'>
+		<section class='mb-12'>
+			<h2>Our Mission</h2>
+			<p>
+				EDI McGill is committed to fostering an inclusive and equitable environment at McGill
+				University. We work to ensure that all members of our community feel valued, respected, and
+				supported.
+			</p>
+		</section>
+
+		<section class='mb-12'>
+			<h2>Our Approach</h2>
+			<p>Through education, advocacy, and community engagement, we strive to:</p>
+			<ul>
+				<li>Promote awareness of equity, diversity, and inclusion issues</li>
+				<li>Provide resources and support for marginalized communities</li>
+				<li>Foster dialogue and understanding across differences</li>
+				<li>Advocate for systemic change and policy improvements</li>
+			</ul>
+		</section>
+
+		<section class='mb-12'>
+			<h2>Our Team</h2>
+			<p>
+				EDI McGill is powered by dedicated students, faculty, and staff who are passionate about
+				creating a more inclusive campus community. Our team brings together diverse perspectives
+				and experiences to drive meaningful change.
+			</p>
+			<p class='text-sm text-gray-600 dark:text-gray-400 mt-4'>
+				<em
+					>Note: This page will be populated with team member profiles and additional content as
+					they become available.</em
+				>
+			</p>
+		</section>
+	</div>
+</BaseLayout>

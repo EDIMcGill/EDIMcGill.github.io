@@ -1,0 +1,128 @@
+---
+/**
+ * FilterChips Component
+ *
+ * Filter chip buttons for the Updates feed
+ * Supports URL-based filtering with progressive enhancement
+ */
+import { FILTER_OPTIONS } from '@/data/categories'
+
+interface Props {
+	activeFilter?: string
+}
+
+const { activeFilter = 'all' } = Astro.props
+const currentUrl = new URL(Astro.request.url)
+---
+
+<div class='filter-chips mb-8'>
+	<div class='flex flex-wrap gap-3 items-center'>
+		<span class='text-sm font-semibold text-gray-600 dark:text-gray-400'>Filter by:</span>
+		{
+			FILTER_OPTIONS.map((option) => {
+				const isActive = activeFilter === option.id
+				const newUrl = new URL(currentUrl)
+				if (option.id === 'all') {
+					newUrl.searchParams.delete('filter')
+				} else {
+					newUrl.searchParams.set('filter', option.id)
+				}
+
+				return (
+					<a
+						href={newUrl.pathname + newUrl.search}
+						data-filter={option.id}
+						class:list={[
+							'filter-chip px-4 py-2 rounded-full font-medium transition-all duration-200',
+							'border-2 hover:scale-105',
+							isActive
+								? 'bg-blue-600 text-white border-blue-600 dark:bg-blue-500 dark:border-blue-500'
+								: 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500'
+						]}
+					>
+						{option.label}
+					</a>
+				)
+			})
+		}
+	</div>
+</div>
+
+<script>
+	// Progressive enhancement: client-side filtering without page reload
+	document.addEventListener('DOMContentLoaded', () => {
+		const chips = document.querySelectorAll('.filter-chip')
+
+		chips.forEach((chip) => {
+			chip.addEventListener('click', (e) => {
+				e.preventDefault()
+				const filter = (e.target as HTMLElement).dataset.filter || 'all'
+
+				// Update URL without reload
+				const url = new URL(window.location.href)
+				if (filter === 'all') {
+					url.searchParams.delete('filter')
+				} else {
+					url.searchParams.set('filter', filter)
+				}
+				window.history.pushState({}, '', url)
+
+				// Update active state
+				chips.forEach((c) => {
+					c.classList.remove(
+						'bg-blue-600',
+						'text-white',
+						'border-blue-600',
+						'dark:bg-blue-500',
+						'dark:border-blue-500'
+					)
+					c.classList.add(
+						'bg-white',
+						'dark:bg-gray-800',
+						'text-gray-700',
+						'dark:text-gray-300',
+						'border-gray-300',
+						'dark:border-gray-600'
+					)
+				})
+				chip.classList.add(
+					'bg-blue-600',
+					'text-white',
+					'border-blue-600',
+					'dark:bg-blue-500',
+					'dark:border-blue-500'
+				)
+				chip.classList.remove(
+					'bg-white',
+					'dark:bg-gray-800',
+					'text-gray-700',
+					'dark:text-gray-300',
+					'border-gray-300',
+					'dark:border-gray-600'
+				)
+
+				// Filter content
+				filterContent(filter)
+			})
+		})
+
+		function filterContent(filter: string) {
+			const cards = document.querySelectorAll('[data-content-type]')
+
+			cards.forEach((card) => {
+				const cardType = card.getAttribute('data-content-type')
+				if (filter === 'all' || cardType === filter) {
+					card.classList.remove('hidden')
+				} else {
+					card.classList.add('hidden')
+				}
+			})
+		}
+	})
+</script>
+
+<style>
+	.filter-chip {
+		text-decoration: none;
+	}
+</style>

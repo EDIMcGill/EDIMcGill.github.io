@@ -1,0 +1,83 @@
+---
+/**
+ * Reports Page - EDI McGill
+ *
+ * EDI research, annual reports, and data
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import TitlePage from '@/components/TitlePage'
+import { getCollection } from 'astro:content'
+import PostCard from '@/components/PostCard'
+
+const title = 'Reports & Research'
+const description = 'Access EDI reports, research, and data from McGill University'
+
+// Fetch reports from the reports collection
+let reports: any[] = []
+let reportsByYear: Record<number, any[]> = {}
+
+try {
+	const allReports = await getCollection('reports', ({ data }) => !data.draft)
+
+	// Sort by date
+	reports = allReports.sort(
+		(a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+	)
+
+	// Group by year
+	reports.forEach((report) => {
+		const year = report.data.reportYear || new Date(report.data.pubDate).getFullYear()
+		if (!reportsByYear[year]) {
+			reportsByYear[year] = []
+		}
+		reportsByYear[year].push(report)
+	})
+} catch (error) {
+	console.log('Reports collection not yet populated')
+}
+
+const years = Object.keys(reportsByYear)
+	.map(Number)
+	.sort((a, b) => b - a)
+---
+
+<BaseLayout title={title} description={description}>
+	<TitlePage title={title} />
+
+	<div class='mb-8 prose dark:prose-invert'>
+		<p>
+			Explore research, annual reports, and data related to equity, diversity, and inclusion at
+			McGill University. These reports inform our strategies and track our progress.
+		</p>
+	</div>
+
+	{
+		years.length > 0 ? (
+			<div class='space-y-12'>
+				{years.map((year) => (
+					<section>
+						<h2 class='text-2xl font-bold mb-6 dark:text-white'>{year} Reports</h2>
+						<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+							{reportsByYear[year].map((report) => (
+								<PostCard post={report} />
+							))}
+						</div>
+					</section>
+				))}
+			</div>
+		) : (
+			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
+				<p class='text-lg'>Reports are being compiled. Check back soon!</p>
+			</div>
+		)
+	}
+
+	<section class='mt-12 prose dark:prose-invert mx-auto'>
+		<h2>About Our Reports</h2>
+		<p>
+			Our reports provide transparent insights into EDI initiatives, challenges, and progress at
+			McGill. We publish annual reports, research findings, and data analyses to inform
+			decision-making and track our impact.
+		</p>
+	</section>
+</BaseLayout>
