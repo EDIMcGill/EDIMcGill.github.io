@@ -22,6 +22,313 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 		</p>
 	</div>
 
+	<!-- INTERACTIVE CASE STUDY QUIZ -->
+	<section class='case-study-quiz mb-16'>
+		<div
+			class='bg-gradient-to-br from-blue-50 via-violet-50 to-purple-50 dark:from-blue-950 dark:via-violet-950 dark:to-purple-950 rounded-3xl p-10 border-2 border-blue-200 dark:border-blue-800 shadow-xl'
+		>
+			<div class='text-center mb-8'>
+				<div
+					class='inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900 px-4 py-2 rounded-full text-blue-700 dark:text-blue-300 font-semibold mb-4'
+				>
+					<span>🎯</span>
+					<span>Interactive Case Study</span>
+				</div>
+				<h2 class='text-3xl md:text-4xl font-bold mb-3 dark:text-white'>Test Your EDI Knowledge</h2>
+				<p class='text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto'>
+					Explore real scenarios and discover how you would respond in different situations
+				</p>
+			</div>
+
+			<!-- Question Container -->
+			<div class='max-w-4xl mx-auto'>
+				<div
+					class='question-container bg-white dark:bg-gray-900 rounded-2xl p-8 border-2 border-violet-200 dark:border-violet-800 shadow-lg mb-6'
+				>
+					<!-- Progress Bar -->
+					<div class='mb-6'>
+						<div
+							class='flex justify-between text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2'
+						>
+							<span>Question <span class='current-question'>1</span> of 3</span>
+							<span class='progress-percentage'>33%</span>
+						</div>
+						<div class='w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden'>
+							<div
+								class='quiz-progress bg-gradient-to-r from-blue-500 to-purple-500 h-full rounded-full transition-all duration-500'
+								style='width: 33.33%'
+							>
+							</div>
+						</div>
+					</div>
+
+					<!-- Question 1 -->
+					<div class='question active' data-question='1'>
+						<h3 class='text-2xl font-bold mb-6 text-gray-900 dark:text-white'>
+							🤝 Scenario: Inclusive Group Work
+						</h3>
+						<p class='text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed'>
+							You're leading a group project and notice one international student is quiet during
+							meetings. They seem hesitant to share ideas. What's your best approach?
+						</p>
+
+						<div class='space-y-4'>
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
+								data-answer='a'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
+										>A</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Directly call on them in the next meeting to contribute</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
+								data-answer='b'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
+										>B</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Have a private conversation to understand their preferred communication style</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
+								data-answer='c'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
+										>C</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Assume they're not interested and continue without their input</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
+								data-answer='d'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
+										>D</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Provide multiple ways to contribute (speaking, writing, visual)</span
+									>
+								</div>
+							</button>
+						</div>
+
+						<div class='feedback mt-6 p-6 rounded-xl hidden'></div>
+					</div>
+
+					<!-- Question 2 -->
+					<div class='question hidden' data-question='2'>
+						<h3 class='text-2xl font-bold mb-6 text-gray-900 dark:text-white'>
+							🌍 Scenario: Cultural Celebrations
+						</h3>
+						<p class='text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed'>
+							Your department wants to host cultural celebrations. A colleague suggests only
+							celebrating major holidays to save time. What do you recommend?
+						</p>
+
+						<div class='space-y-4'>
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
+								data-answer='a'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
+										>A</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Agree - focus only on widely recognized holidays</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
+								data-answer='b'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
+										>B</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Create a rotating monthly celebration featuring different cultures</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
+								data-answer='c'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
+										>C</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Skip cultural celebrations entirely to avoid potential issues</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
+								data-answer='d'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
+										>D</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Survey students to understand which celebrations are meaningful to them</span
+									>
+								</div>
+							</button>
+						</div>
+
+						<div class='feedback mt-6 p-6 rounded-xl hidden'></div>
+					</div>
+
+					<!-- Question 3 -->
+					<div class='question hidden' data-question='3'>
+						<h3 class='text-2xl font-bold mb-6 text-gray-900 dark:text-white'>
+							💬 Scenario: Microaggressions
+						</h3>
+						<p class='text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed'>
+							You witness a colleague make an insensitive comment to a graduate student from a
+							marginalized group. The student looks uncomfortable. What should you do?
+						</p>
+
+						<div class='space-y-4'>
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
+								data-answer='a'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
+										>A</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Ignore it - it's not your place to intervene</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
+								data-answer='b'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
+										>B</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Publicly call out the colleague immediately and harshly</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
+								data-answer='c'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
+										>C</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Gently redirect the conversation and check in with the student privately later</span
+									>
+								</div>
+							</button>
+
+							<button
+								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
+								data-answer='d'
+							>
+								<div class='flex items-start gap-4'>
+									<span
+										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
+										>D</span
+									>
+									<span class='text-gray-800 dark:text-gray-200'
+										>Wait to see if the student brings it up first</span
+									>
+								</div>
+							</button>
+						</div>
+
+						<div class='feedback mt-6 p-6 rounded-xl hidden'></div>
+					</div>
+
+					<!-- Results Screen -->
+					<div class='results hidden'>
+						<div class='text-center'>
+							<div class='text-7xl mb-6'>🎉</div>
+							<h3 class='text-3xl font-bold mb-4 text-gray-900 dark:text-white'>Quiz Complete!</h3>
+							<p class='text-xl text-gray-700 dark:text-gray-300 mb-8'>
+								You scored <span class='score text-4xl font-bold text-blue-600 dark:text-blue-400'
+									>0</span
+								> out of 3
+							</p>
+							<div
+								class='results-message bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 p-6 rounded-xl mb-8'
+							>
+								<p class='text-lg font-semibold text-gray-800 dark:text-gray-200'></p>
+							</div>
+							<button
+								class='restart-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg'
+							>
+								Retake Quiz →
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Navigation Buttons -->
+				<div class='nav-buttons flex justify-between items-center'>
+					<button
+						class='prev-btn hidden bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-8 py-3 rounded-xl font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all'
+					>
+						← Previous
+					</button>
+					<div class='flex-1'></div>
+					<button
+						class='next-btn hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg'
+					>
+						Next Question →
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<div class='grid grid-cols-1 md:grid-cols-2 gap-8 mb-12'>
 		<!-- Submit Your Story -->
 		<div
@@ -108,3 +415,264 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 		</p>
 	</section>
 </BaseLayout>
+
+<style>
+	/* Quiz Styling */
+	.question {
+		display: none;
+		animation: fadeIn 0.3s ease-in;
+	}
+
+	.question.active {
+		display: block;
+	}
+
+	.results {
+		display: none;
+		animation: fadeIn 0.3s ease-in;
+	}
+
+	.results:not(.hidden) {
+		display: block;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.option-btn {
+		cursor: pointer;
+	}
+
+	.option-btn:disabled {
+		cursor: not-allowed;
+		opacity: 0.8;
+	}
+
+	.option-btn.correct {
+		animation: correctPulse 0.5s ease;
+	}
+
+	.option-btn.incorrect {
+		animation: shake 0.5s ease;
+	}
+
+	@keyframes correctPulse {
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.02);
+		}
+	}
+
+	@keyframes shake {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		25% {
+			transform: translateX(-5px);
+		}
+		75% {
+			transform: translateX(5px);
+		}
+	}
+
+	.quiz-progress {
+		transition: width 0.5s ease-out;
+	}
+</style>
+
+<script>
+	// Interactive Quiz Logic
+	document.addEventListener('DOMContentLoaded', () => {
+		let currentQuestion = 1
+		let score = 0
+		const totalQuestions = 3
+
+		// Correct answers for each question
+		const correctAnswers = {
+			1: 'd', // Multiple ways to contribute
+			2: 'b', // Rotating monthly celebration
+			3: 'c' // Redirect and check in privately
+		}
+
+		// Feedback messages
+		const feedback = {
+			1: {
+				correct:
+					'✅ Excellent! Providing multiple ways to contribute (speaking, writing, visual) respects different communication styles and cultural norms. This creates an inclusive environment where everyone can participate comfortably.',
+				incorrect:
+					'💡 Consider that students from different cultural backgrounds may have varying comfort levels with direct verbal participation. Offering multiple modes of contribution (speaking, writing, visual) creates a more inclusive environment.'
+			},
+			2: {
+				correct:
+					'✅ Great thinking! A rotating monthly celebration ensures diverse representation and gives everyone a chance to share their culture. This approach is both practical and inclusive.',
+				incorrect:
+					'💡 The best approach involves students in the decision-making process. A rotating celebration schedule ensures all cultures are valued equally and creates ongoing learning opportunities.'
+			},
+			3: {
+				correct:
+					'✅ Perfect response! Gently redirecting protects the student while addressing the issue, and following up privately shows support without putting them on the spot.',
+				incorrect:
+					"💡 The most effective approach balances immediate intervention with sensitivity to the affected person's comfort. Gently redirecting the conversation and checking in privately respects the student's agency while addressing the harm."
+			}
+		}
+
+		const questions = document.querySelectorAll('.question')
+		const prevBtn = document.querySelector('.prev-btn')
+		const nextBtn = document.querySelector('.next-btn')
+		const restartBtn = document.querySelector('.restart-btn')
+		const resultsDiv = document.querySelector('.results')
+		const quizProgress = document.querySelector('.quiz-progress')
+		const currentQuestionSpan = document.querySelector('.current-question')
+		const progressPercentage = document.querySelector('.progress-percentage')
+
+		// Option button click handlers
+		document.querySelectorAll('.option-btn').forEach((btn) => {
+			btn.addEventListener('click', function () {
+				const question = this.closest('.question')
+				const questionNum = parseInt(question.dataset.question)
+				const selectedAnswer = this.dataset.answer
+				const feedbackDiv = question.querySelector('.feedback')
+
+				// Remove previous selection
+				question.querySelectorAll('.option-btn').forEach((b) => {
+					b.classList.remove('selected', 'correct', 'incorrect')
+				})
+
+				// Mark selected
+				this.classList.add('selected')
+
+				// Check if correct
+				const isCorrect = selectedAnswer === correctAnswers[questionNum]
+				if (isCorrect) {
+					this.classList.add('correct')
+					this.style.borderColor = '#10b981'
+					this.style.backgroundColor = '#d1fae5'
+					score++
+					feedbackDiv.innerHTML = `<div class="text-green-800 dark:text-green-200">${feedback[questionNum].correct}</div>`
+				} else {
+					this.classList.add('incorrect')
+					this.style.borderColor = '#ef4444'
+					this.style.backgroundColor = '#fee2e2'
+					feedbackDiv.innerHTML = `<div class="text-red-800 dark:text-red-200">${feedback[questionNum].incorrect}</div>`
+				}
+
+				feedbackDiv.classList.remove('hidden')
+
+				// Disable all buttons after selection
+				question.querySelectorAll('.option-btn').forEach((b) => (b.disabled = true))
+
+				// Show next/prev buttons
+				if (currentQuestion < totalQuestions) {
+					nextBtn.classList.remove('hidden')
+				}
+				if (currentQuestion > 1) {
+					prevBtn.classList.remove('hidden')
+				}
+			})
+		})
+
+		// Next button
+		nextBtn.addEventListener('click', () => {
+			if (currentQuestion < totalQuestions) {
+				questions[currentQuestion - 1].classList.remove('active')
+				questions[currentQuestion - 1].classList.add('hidden')
+				currentQuestion++
+				questions[currentQuestion - 1].classList.remove('hidden')
+				questions[currentQuestion - 1].classList.add('active')
+
+				nextBtn.classList.add('hidden')
+				updateProgress()
+
+				// Show results if last question
+				if (currentQuestion === totalQuestions) {
+					// Check if last question is answered
+					const lastQuestion = questions[currentQuestion - 1]
+					if (lastQuestion.querySelector('.option-btn.selected')) {
+						setTimeout(showResults, 1000)
+					}
+				}
+			}
+		})
+
+		// Previous button
+		prevBtn.addEventListener('click', () => {
+			if (currentQuestion > 1) {
+				questions[currentQuestion - 1].classList.remove('active')
+				questions[currentQuestion - 1].classList.add('hidden')
+				currentQuestion--
+				questions[currentQuestion - 1].classList.remove('hidden')
+				questions[currentQuestion - 1].classList.add('active')
+
+				nextBtn.classList.remove('hidden')
+				updateProgress()
+			}
+		})
+
+		// Restart button
+		restartBtn.addEventListener('click', () => {
+			currentQuestion = 1
+			score = 0
+
+			// Reset all questions
+			questions.forEach((q, index) => {
+				q.classList.remove('active', 'hidden')
+				if (index === 0) q.classList.add('active')
+				else q.classList.add('hidden')
+
+				q.querySelectorAll('.option-btn').forEach((btn) => {
+					btn.disabled = false
+					btn.classList.remove('selected', 'correct', 'incorrect')
+					btn.style.borderColor = ''
+					btn.style.backgroundColor = ''
+				})
+
+				q.querySelector('.feedback').classList.add('hidden')
+			})
+
+			resultsDiv.classList.add('hidden')
+			prevBtn.classList.add('hidden')
+			nextBtn.classList.add('hidden')
+			updateProgress()
+		})
+
+		function updateProgress() {
+			const progress = (currentQuestion / totalQuestions) * 100
+			quizProgress.style.width = progress + '%'
+			currentQuestionSpan.textContent = currentQuestion
+			progressPercentage.textContent = Math.round(progress) + '%'
+		}
+
+		function showResults() {
+			questions.forEach((q) => q.classList.add('hidden'))
+			prevBtn.classList.add('hidden')
+			nextBtn.classList.add('hidden')
+
+			resultsDiv.classList.remove('hidden')
+			document.querySelector('.score').textContent = score
+
+			const messageP = document.querySelector('.results-message p')
+			if (score === 3) {
+				messageP.textContent =
+					'🌟 Outstanding! You have a strong understanding of EDI principles. Consider joining our EDI committees to share your insights!'
+			} else if (score === 2) {
+				messageP.textContent =
+					"👏 Great job! You're on the right track. Keep learning and engaging with EDI resources to deepen your understanding."
+			} else {
+				messageP.textContent =
+					'📚 Thank you for participating! Explore our workshops and resources to learn more about creating inclusive environments.'
+			}
+		}
+	})
+</script>

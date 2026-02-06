@@ -35,13 +35,13 @@ try {
 		getCollection('blog', ({ data }) => !data.draft).catch(() => [])
 	])
 
-	// Combine and sort all content by date
+	// Combine and sort all content by date (handle undefined/null)
 	const allContent = [
-		...events.map((e) => ({ ...e, collection: 'events', type: 'Event' })),
-		...stories.map((s) => ({ ...s, collection: 'stories', type: 'Story' })),
-		...resources.map((r) => ({ ...r, collection: 'resources', type: 'Resource' })),
-		...reports.map((r) => ({ ...r, collection: 'reports', type: 'Report' })),
-		...blogPosts.map((b) => ({ ...b, collection: 'blog', type: 'Blog' }))
+		...(events || []).map((e) => ({ ...e, collection: 'events', type: 'Event' })),
+		...(stories || []).map((s) => ({ ...s, collection: 'stories', type: 'Story' })),
+		...(resources || []).map((r) => ({ ...r, collection: 'resources', type: 'Resource' })),
+		...(reports || []).map((r) => ({ ...r, collection: 'reports', type: 'Report' })),
+		...(blogPosts || []).map((b) => ({ ...b, collection: 'blog', type: 'Blog' }))
 	]
 
 	recentUpdates = allContent
@@ -49,6 +49,7 @@ try {
 		.slice(0, 6)
 } catch (error) {
 	console.log('Error fetching content:', error)
+	recentUpdates = []
 }
 
 const typeColors: Record<string, string> = {
@@ -71,11 +72,13 @@ const getContentHref = (item: any) => {
 >
 	<!-- 1. HERO SECTION - Clear Orientation -->
 	<section class='hero-section -mt-4 mb-16'>
-		<div class='relative w-full h-[450px] md:h-[550px] rounded-2xl overflow-hidden shadow-2xl mb-6'>
+		<div
+			class='relative w-full h-[450px] md:h-[550px] rounded-2xl overflow-hidden shadow-[0_25px_80px_-15px_rgba(0,0,0,0.4),0_10px_30px_-10px_rgba(0,0,0,0.3)] mb-6 border border-gray-300/20'
+		>
 			<Image
 				src={bannerImage}
 				alt='EDI McGill - Diversity and Inclusion'
-				class='w-full h-full object-cover opacity-15'
+				class='w-full h-full object-cover opacity-19.5'
 				width={1200}
 				height={550}
 			/>
@@ -88,24 +91,26 @@ const getContentHref = (item: any) => {
 					>
 						McGill University
 					</div>
-					<h1 class='text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight'>EDI McGill</h1>
-					<p class='text-xl md:text-3xl mb-4 font-light'>
+					<h1 class='text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight drop-shadow-lg'>
+						EDI McGill
+					</h1>
+					<p class='text-xl md:text-3xl mb-4 font-light drop-shadow-md'>
 						Promoting Equity, Diversity, and Inclusion
 					</p>
-					<p class='text-lg md:text-xl mb-8 text-blue-100 max-w-2xl'>
+					<p class='text-lg md:text-xl mb-8 text-blue-100 max-w-2xl drop-shadow-md'>
 						A McGill-affiliated initiative fostering an inclusive campus community where everyone
 						belongs
 					</p>
 					<div class='flex flex-wrap gap-4'>
 						<a
 							href='/about'
-							class='bg-white text-blue-900 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all hover:scale-105 shadow-lg hover:shadow-xl'
+							class='bg-white text-blue-900 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all hover:scale-105 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.4)]'
 						>
 							Learn More →
 						</a>
 						<a
 							href='/participate'
-							class='bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg hover:shadow-xl'
+							class='bg-white/95 backdrop-blur-sm text-purple-700 px-8 py-4 rounded-xl font-bold hover:bg-white transition-all hover:scale-105 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.4)] border-2 border-white/60'
 						>
 							Get Involved
 						</a>
@@ -517,4 +522,156 @@ const getContentHref = (item: any) => {
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
+
+	/* Case Study Tabs */
+	.case-study-tab {
+		color: #6b7280;
+		background: transparent;
+	}
+
+	.case-study-tab.active {
+		background: white;
+		color: #14b8a6;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	}
+
+	.dark .case-study-tab.active {
+		background: #1f2937;
+		color: #5eead4;
+	}
+
+	/* Case Study Content */
+	.case-study-content {
+		display: none;
+		animation: fadeIn 0.3s ease-in;
+	}
+
+	.case-study-content.active {
+		display: block;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Accordion */
+	.accordion-content {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease;
+	}
+
+	.accordion-content.active {
+		max-height: 500px;
+	}
+
+	.accordion-icon {
+		transition: transform 0.3s ease;
+	}
+
+	.accordion-trigger.active .accordion-icon {
+		transform: rotate(45deg);
+	}
+
+	/* Progress Bars */
+	.progress-bar {
+		transition: width 1.5s ease-out;
+	}
 </style>
+
+<script>
+	// Tab Switching
+	document.addEventListener('DOMContentLoaded', () => {
+		const tabs = document.querySelectorAll('.case-study-tab')
+		const contents = document.querySelectorAll('.case-study-content')
+
+		tabs.forEach((tab) => {
+			tab.addEventListener('click', () => {
+				const targetTab = tab.dataset.tab
+
+				// Remove active from all tabs and contents
+				tabs.forEach((t) => {
+					t.classList.remove('active')
+					t.setAttribute('aria-selected', 'false')
+				})
+				contents.forEach((c) => c.classList.remove('active'))
+
+				// Add active to clicked tab and corresponding content
+				tab.classList.add('active')
+				tab.setAttribute('aria-selected', 'true')
+				document.getElementById(`${targetTab}-content`).classList.add('active')
+
+				// Animate progress bars when tab becomes active
+				animateProgressBars()
+			})
+		})
+
+		// Accordion Functionality
+		const accordionTriggers = document.querySelectorAll('.accordion-trigger')
+
+		accordionTriggers.forEach((trigger) => {
+			trigger.addEventListener('click', () => {
+				const content = trigger.nextElementSibling
+				const isActive = content.classList.contains('active')
+
+				// Close all accordions in the same group
+				const parent = trigger.closest('.case-study-content')
+				if (parent) {
+					parent.querySelectorAll('.accordion-content').forEach((c) => {
+						c.classList.remove('active')
+					})
+					parent.querySelectorAll('.accordion-trigger').forEach((t) => {
+						t.classList.remove('active')
+					})
+				}
+
+				// Toggle current accordion
+				if (!isActive) {
+					content.classList.add('active')
+					trigger.classList.add('active')
+				}
+			})
+		})
+
+		// Progress Bar Animation
+		function animateProgressBars() {
+			const activeContent = document.querySelector('.case-study-content.active')
+			if (activeContent) {
+				const progressBars = activeContent.querySelectorAll('.progress-bar')
+				progressBars.forEach((bar) => {
+					const progress = bar.dataset.progress
+					setTimeout(() => {
+						bar.style.width = progress + '%'
+					}, 100)
+				})
+			}
+		}
+
+		// Intersection Observer for scroll-triggered animations
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						animateProgressBars()
+					}
+				})
+			},
+			{ threshold: 0.5 }
+		)
+
+		const caseStudiesSection = document.querySelector('.case-studies')
+		if (caseStudiesSection) {
+			observer.observe(caseStudiesSection)
+		}
+
+		// Initial animation
+		animateProgressBars()
+	})
+</script>
