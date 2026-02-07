@@ -267,9 +267,8 @@ const getContentHref = (item: any) => {
 			<!-- Role Cards - Cohesive Card DNA (18px radius, 24px padding, consistent shadow) -->
 			<div class='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
 				<!-- Students - Royal Purple (resources, learning, stories) -->
-				<a
-					href='/resources'
-					class='group relative block cursor-pointer'
+				<div
+					class='group relative block'
 					style='border-radius: 18px; padding: 1.5px; background: linear-gradient(135deg, rgba(91, 45, 139, 0.24), rgba(91, 45, 139, 0.14)); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
 					onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
 					onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
@@ -291,28 +290,38 @@ const getContentHref = (item: any) => {
 						<ul class='space-y-2.5 text-xs'>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #5B2D8B;'>→</span>
-								<span
-									class='group-hover:underline'
-									style='text-decoration-color: rgba(91, 45, 139, 0.3);'
-									>Student support resources</span
+								<a
+									href='/resources'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(91, 45, 139, 0.3);'
+									>Student support resources</a
 								>
 							</li>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #5B2D8B;'>→</span>
-								<span>Upcoming workshops</span>
+								<a
+									href='/programs'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(91, 45, 139, 0.3);'
+									>Upcoming workshops</a
+								>
 							</li>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #5B2D8B;'>→</span>
-								<span>Share your story</span>
+								<a
+									href='/stories'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(91, 45, 139, 0.3);'
+									>Share your story</a
+								>
 							</li>
 						</ul>
 					</div>
-				</a>
+				</div>
 
 				<!-- Staff - Burnt Orange (events, workshops, calls to action) -->
-				<a
-					href='/resources'
-					class='group relative block cursor-pointer'
+				<div
+					class='group relative block'
 					style='border-radius: 18px; padding: 1.5px; background: linear-gradient(135deg, rgba(224, 90, 26, 0.26), rgba(224, 90, 26, 0.16)); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
 					onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
 					onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
@@ -334,27 +343,38 @@ const getContentHref = (item: any) => {
 						<ul class='space-y-2.5 text-xs'>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #E05A1A;'>→</span>
-								<span
-									class='group-hover:underline'
-									style='text-decoration-color: rgba(224, 90, 26, 0.3);'>EDI toolkits & guides</span
+								<a
+									href='/resources'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(224, 90, 26, 0.3);'
+									>EDI toolkits & guides</a
 								>
 							</li>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #E05A1A;'>→</span>
-								<span>Professional development</span>
+								<a
+									href='/resources'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(224, 90, 26, 0.3);'
+									>Professional development</a
+								>
 							</li>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #E05A1A;'>→</span>
-								<span>Get involved</span>
+								<a
+									href='/participate'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(224, 90, 26, 0.3);'
+									>Get involved</a
+								>
 							</li>
 						</ul>
 					</div>
-				</a>
+				</div>
 
 				<!-- Faculty & Leadership - Golden Yellow (belonging, community, wins) -->
-				<a
-					href='/reports'
-					class='group relative block cursor-pointer'
+				<div
+					class='group relative block'
 					style='border-radius: 18px; padding: 1.5px; background: linear-gradient(135deg, rgba(242, 201, 76, 0.30), rgba(242, 201, 76, 0.18)); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
 					onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
 					onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
@@ -378,22 +398,34 @@ const getContentHref = (item: any) => {
 						<ul class='space-y-2.5 text-xs'>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #F2C94C;'>→</span>
-								<span
-									class='group-hover:underline'
-									style='text-decoration-color: rgba(242, 201, 76, 0.3);'>EDI reports & data</span
+								<a
+									href='/reports'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(242, 201, 76, 0.3);'
+									>EDI reports & data</a
 								>
 							</li>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #F2C94C;'>→</span>
-								<span>Our approach</span>
+								<a
+									href='/about'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(242, 201, 76, 0.3);'
+									>Our approach</a
+								>
 							</li>
 							<li class='flex items-center' style='color: #374151;'>
 								<span class='mr-2 text-sm' style='color: #F2C94C;'>→</span>
-								<span>Leadership training</span>
+								<a
+									href='/resources'
+									class='hover:underline'
+									style='color: #374151; text-decoration-color: rgba(242, 201, 76, 0.3);'
+									>Leadership training</a
+								>
 							</li>
 						</ul>
 					</div>
-				</a>
+				</div>
 			</div>
 
 			<!-- Case Studies - Royal Purple playcard with cohesive DNA -->
