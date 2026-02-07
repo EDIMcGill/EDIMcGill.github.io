@@ -17,8 +17,8 @@ export const NAV_TABS = [
 	{ name: 'Programs', href: '/programs' },
 	{ name: 'Stories', href: '/stories' },
 	{ name: 'Resources', href: '/resources' },
-	{ name: 'Participate', href: '/participate' },
-	{ name: 'Reports', href: '/reports' }
+	{ name: 'Reports', href: '/reports' },
+	{ name: 'Participate', href: '/participate' }
 ] as const
 
 // Filter options for Updates feed
