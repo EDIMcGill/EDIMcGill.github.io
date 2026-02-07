@@ -83,7 +83,7 @@ try {
 	</div>
 
 	{
-		Object.keys(resourcesByType).length > 0 ? (
+		Object.keys(resourcesByType).length > 0 && (
 			<div class='space-y-12'>
 				{Object.entries(resourcesByType).map(([type, typeResources]) => (
 					<section>
@@ -96,17 +96,13 @@ try {
 					</section>
 				))}
 			</div>
-		) : (
-			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
-				<p class='text-lg'>Resources are being compiled. Check back soon!</p>
-			</div>
 		)
 	}
 
 	<!-- Auto-generated tiles from blog posts with category "Resources & Support" -->
 	{
 		resourcePosts.length > 0 && (
-			<section class='mb-12 mt-12'>
+			<section class='mb-12 mt-6'>
 				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Featured Resources & Guides</h2>
 				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 					{resourcePosts.map((post) => (

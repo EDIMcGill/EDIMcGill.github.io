@@ -96,47 +96,73 @@ try {
 		)
 	}
 
-	<!-- Auto-generated tiles from blog posts with category "Events & Workshops" -->
+	<!-- Program Highlights Section - Vibrant playcard (teal theme for programs) -->
 	{
 		programPosts.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Program Highlights</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-					{programPosts.map((post) => (
-						<a
-							href={`/post/${post.slug}`}
-							class='group bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-						>
-							<div class='aspect-video overflow-hidden'>
-								<Image
-									src={post.data.heroImage}
-									alt={post.data.title}
-									width={400}
-									height={300}
-									class='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
-								/>
-							</div>
-							<div class='p-6'>
-								<div class='flex items-center gap-3 mb-3'>
-									<span class='px-3 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
-										Programs
-									</span>
-									<FormattedDate date={post.data.pubDate} class='text-sm' />
+			<div
+				class='rounded-2xl p-1.5 mb-6 -mx-5 sm:-mx-8 md:-mx-0'
+				style='background: linear-gradient(135deg, rgba(77, 184, 196, 0.20), rgba(77, 184, 196, 0.12)); box-shadow: 0 10px 32px rgba(77, 184, 196, 0.32), 0 0 0 1px rgba(77, 184, 196, 0.14);'
+			>
+				<div class='rounded-xl p-6 md:p-8' style='background: rgba(255, 255, 255, 0.65);'>
+					<div class='flex items-start gap-2 mb-3'>
+						<div
+							class='w-1 h-6 rounded-full flex-shrink-0 mt-1'
+							style='background: linear-gradient(to bottom, #4DB8C4, #E05A1A);'
+						/>
+						<h2 class='text-lg md:text-xl font-semibold leading-relaxed' style='color: #111827;'>
+							Program Highlights
+						</h2>
+					</div>
+					<p class='text-sm mb-6 leading-loose' style='color: #374151;'>
+						Learn about our workshops, seminars, and events promoting EDI at McGill.
+					</p>
+					<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+						{programPosts.map((post) => (
+							<a
+								href={`/post/${post.slug}`}
+								class='group bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors'
+								style='box-shadow: 0 6px 18px rgba(77, 184, 196, 0.15);'
+							>
+								<div class='aspect-[16/10] overflow-hidden'>
+									<Image
+										src={post.data.heroImage}
+										alt={post.data.title}
+										width={600}
+										height={375}
+										class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+									/>
 								</div>
-								<h3 class='text-lg font-bold mb-3 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
-									{post.data.title}
-								</h3>
-								<p class='text-gray-600 dark:text-gray-400 text-sm line-clamp-2'>
-									{post.data.description}
-								</p>
-								<div class='mt-4 text-blue-600 dark:text-blue-400 font-semibold text-sm group-hover:translate-x-2 transition-transform inline-block'>
-									Learn more →
+								<div class='p-5'>
+									<div class='flex items-center gap-3 mb-2'>
+										<span
+											class='px-3 py-1 rounded-lg text-xs font-medium'
+											style='background: rgba(77, 184, 196, 0.15); color: #0F4C5C;'
+										>
+											Programs
+										</span>
+										<FormattedDate date={post.data.pubDate} class='text-xs' />
+									</div>
+									<h3
+										class='text-base md:text-lg font-semibold mb-2 leading-snug'
+										style='color: #1F2937;'
+									>
+										{post.data.title}
+									</h3>
+									<p class='text-sm line-clamp-3 leading-relaxed' style='color: #5F6368;'>
+										{post.data.description}
+									</p>
+									<div
+										class='mt-3 text-sm inline-block no-underline group-hover:underline font-medium'
+										style='color: #4DB8C4; text-decoration-color: rgba(77, 184, 196, 0.3);'
+									>
+										Read more
+									</div>
 								</div>
-							</div>
-						</a>
-					))}
+							</a>
+						))}
+					</div>
 				</div>
-			</section>
+			</div>
 		)
 	}
 
@@ -148,3 +174,12 @@ try {
 		)
 	}
 </BaseLayout>
+
+<style>
+	.line-clamp-3 {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>
