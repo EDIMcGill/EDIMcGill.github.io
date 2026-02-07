@@ -3,11 +3,14 @@
  * Resources Page - EDI McGill
  *
  * Support materials, guides, external links, and helpful resources
+ * Auto-includes blog posts with category "Resources & Support"
  */
 import BaseLayout from '@/layouts/BaseLayout'
 import TitlePage from '@/components/TitlePage'
 import { getCollection } from 'astro:content'
 import PostCard from '@/components/PostCard'
+import { Image } from 'astro:assets'
+import FormattedDate from '@/components/FormattedDate'
 
 const title = 'Resources & Support'
 const description = 'Access helpful resources, guides, and support materials for EDI at McGill'
@@ -43,16 +46,40 @@ const typeLabels: Record<string, string> = {
 	guide: 'Guides & Toolkits',
 	general: 'General Resources'
 }
+
+// Auto-fetch blog posts with category "Resources & Support"
+let resourcePosts: any[] = []
+try {
+	const allBlogPosts = await getCollection('blog', ({ data }) => !data.draft)
+	resourcePosts = allBlogPosts
+		.filter((post) => post.data.category === 'Resources & Support')
+		.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+} catch (error) {
+	console.log('Error fetching blog posts:', error)
+}
 ---
 
 <BaseLayout title={title} description={description}>
-	<TitlePage title={title} />
+	<!-- Page header with accent line -->
+	<div class='mb-8'>
+		<h1 class='text-2xl md:text-3xl font-semibold mb-4 leading-snug' style='color: #111827;'>
+			{title}
+		</h1>
 
-	<div class='mb-8 prose dark:prose-invert'>
-		<p>
-			Find resources, support materials, and helpful links to assist you in your EDI journey. These
-			resources cover mental health, academic support, and community connections.
-		</p>
+		<!-- Description with accent line - vibrant colors -->
+		<div class='flex items-start gap-3'>
+			<div
+				class='w-1 h-auto min-h-[60px] rounded-full flex-shrink-0'
+				style='background: linear-gradient(to bottom, #5B2D8B, #F2C94C);'
+			>
+			</div>
+			<div class='flex-1'>
+				<p class='text-base leading-loose' style='color: #374151;'>
+					Find resources, support materials, and helpful links to assist you in your EDI journey.
+					These resources cover mental health, academic support, and community connections.
+				</p>
+			</div>
+		</div>
 	</div>
 
 	{
@@ -73,6 +100,50 @@ const typeLabels: Record<string, string> = {
 			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
 				<p class='text-lg'>Resources are being compiled. Check back soon!</p>
 			</div>
+		)
+	}
+
+	<!-- Auto-generated tiles from blog posts with category "Resources & Support" -->
+	{
+		resourcePosts.length > 0 && (
+			<section class='mb-12 mt-12'>
+				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Featured Resources & Guides</h2>
+				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+					{resourcePosts.map((post) => (
+						<a
+							href={`/post/${post.slug}`}
+							class='group bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-green-500 dark:hover:border-green-400 transition-all hover:shadow-2xl hover:-translate-y-2'
+						>
+							<div class='aspect-video overflow-hidden'>
+								<Image
+									src={post.data.heroImage}
+									alt={post.data.title}
+									width={400}
+									height={300}
+									class='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
+								/>
+							</div>
+							<div class='p-6'>
+								<div class='flex items-center gap-3 mb-3'>
+									<span class='px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'>
+										Resources
+									</span>
+									<FormattedDate date={post.data.pubDate} class='text-sm' />
+								</div>
+								<h3 class='text-lg font-bold mb-3 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors'>
+									{post.data.title}
+								</h3>
+								<p class='text-gray-600 dark:text-gray-400 text-sm line-clamp-2'>
+									{post.data.description}
+								</p>
+								<div class='mt-4 text-green-600 dark:text-green-400 font-semibold text-sm group-hover:translate-x-2 transition-transform inline-block'>
+									Explore resource →
+								</div>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
 		)
 	}
 </BaseLayout>

@@ -3,53 +3,174 @@
  * About Page - EDI McGill
  *
  * This page provides information about EDI McGill's mission, approach, and team.
- * Content is sourced from static pages collection.
+ * Auto-displays blog posts with category "Home Page" as tiles.
  */
 import BaseLayout from '@/layouts/BaseLayout'
 import TitlePage from '@/components/TitlePage'
+import { getCollection } from 'astro:content'
+import { Image } from 'astro:assets'
+import FormattedDate from '@/components/FormattedDate'
 
 const title = 'About EDI McGill'
 const description =
 	'Learn about our mission to promote Equity, Diversity, and Inclusion at McGill University'
+
+// Auto-fetch blog posts with category "Home Page" to display as tiles
+let aboutPosts: any[] = []
+try {
+	const allBlogPosts = await getCollection('blog', ({ data }) => !data.draft)
+	aboutPosts = allBlogPosts
+		.filter((post) => post.data.category === 'Home Page')
+		.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+} catch (error) {
+	console.log('Error fetching blog posts:', error)
+}
 ---
 
 <BaseLayout title={title} description={description}>
-	<TitlePage title={title} />
+	<!-- Page header with mission text -->
+	<div class='mb-6'>
+		<h1 class='text-2xl md:text-3xl font-semibold mb-4 leading-snug' style='color: #111827;'>
+			{title}
+		</h1>
 
-	<div class='prose prose-lg md:prose-xl dark:prose-invert mx-auto'>
-		<section class='mb-12'>
-			<h2>Our Mission</h2>
-			<p>
-				EDI McGill is committed to fostering an inclusive and equitable environment at McGill
-				University. We work to ensure that all members of our community feel valued, respected, and
-				supported.
-			</p>
-		</section>
+		<!-- Mission text with accent line - vibrant colors -->
+		<div class='flex items-start gap-3 mb-6'>
+			<div
+				class='w-1 h-auto min-h-[120px] rounded-full flex-shrink-0'
+				style='background: linear-gradient(to bottom, #5B2D8B, #E05A1A);'
+			>
+			</div>
+			<div class='flex-1'>
+				<p class='text-base md:text-lg leading-loose mb-4' style='color: #1F2937;'>
+					We're committed to fostering an inclusive and equitable environment at McGill University —
+					where all members of our community feel valued, respected, and supported.
+				</p>
+				<p class='text-sm md:text-base leading-loose' style='color: #374151;'>
+					Through education, advocacy, and community engagement, we promote awareness of EDI issues,
+					provide resources and support for marginalized communities, foster dialogue across
+					differences, and advocate for systemic change.
+				</p>
+			</div>
+		</div>
+	</div>
 
-		<section class='mb-12'>
-			<h2>Our Approach</h2>
-			<p>Through education, advocacy, and community engagement, we strive to:</p>
-			<ul>
-				<li>Promote awareness of equity, diversity, and inclusion issues</li>
-				<li>Provide resources and support for marginalized communities</li>
-				<li>Foster dialogue and understanding across differences</li>
-				<li>Advocate for systemic change and policy improvements</li>
-			</ul>
-		</section>
+	<!-- Team Stories Section - Vibrant playcard -->
+	{
+		aboutPosts.length > 0 && (
+			<div
+				class='rounded-2xl p-1.5 mb-6 -mx-5 sm:-mx-8 md:-mx-0'
+				style='background: linear-gradient(135deg, rgba(91, 45, 139, 0.20), rgba(91, 45, 139, 0.12)); box-shadow: 0 10px 32px rgba(91, 45, 139, 0.32), 0 0 0 1px rgba(91, 45, 139, 0.14);'
+			>
+				<div class='rounded-xl p-6 md:p-8' style='background: rgba(255, 255, 255, 0.65);'>
+					<div class='flex items-start gap-2 mb-3'>
+						<div
+							class='w-1 h-6 rounded-full flex-shrink-0 mt-1'
+							style='background: linear-gradient(to bottom, #5B2D8B, #F2C94C);'
+						/>
+						<h2 class='text-lg md:text-xl font-semibold leading-relaxed' style='color: #111827;'>
+							Stories from our team
+						</h2>
+					</div>
+					<p class='text-sm mb-6 leading-loose' style='color: #374151;'>
+						Meet the people building an inclusive community at McGill Engineering.
+					</p>
+					<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+						{aboutPosts.map((post) => (
+							<a
+								href={`/post/${post.slug}`}
+								class='group bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors'
+								style='box-shadow: 0 6px 18px rgba(91, 45, 139, 0.15);'
+							>
+								<div class='aspect-[16/10] overflow-hidden'>
+									<Image
+										src={post.data.heroImage}
+										alt={post.data.title}
+										width={600}
+										height={375}
+										class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+									/>
+								</div>
+								<div class='p-5'>
+									<div class='flex items-center gap-3 mb-2'>
+										<span
+											class='px-3 py-1 rounded-lg text-xs font-medium'
+											style='background: rgba(91, 45, 139, 0.15); color: #5B2D8B;'
+										>
+											About
+										</span>
+										<FormattedDate date={post.data.pubDate} class='text-xs' />
+									</div>
+									<h3
+										class='text-base md:text-lg font-semibold mb-2 leading-snug'
+										style='color: #1F2937;'
+									>
+										{post.data.title}
+									</h3>
+									<p class='text-sm line-clamp-3 leading-relaxed' style='color: #5F6368;'>
+										{post.data.description}
+									</p>
+									<div
+										class='mt-3 text-sm inline-block no-underline group-hover:underline font-medium'
+										style='color: #5B2D8B; text-decoration-color: rgba(91, 45, 139, 0.3);'
+									>
+										Read more
+									</div>
+								</div>
+							</a>
+						))}
+					</div>
+				</div>
+			</div>
+		)
+	}
 
-		<section class='mb-12'>
-			<h2>Our Team</h2>
-			<p>
-				EDI McGill is powered by dedicated students, faculty, and staff who are passionate about
-				creating a more inclusive campus community. Our team brings together diverse perspectives
-				and experiences to drive meaningful change.
-			</p>
-			<p class='text-sm text-gray-600 dark:text-gray-400 mt-4'>
-				<em
-					>Note: This page will be populated with team member profiles and additional content as
-					they become available.</em
-				>
-			</p>
-		</section>
+	<!-- Footer CTA - Vibrant framing with warm colors -->
+	<!-- Outer container: Warm vibrant background -->
+	<div
+		class='-mx-5 sm:-mx-8 md:-mx-0 md:rounded-2xl px-5 sm:px-8 md:px-10 py-12 md:py-16 mt-6 mb-6'
+		style='background: #FFFBF5;'
+	>
+		<!-- Inner card: Burnt orange playcard -->
+		<div
+			class='rounded-2xl p-1.5 max-w-3xl mx-auto'
+			style='background: linear-gradient(135deg, rgba(224, 90, 26, 0.22), rgba(224, 90, 26, 0.14)); box-shadow: 0 12px 36px rgba(224, 90, 26, 0.38), 0 0 0 1px rgba(224, 90, 26, 0.18);'
+		>
+			<div class='rounded-xl px-6 md:px-8 py-8' style='background: rgba(255, 255, 255, 0.65);'>
+				<!-- Content: Left-aligned, constrained width -->
+				<div class='flex flex-col md:flex-row md:items-start md:justify-between gap-6'>
+					<!-- Text content -->
+					<div class='flex-1 max-w-xl'>
+						<h3 class='text-xl md:text-2xl font-semibold mb-3 leading-snug' style='color: #111827;'>
+							Want to connect or get involved?
+						</h3>
+						<p class='text-sm md:text-base leading-loose' style='color: #374151;'>
+							We'd love to hear from you. Join our community or reach out to learn more about our
+							initiatives.
+						</p>
+					</div>
+
+					<!-- CTA area: Offset to right -->
+					<div class='flex flex-col gap-3 md:mt-2'>
+						<a
+							href='/participate'
+							class='px-6 py-2.5 rounded-xl text-sm font-semibold text-center whitespace-nowrap transition-all'
+							style='background: #E05A1A; color: #FFFFFF; box-shadow: 0 6px 20px rgba(224, 90, 26, 0.45);'
+							onmouseover="this.style.background='#C94F17'; this.style.boxShadow='0 8px 26px rgba(224, 90, 26, 0.55)';"
+							onmouseout="this.style.background='#E05A1A'; this.style.boxShadow='0 6px 20px rgba(224, 90, 26, 0.45)';"
+						>
+							Get involved
+						</a>
+						<a
+							href='/resources'
+							class='text-sm font-medium text-center no-underline hover:underline transition-all px-3 py-2'
+							style='color: #5B2D8B; text-decoration-color: rgba(91, 45, 139, 0.3);'
+						>
+							Browse resources
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </BaseLayout>

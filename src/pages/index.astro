@@ -19,6 +19,7 @@ import bannerImage from '../assets/images/Diversity1.jpg'
 import FormattedDate from '@/components/FormattedDate'
 import Tag from '@/components/Tag'
 import 'aos/dist/aos.css'
+import { GraduationCap, Users, Target, Rocket, HandHeart } from 'lucide-astro'
 
 // Fetch recent content from all collections (up to 6 items)
 let recentUpdates: Array<{
@@ -37,13 +38,26 @@ try {
 		getCollection('blog', ({ data }) => !data.draft).catch(() => [])
 	])
 
+	// Map blog post categories to appropriate types
+	const getCategoryType = (category: string) => {
+		if (category === 'Events & Workshops') return 'Programs'
+		if (category === 'Home Page') return 'About'
+		if (category === 'Resources & Support') return 'Resources'
+		if (category === 'Blogs & Stories') return 'Stories'
+		return 'Updates'
+	}
+
 	// Combine and sort all content by date (handle undefined/null)
 	const allContent = [
-		...(events || []).map((e) => ({ ...e, collection: 'events', type: 'Event' })),
-		...(stories || []).map((s) => ({ ...s, collection: 'stories', type: 'Story' })),
-		...(resources || []).map((r) => ({ ...r, collection: 'resources', type: 'Resource' })),
-		...(reports || []).map((r) => ({ ...r, collection: 'reports', type: 'Report' })),
-		...(blogPosts || []).map((b) => ({ ...b, collection: 'blog', type: 'Blog' }))
+		...(events || []).map((e) => ({ ...e, collection: 'events', type: 'Programs' })),
+		...(stories || []).map((s) => ({ ...s, collection: 'stories', type: 'Stories' })),
+		...(resources || []).map((r) => ({ ...r, collection: 'resources', type: 'Resources' })),
+		...(reports || []).map((r) => ({ ...r, collection: 'reports', type: 'Reports' })),
+		...(blogPosts || []).map((b) => ({
+			...b,
+			collection: 'blog',
+			type: getCategoryType(b.data.category)
+		}))
 	]
 
 	recentUpdates = allContent
@@ -54,12 +68,38 @@ try {
 	recentUpdates = []
 }
 
+// Color coding with emotional purpose - warm, muted, human tones
 const typeColors: Record<string, string> = {
-	Event: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-	Story: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-	Resource: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-	Report: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-	Blog: 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
+	Programs: 'bg-[#DBEAFE]/80 text-[#1E40AF] dark:bg-[#1E3A8A]/60 dark:text-[#93C5FD]', // Sky blue - calm, trustworthy
+	Stories: 'bg-[#FED7AA]/80 text-[#C2410C] dark:bg-[#7C2D12]/60 dark:text-[#FED7AA]', // Warm peach - personal, welcoming
+	Resources: 'bg-[#D1FAE5]/80 text-[#065F46] dark:bg-[#064E3B]/60 dark:text-[#A7F3D0]', // Sage green - calming, supportive
+	Reports: 'bg-[#E2E8F0]/80 text-[#475569] dark:bg-[#334155]/60 dark:text-[#CBD5E1]', // Warm gray - neutral, formal
+	About: 'bg-[#CCFBF1]/80 text-[#115E59] dark:bg-[#134E4A]/60 dark:text-[#99F6E4]', // Soft teal - community
+	Updates: 'bg-[#F3E8FF]/80 text-[#7C3AED] dark:bg-[#5B21B6]/60 dark:text-[#DDD6FE]' // Soft lavender
+}
+
+const cardGradients: Record<string, string> = {
+	Programs:
+		'from-[#F0F9FF]/50 via-white/80 to-[#E0F2FE]/40 dark:from-[#1E3A8A]/30 dark:via-gray-900/20 dark:to-[#1E40AF]/20',
+	Stories:
+		'from-[#FFF7ED]/50 via-white/80 to-[#FFEDD5]/40 dark:from-[#7C2D12]/30 dark:via-gray-900/20 dark:to-[#9A3412]/20',
+	Resources:
+		'from-[#F0FDF4]/50 via-white/80 to-[#DCFCE7]/40 dark:from-[#064E3B]/30 dark:via-gray-900/20 dark:to-[#065F46]/20',
+	Reports:
+		'from-[#F8FAFC]/50 via-white/80 to-[#F1F5F9]/40 dark:from-[#334155]/30 dark:via-gray-900/20 dark:to-[#475569]/20',
+	About:
+		'from-[#F0FDFA]/50 via-white/80 to-[#CCFBF1]/40 dark:from-[#134E4A]/30 dark:via-gray-900/20 dark:to-[#115E59]/20',
+	Updates:
+		'from-[#FAF5FF]/50 via-white/80 to-[#F3E8FF]/40 dark:from-[#5B21B6]/30 dark:via-gray-900/20 dark:to-[#6D28D9]/20'
+}
+
+const hoverColors: Record<string, string> = {
+	Programs: 'hover:border-[#93C5FD]/60 hover:shadow-lg',
+	Stories: 'hover:border-[#FED7AA]/60 hover:shadow-lg',
+	Resources: 'hover:border-[#86EFAC]/60 hover:shadow-lg',
+	Reports: 'hover:border-[#CBD5E1]/60 hover:shadow-lg',
+	About: 'hover:border-[#99F6E4]/60 hover:shadow-lg',
+	Updates: 'hover:border-[#DDD6FE]/60 hover:shadow-lg'
 }
 
 const getContentHref = (item: any) => {
@@ -73,48 +113,76 @@ const getContentHref = (item: any) => {
 	description='EDI McGill - Promoting Equity, Diversity, and Inclusion at McGill University'
 >
 	<!-- 1. HERO SECTION - Clear Orientation -->
-	<section class='hero-section -mt-4 mb-16'>
+	<section class='hero-section mb-6 -mx-5 sm:-mx-8 lg:-mx-16 xl:-mx-24'>
+		<!-- Hero container with improved grey shadows - expanded horizontally and taller -->
 		<div
-			class='relative w-full h-[450px] md:h-[550px] rounded-2xl overflow-hidden shadow-[0_25px_80px_-15px_rgba(0,0,0,0.4),0_10px_30px_-10px_rgba(0,0,0,0.3)] mb-6 border border-gray-300/20'
+			class='relative w-full h-[500px] md:h-[550px] lg:h-[600px] overflow-hidden shadow-[0_20px_60px_-15px_rgba(100,100,100,0.35),0_10px_30px_-10px_rgba(100,100,100,0.25)] dark:shadow-[0_20px_60px_-15px_rgba(80,80,80,0.5),0_10px_30px_-10px_rgba(80,80,80,0.4)] border-y border-gray-300/20 dark:border-gray-600/30'
 		>
+			<!-- Background image - kept as background, not foreground -->
 			<Image
 				src={bannerImage}
 				alt='EDI McGill - Diversity and Inclusion'
-				class='w-full h-full object-cover opacity-19.5'
+				class='w-full h-full object-cover opacity-15'
 				width={1200}
-				height={550}
+				height={600}
 			/>
+
+			<!-- Subtle overlay to blend image with background -->
 			<div
-				class='absolute inset-0 bg-gradient-to-r from-blue-900/85 via-purple-900/75 to-transparent flex items-center'
+				class='absolute inset-0 bg-gradient-to-r from-blue-900/20 via-purple-900/15 to-transparent dark:from-blue-950/30 dark:via-purple-950/20'
 			>
-				<div class='max-w-4xl px-8 md:px-16 text-white'>
+			</div>
+
+			<!-- Content positioning layer - positioned lower in the hero -->
+			<div class='absolute inset-0 flex items-center justify-start px-4 md:px-8 pt-16 md:pt-20'>
+				<!-- Semi-transparent panel behind text - more compact vertically -->
+				<div
+					class='w-full md:w-[55%] lg:w-[52%] bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgba(100,100,100,0.2)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] border border-gray-200/50 dark:border-gray-700/50'
+				>
+					<!-- Tertiary: Affiliation badge -->
 					<div
-						class='mb-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold border border-white/30'
+						class='mb-3 inline-block bg-[#E0F2FE] dark:bg-[#1E3A8A]/50 px-3 py-1.5 rounded-full text-xs font-medium text-[#0369A1] dark:text-[#93C5FD] border border-[#BAE6FD]/50 dark:border-[#1E40AF]/50'
 					>
-						McGill University
+						A McGill initiative
 					</div>
-					<h1 class='text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight drop-shadow-lg'>
-						EDI McGill
+
+					<!-- Primary: Purpose statement - now the hero -->
+					<h1
+						class='text-xl md:text-2xl lg:text-3xl font-semibold mb-3 leading-snug text-gray-800 dark:text-gray-100'
+					>
+						Stories, resources, and conversations for equity in McGill Engineering
 					</h1>
-					<p class='text-xl md:text-3xl mb-4 font-light drop-shadow-md'>
-						Promoting Equity, Diversity, and Inclusion
+
+					<!-- Secondary: Identity (smaller subheading style) -->
+					<p class='text-base md:text-lg mb-3 font-medium text-[#0284C7] dark:text-[#7DD3FC]'>
+						EDI McGill
 					</p>
-					<p class='text-lg md:text-xl mb-8 text-blue-100 max-w-2xl drop-shadow-md'>
-						A McGill-affiliated initiative fostering an inclusive campus community where everyone
-						belongs
+
+					<!-- Supporting text -->
+					<p
+						class='text-xs md:text-sm mb-5 text-gray-600 dark:text-gray-300 max-w-xl leading-loose'
+					>
+						We're building an inclusive graduate community where diverse voices are heard, valued,
+						and empowered to thrive.
 					</p>
-					<div class='flex flex-wrap gap-4'>
-						<a
-							href='/about'
-							class='bg-white text-blue-900 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all hover:scale-105 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.4)]'
-						>
-							Learn More →
-						</a>
+
+					<!-- CTA buttons - vibrant burnt orange primary -->
+					<div class='flex flex-wrap gap-3'>
 						<a
 							href='/participate'
-							class='bg-white/95 backdrop-blur-sm text-purple-700 px-8 py-4 rounded-xl font-bold hover:bg-white transition-all hover:scale-105 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.4)] border-2 border-white/60'
+							class='px-6 py-2.5 rounded-xl text-sm font-semibold transition-all'
+							style='background: #E05A1A; color: #FFFFFF; box-shadow: 0 6px 20px rgba(224, 90, 26, 0.45);'
+							onmouseover="this.style.background='#C94F17'; this.style.boxShadow='0 8px 26px rgba(224, 90, 26, 0.55)';"
+							onmouseout="this.style.background='#E05A1A'; this.style.boxShadow='0 6px 20px rgba(224, 90, 26, 0.45)';"
 						>
-							Get Involved
+							Get involved
+						</a>
+						<a
+							href='/about'
+							class='text-sm font-medium no-underline hover:underline transition-all px-4 py-2.5 rounded-lg hover:bg-[rgba(91,45,139,0.12)]'
+							style='color: #5B2D8B; text-decoration-color: rgba(91, 45, 139, 0.3);'
+						>
+							Learn more
 						</a>
 					</div>
 				</div>
@@ -123,14 +191,14 @@ const getContentHref = (item: any) => {
 	</section>
 
 	<!-- 2. WHAT'S HAPPENING NOW - Updates Preview -->
-	<section class='updates-preview mb-20' data-aos='fade-up'>
-		<div class='flex items-center justify-between mb-8'>
-			<div>
-				<h2 class='text-4xl font-bold dark:text-white mb-2'>What's Happening Now</h2>
-				<p class='text-gray-600 dark:text-gray-400'>
-					Stay up to date with our latest initiatives and stories
-				</p>
-			</div>
+	<section class='updates-preview mb-6' data-aos='fade-up'>
+		<div class='mb-8'>
+			<h2 class='text-2xl md:text-3xl font-semibold mb-3 leading-relaxed' style='color: #111827;'>
+				Recent updates — see what's relevant to you
+			</h2>
+			<p class='text-sm leading-loose' style='color: #374151;'>
+				Stories, programs, and resources from across our community.
+			</p>
 		</div>
 
 		{
@@ -139,370 +207,268 @@ const getContentHref = (item: any) => {
 					{recentUpdates.map((item) => (
 						<a
 							href={getContentHref(item)}
-							class='group block bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-2xl hover:-translate-y-1'
+							class={`group block bg-gradient-to-br ${cardGradients[item.type]} backdrop-blur-sm relative overflow-hidden`}
+							style='border-radius: 18px; padding: 24px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
+							onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
+							onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
 						>
-							<div class='flex items-center gap-3 mb-4'>
-								<span class={`px-3 py-1.5 rounded-lg text-xs font-bold ${typeColors[item.type]}`}>
-									{item.type}
-								</span>
-								<FormattedDate date={item.data.pubDate} />
-							</div>
-							<h3 class='text-xl font-bold mb-3 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
-								{item.data.title}
-							</h3>
-							<p class='text-gray-600 dark:text-gray-300 text-sm line-clamp-3 leading-relaxed'>
-								{item.data.description}
-							</p>
-							<div class='mt-4 text-blue-600 dark:text-blue-400 font-semibold text-sm group-hover:translate-x-2 transition-transform inline-block'>
-								Read more →
+							<div class='relative z-10'>
+								<div class='flex items-center gap-3 mb-4'>
+									<span
+										class={`px-3 py-1.5 rounded-lg text-xs font-medium ${typeColors[item.type]}`}
+									>
+										{item.type}
+									</span>
+									<FormattedDate date={item.data.pubDate} class='text-xs' style='color: #6B7280;' />
+								</div>
+								<h3
+									class='text-lg font-semibold mb-3 transition-colors leading-snug'
+									style='color: #1F2937;'
+								>
+									{item.data.title}
+								</h3>
+								<p class='text-sm line-clamp-3 leading-relaxed' style='color: #374151;'>
+									{item.data.description}
+								</p>
 							</div>
 						</a>
 					))}
 				</div>
 			) : (
 				<div class='bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-xl p-12 text-center mb-8'>
-					<div class='text-6xl mb-4'>🚀</div>
+					<Rocket
+						class='w-16 h-16 mb-4 mx-auto text-blue-600 dark:text-blue-400'
+						strokeWidth={1.5}
+					/>
 					<p class='text-xl text-gray-700 dark:text-gray-300 font-medium'>Updates coming soon!</p>
 				</div>
 			)
 		}
+	</section>
 
-		<div class='text-center'>
-			<a
-				href='/updates'
-				class='inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg hover:shadow-xl'
-			>
-				View All Updates →
-			</a>
+	<!-- 3. WHO IS THIS FOR - Vibrant, joyful, warm design -->
+	<section
+		class='find-your-path mb-6 -mx-5 sm:-mx-8 md:-mx-0 px-5 sm:px-8 md:px-0'
+		data-aos='fade-up'
+		data-aos-delay='100'
+	>
+		<div class='bg-white/60 dark:bg-gray-900/20 md:rounded-3xl py-8 md:py-10 px-5 md:px-8'>
+			<!-- Orientation -->
+			<div class='text-center mb-8 max-w-3xl mx-auto'>
+				<h2 class='text-2xl md:text-3xl font-semibold mb-3 leading-relaxed' style='color: #111827;'>
+					You might want to explore...
+				</h2>
+				<p class='text-sm leading-loose' style='color: #374151;'>
+					Whether you're a student, staff member, or faculty — there's a place for you. You can
+					explore more than one.
+				</p>
+			</div>
+
+			<!-- Role Cards - Cohesive Card DNA (18px radius, 24px padding, consistent shadow) -->
+			<div class='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
+				<!-- Students - Royal Purple (resources, learning, stories) -->
+				<a
+					href='/resources'
+					class='group relative block cursor-pointer'
+					style='border-radius: 18px; padding: 1.5px; background: linear-gradient(135deg, rgba(91, 45, 139, 0.24), rgba(91, 45, 139, 0.14)); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
+					onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
+					onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
+				>
+					<div style='border-radius: 16px; padding: 24px; background: rgba(255, 255, 255, 0.65);'>
+						<div class='flex items-start gap-3 mb-4'>
+							<GraduationCap
+								class='w-5 h-5 flex-shrink-0 mt-0.5'
+								style='color: #5B2D8B;'
+								strokeWidth={1.5}
+							/>
+							<div>
+								<h3 class='text-lg font-semibold mb-1.5' style='color: #1F2937;'>Students</h3>
+								<p class='text-xs leading-loose' style='color: #374151;'>
+									Resources and community for your journey
+								</p>
+							</div>
+						</div>
+						<ul class='space-y-2.5 text-xs'>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #5B2D8B;'>→</span>
+								<span
+									class='group-hover:underline'
+									style='text-decoration-color: rgba(91, 45, 139, 0.3);'
+									>Student support resources</span
+								>
+							</li>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #5B2D8B;'>→</span>
+								<span>Upcoming workshops</span>
+							</li>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #5B2D8B;'>→</span>
+								<span>Share your story</span>
+							</li>
+						</ul>
+					</div>
+				</a>
+
+				<!-- Staff - Burnt Orange (events, workshops, calls to action) -->
+				<a
+					href='/resources'
+					class='group relative block cursor-pointer'
+					style='border-radius: 18px; padding: 1.5px; background: linear-gradient(135deg, rgba(224, 90, 26, 0.26), rgba(224, 90, 26, 0.16)); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
+					onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
+					onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
+				>
+					<div style='border-radius: 16px; padding: 24px; background: rgba(255, 255, 255, 0.65);'>
+						<div class='flex items-start gap-3 mb-4'>
+							<Users
+								class='w-5 h-5 flex-shrink-0 mt-0.5'
+								style='color: #E05A1A;'
+								strokeWidth={1.5}
+							/>
+							<div>
+								<h3 class='text-lg font-semibold mb-1.5' style='color: #1F2937;'>Staff</h3>
+								<p class='text-xs leading-loose' style='color: #374151;'>
+									Tools and training for inclusive practices
+								</p>
+							</div>
+						</div>
+						<ul class='space-y-2.5 text-xs'>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #E05A1A;'>→</span>
+								<span
+									class='group-hover:underline'
+									style='text-decoration-color: rgba(224, 90, 26, 0.3);'>EDI toolkits & guides</span
+								>
+							</li>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #E05A1A;'>→</span>
+								<span>Professional development</span>
+							</li>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #E05A1A;'>→</span>
+								<span>Get involved</span>
+							</li>
+						</ul>
+					</div>
+				</a>
+
+				<!-- Faculty & Leadership - Golden Yellow (belonging, community, wins) -->
+				<a
+					href='/reports'
+					class='group relative block cursor-pointer'
+					style='border-radius: 18px; padding: 1.5px; background: linear-gradient(135deg, rgba(242, 201, 76, 0.30), rgba(242, 201, 76, 0.18)); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
+					onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
+					onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
+				>
+					<div style='border-radius: 16px; padding: 24px; background: rgba(255, 255, 255, 0.65);'>
+						<div class='flex items-start gap-3 mb-4'>
+							<Target
+								class='w-5 h-5 flex-shrink-0 mt-0.5'
+								style='color: #F2C94C;'
+								strokeWidth={1.5}
+							/>
+							<div>
+								<h3 class='text-lg font-semibold mb-1.5' style='color: #1F2937;'>
+									Faculty & Leadership
+								</h3>
+								<p class='text-xs leading-loose' style='color: #374151;'>
+									Research and strategic initiatives
+								</p>
+							</div>
+						</div>
+						<ul class='space-y-2.5 text-xs'>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #F2C94C;'>→</span>
+								<span
+									class='group-hover:underline'
+									style='text-decoration-color: rgba(242, 201, 76, 0.3);'>EDI reports & data</span
+								>
+							</li>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #F2C94C;'>→</span>
+								<span>Our approach</span>
+							</li>
+							<li class='flex items-center' style='color: #374151;'>
+								<span class='mr-2 text-sm' style='color: #F2C94C;'>→</span>
+								<span>Leadership training</span>
+							</li>
+						</ul>
+					</div>
+				</a>
+			</div>
+
+			<!-- Case Studies - Royal Purple playcard with cohesive DNA -->
+			<div class='max-w-6xl mx-auto'>
+				<a
+					href='/participate'
+					class='group block cursor-pointer'
+					style='border-radius: 18px; padding: 1.5px; background: linear-gradient(135deg, rgba(91, 45, 139, 0.18), rgba(91, 45, 139, 0.10)); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 200ms ease-out, box-shadow 200ms ease-out;'
+					onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 36px rgba(0, 0, 0, 0.12)';"
+					onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.08)';"
+				>
+					<div style='border-radius: 16px; padding: 24px; background: rgba(255, 255, 255, 0.65);'>
+						<div class='flex flex-col md:flex-row items-start justify-between gap-4'>
+							<div class='flex-1'>
+								<p class='text-xs font-medium mb-2' style='color: #6B7280;'>When you're ready...</p>
+								<h3
+									class='text-base md:text-lg font-semibold mb-2 leading-relaxed'
+									style='color: #1F2937;'
+								>
+									Explore real EDI case studies
+								</h3>
+								<p class='text-sm leading-loose' style='color: #374151;'>
+									Interactive scenarios to understand EDI challenges and solutions in real-world
+									contexts
+								</p>
+							</div>
+							<div class='flex-shrink-0 mt-2 md:mt-0 self-start md:self-center'>
+								<span
+									class='text-sm font-medium no-underline hover:underline transition-all'
+									style='color: #5B2D8B; text-decoration-color: rgba(91, 45, 139, 0.3);'
+								>
+									Explore case studies →
+								</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
 		</div>
 	</section>
 
-	<!-- 3. WHO IS THIS FOR? - Audience Routing -->
-	<section class='audience-routing mb-20' data-aos='fade-up' data-aos-delay='100'>
-		<div class='text-center mb-12'>
-			<h2 class='text-4xl font-bold mb-3 dark:text-white'>Who Is This For?</h2>
-			<p class='text-xl text-gray-600 dark:text-gray-400'>Find resources tailored to your role</p>
-		</div>
-
-		<div class='grid grid-cols-1 md:grid-cols-3 gap-8'>
-			<!-- Students -->
-			<div
-				class='group relative bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 border-2 border-blue-200 dark:border-blue-800 rounded-2xl p-8 hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-			>
-				<div class='text-5xl mb-4'>🎓</div>
-				<h3 class='text-3xl font-bold mb-4 dark:text-white'>Students</h3>
-				<p class='text-gray-700 dark:text-gray-300 mb-6 text-lg'>
-					Access resources, share your story, and join our community
-				</p>
-				<ul class='space-y-3'>
-					<li>
-						<a
-							href='/programs'
-							class='flex items-center text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> Upcoming
-							workshops
-						</a>
-					</li>
-					<li>
-						<a
-							href='/resources'
-							class='flex items-center text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> Student
-							support resources
-						</a>
-					</li>
-					<li>
-						<a
-							href='/participate'
-							class='flex items-center text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> Share your
-							experience
-						</a>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Staff -->
-			<div
-				class='group relative bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border-2 border-purple-200 dark:border-purple-800 rounded-2xl p-8 hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-			>
-				<div class='text-5xl mb-4'>👥</div>
-				<h3 class='text-3xl font-bold mb-4 dark:text-white'>Staff</h3>
-				<p class='text-gray-700 dark:text-gray-300 mb-6 text-lg'>
-					Training, resources, and tools to support inclusive practices
-				</p>
-				<ul class='space-y-3'>
-					<li>
-						<a
-							href='/programs'
-							class='flex items-center text-purple-700 dark:text-purple-300 hover:text-purple-900 dark:hover:text-purple-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> Professional
-							development
-						</a>
-					</li>
-					<li>
-						<a
-							href='/resources'
-							class='flex items-center text-purple-700 dark:text-purple-300 hover:text-purple-900 dark:hover:text-purple-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> EDI toolkits
-							& guides
-						</a>
-					</li>
-					<li>
-						<a
-							href='/participate'
-							class='flex items-center text-purple-700 dark:text-purple-300 hover:text-purple-900 dark:hover:text-purple-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> Join a
-							committee
-						</a>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Faculty / Leadership -->
-			<div
-				class='group relative bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 border-2 border-green-200 dark:border-green-800 rounded-2xl p-8 hover:border-green-500 dark:hover:border-green-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-			>
-				<div class='text-5xl mb-4'>🎯</div>
-				<h3 class='text-3xl font-bold mb-4 dark:text-white'>Faculty & Leadership</h3>
-				<p class='text-gray-700 dark:text-gray-300 mb-6 text-lg'>
-					Research, reports, and strategic EDI initiatives
-				</p>
-				<ul class='space-y-3'>
-					<li>
-						<a
-							href='/reports'
-							class='flex items-center text-green-700 dark:text-green-300 hover:text-green-900 dark:hover:text-green-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> EDI reports
-							& data
-						</a>
-					</li>
-					<li>
-						<a
-							href='/resources'
-							class='flex items-center text-green-700 dark:text-green-300 hover:text-green-900 dark:hover:text-green-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> Policy
-							resources
-						</a>
-					</li>
-					<li>
-						<a
-							href='/about'
-							class='flex items-center text-green-700 dark:text-green-300 hover:text-green-900 dark:hover:text-green-100 font-semibold text-lg group/link'
-						>
-							<span class='mr-2 group-hover/link:translate-x-1 transition-transform'>→</span> Our approach
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<!-- 4. FEATURED INTERACTIVE ELEMENT -->
-	<section class='interactive-element mb-20' data-aos='zoom-in' data-aos-delay='200'>
+	<!-- 4. SUPPORT SECTION - Warm & Editorial -->
+	<section class='support-strip mb-6' data-aos='fade-up'>
 		<div
-			class='relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 shadow-2xl overflow-hidden'
+			class='bg-[#FFF8F0] dark:bg-[#2B2520] rounded-2xl p-8 md:p-10 border border-[#F5E6D3]/50 dark:border-[#3D3530]/50'
 		>
-			<div
-				class='absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width=\'
-				60\'
-				height="\'60\'"
-				viewBox="\'0"
-				0
-				60
-				60\'
-				xmlns="\'http://www.w3.org/2000/svg\'%3E%3Cg"
-				fill="\'none\'"
-				fill-rule="\'evenodd\'%3E%3Cg"
-				fill="\'%23ffffff\'"
-				fill-opacity="\'0.05\'%3E%3Cpath"
-				d="\'M36"
-				34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6
-				34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6
-				4V0H4v4H0v2h4v4h2V6h4V4H6z\'
-				%3E%3C
-				g%3E%3C
-				g%3E%3C
-				svg%3E")]'
-			>
-			</div>
-			<div class='relative max-w-4xl mx-auto text-center text-white'>
-				<div class='text-6xl mb-6'>🔍</div>
-				<h2 class='text-4xl md:text-5xl font-bold mb-6'>Quick Check: Find Your Resources</h2>
-				<p class='text-xl md:text-2xl mb-3 font-light'>
-					Not sure where to start? Use our resource finder to discover what's relevant to you.
-				</p>
-				<div
-					class='inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-8 border border-white/30'
-				>
-					⏱️ Takes about 2 minutes
-				</div>
-				<div>
-					<a
-						href='/resources'
-						class='inline-block bg-white text-purple-900 px-10 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl text-lg'
-					>
-						Find Resources →
-					</a>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- 5. CREDIBILITY / IMPACT SNAPSHOT -->
-	<section class='impact-snapshot mb-20' data-aos='fade-up'>
-		<div class='text-center mb-12'>
-			<h2 class='text-4xl font-bold mb-3 dark:text-white'>Our Impact</h2>
-			<p class='text-xl text-gray-600 dark:text-gray-400'>
-				Making a real difference in our community
-			</p>
-		</div>
-
-		<div class='grid grid-cols-2 md:grid-cols-4 gap-6'>
-			<div
-				class='text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 border-2 border-blue-200 dark:border-blue-800 rounded-2xl hover:scale-105 transition-transform'
-			>
-				<div class='text-5xl md:text-6xl font-bold text-blue-600 dark:text-blue-400 mb-3'>50+</div>
-				<div class='text-gray-700 dark:text-gray-300 font-semibold text-lg'>
-					Workshops Delivered
-				</div>
-			</div>
-			<div
-				class='text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border-2 border-purple-200 dark:border-purple-800 rounded-2xl hover:scale-105 transition-transform'
-			>
-				<div class='text-5xl md:text-6xl font-bold text-purple-600 dark:text-purple-400 mb-3'>
-					1,200+
-				</div>
-				<div class='text-gray-700 dark:text-gray-300 font-semibold text-lg'>
-					Participants Reached
-				</div>
-			</div>
-			<div
-				class='text-center p-8 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 border-2 border-green-200 dark:border-green-800 rounded-2xl hover:scale-105 transition-transform'
-			>
-				<div class='text-5xl md:text-6xl font-bold text-green-600 dark:text-green-400 mb-3'>
-					30+
-				</div>
-				<div class='text-gray-700 dark:text-gray-300 font-semibold text-lg'>Resources Created</div>
-			</div>
-			<div
-				class='text-center p-8 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900 border-2 border-orange-200 dark:border-orange-800 rounded-2xl hover:scale-105 transition-transform'
-			>
-				<div class='text-5xl md:text-6xl font-bold text-orange-600 dark:text-orange-400 mb-3'>
-					5
-				</div>
-				<div class='text-gray-700 dark:text-gray-300 font-semibold text-lg'>Annual Reports</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- 6. HUMAN ELEMENT - Featured Stories -->
-	<section class='featured-stories mb-20' data-aos='fade-up' data-aos-delay='100'>
-		<div class='text-center mb-12'>
-			<h2 class='text-4xl font-bold mb-3 dark:text-white'>Community Voices</h2>
-			<p class='text-xl text-gray-600 dark:text-gray-400'>Real stories from real people</p>
-		</div>
-
-		<div class='grid grid-cols-1 md:grid-cols-3 gap-8'>
-			<a
-				href='/stories'
-				class='group block bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-			>
-				<div class='text-6xl mb-5'>💬</div>
-				<h3
-					class='text-2xl font-bold mb-3 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'
-				>
-					Student Experiences
-				</h3>
-				<p class='text-gray-600 dark:text-gray-300 mb-5 text-lg leading-relaxed'>
-					Read personal stories from McGill students
-				</p>
-				<span
-					class='text-blue-600 dark:text-blue-400 font-bold text-lg inline-flex items-center group-hover:translate-x-2 transition-transform'
-				>
-					Read Stories <span class='ml-2'>→</span>
-				</span>
-			</a>
-
-			<a
-				href='/stories'
-				class='group block bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-			>
-				<div class='text-6xl mb-5'>🎯</div>
-				<h3
-					class='text-2xl font-bold mb-3 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors'
-				>
-					Success Stories
-				</h3>
-				<p class='text-gray-600 dark:text-gray-300 mb-5 text-lg leading-relaxed'>
-					How EDI initiatives are making a difference
-				</p>
-				<span
-					class='text-purple-600 dark:text-purple-400 font-bold text-lg inline-flex items-center group-hover:translate-x-2 transition-transform'
-				>
-					Learn More <span class='ml-2'>→</span>
-				</span>
-			</a>
-
-			<a
-				href='/stories'
-				class='group block bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-green-500 dark:hover:border-green-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-			>
-				<div class='text-6xl mb-5'>🌟</div>
-				<h3
-					class='text-2xl font-bold mb-3 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors'
-				>
-					Community Highlights
-				</h3>
-				<p class='text-gray-600 dark:text-gray-300 mb-5 text-lg leading-relaxed'>
-					Celebrating our diverse McGill community
-				</p>
-				<span
-					class='text-green-600 dark:text-green-400 font-bold text-lg inline-flex items-center group-hover:translate-x-2 transition-transform'
-				>
-					Explore <span class='ml-2'>→</span>
-				</span>
-			</a>
-		</div>
-	</section>
-
-	<!-- 7. SUPPORT VISIBILITY -->
-	<section class='support-strip mb-12' data-aos='fade-up'>
-		<div
-			class='bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 border-2 border-blue-300 dark:border-blue-700 rounded-2xl p-8 md:p-10 shadow-lg'
-		>
-			<div class='flex flex-col md:flex-row items-center justify-between gap-6'>
-				<div class='flex items-start gap-4 flex-1'>
-					<div class='text-5xl'>🤝</div>
+			<div class='flex flex-col md:flex-row items-start justify-between gap-6'>
+				<div class='flex items-start gap-3 flex-1'>
+					<HandHeart
+						class='w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-1'
+						strokeWidth={1.5}
+					/>
 					<div>
-						<h3 class='text-2xl md:text-3xl font-bold mb-2 dark:text-white'>
-							Need Support or Accommodations?
+						<h3
+							class='text-xl md:text-2xl font-semibold mb-2 text-gray-800 dark:text-gray-200 leading-snug'
+						>
+							You don't have to navigate this alone
 						</h3>
-						<p class='text-gray-700 dark:text-gray-300 text-lg'>
-							We're here to help. Access resources and support services.
+						<p class='text-gray-600 dark:text-gray-400 text-base leading-relaxed'>
+							Support and accommodations are available.
 						</p>
 					</div>
 				</div>
-				<div class='flex flex-wrap gap-4 justify-center md:justify-end'>
+				<div class='flex flex-col md:flex-row gap-3 md:items-center md:ml-auto'>
 					<a
 						href='/resources'
-						class='bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all hover:scale-105 shadow-lg whitespace-nowrap'
+						class='bg-[#E8D5C4] dark:bg-[#4A3F35] text-gray-800 dark:text-gray-200 px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-[#DCC5B0] dark:hover:bg-[#5A4F45] transition-all'
 					>
-						Get Support
+						Get support
 					</a>
 					<a
 						href='/resources'
-						class='bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 px-8 py-3 rounded-xl font-bold hover:bg-blue-50 dark:hover:bg-gray-700 transition-all hover:scale-105 whitespace-nowrap'
+						class='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-sm font-medium transition-colors underline decoration-gray-400 hover:decoration-gray-600'
 					>
-						View Resources
+						Browse resources
 					</a>
 				</div>
 			</div>
