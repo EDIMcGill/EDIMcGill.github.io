@@ -10,6 +10,7 @@
  * - Impact snapshot
  * - Featured stories
  * - Support visibility
+ * - AOS scroll animations for enhanced UX
  */
 import BaseLayout from '@/layouts/BaseLayout'
 import { getCollection } from 'astro:content'
@@ -17,6 +18,7 @@ import { Image } from 'astro:assets'
 import bannerImage from '../assets/images/Diversity1.jpg'
 import FormattedDate from '@/components/FormattedDate'
 import Tag from '@/components/Tag'
+import 'aos/dist/aos.css'
 
 // Fetch recent content from all collections (up to 6 items)
 let recentUpdates: Array<{
@@ -121,7 +123,7 @@ const getContentHref = (item: any) => {
 	</section>
 
 	<!-- 2. WHAT'S HAPPENING NOW - Updates Preview -->
-	<section class='updates-preview mb-20'>
+	<section class='updates-preview mb-20' data-aos='fade-up'>
 		<div class='flex items-center justify-between mb-8'>
 			<div>
 				<h2 class='text-4xl font-bold dark:text-white mb-2'>What's Happening Now</h2>
@@ -176,7 +178,7 @@ const getContentHref = (item: any) => {
 	</section>
 
 	<!-- 3. WHO IS THIS FOR? - Audience Routing -->
-	<section class='audience-routing mb-20'>
+	<section class='audience-routing mb-20' data-aos='fade-up' data-aos-delay='100'>
 		<div class='text-center mb-12'>
 			<h2 class='text-4xl font-bold mb-3 dark:text-white'>Who Is This For?</h2>
 			<p class='text-xl text-gray-600 dark:text-gray-400'>Find resources tailored to your role</p>
@@ -305,7 +307,7 @@ const getContentHref = (item: any) => {
 	</section>
 
 	<!-- 4. FEATURED INTERACTIVE ELEMENT -->
-	<section class='interactive-element mb-20'>
+	<section class='interactive-element mb-20' data-aos='zoom-in' data-aos-delay='200'>
 		<div
 			class='relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 shadow-2xl overflow-hidden'
 		>
@@ -356,7 +358,7 @@ const getContentHref = (item: any) => {
 	</section>
 
 	<!-- 5. CREDIBILITY / IMPACT SNAPSHOT -->
-	<section class='impact-snapshot mb-20'>
+	<section class='impact-snapshot mb-20' data-aos='fade-up'>
 		<div class='text-center mb-12'>
 			<h2 class='text-4xl font-bold mb-3 dark:text-white'>Our Impact</h2>
 			<p class='text-xl text-gray-600 dark:text-gray-400'>
@@ -403,7 +405,7 @@ const getContentHref = (item: any) => {
 	</section>
 
 	<!-- 6. HUMAN ELEMENT - Featured Stories -->
-	<section class='featured-stories mb-20'>
+	<section class='featured-stories mb-20' data-aos='fade-up' data-aos-delay='100'>
 		<div class='text-center mb-12'>
 			<h2 class='text-4xl font-bold mb-3 dark:text-white'>Community Voices</h2>
 			<p class='text-xl text-gray-600 dark:text-gray-400'>Real stories from real people</p>
@@ -473,7 +475,7 @@ const getContentHref = (item: any) => {
 	</section>
 
 	<!-- 7. SUPPORT VISIBILITY -->
-	<section class='support-strip mb-12'>
+	<section class='support-strip mb-12' data-aos='fade-up'>
 		<div
 			class='bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 border-2 border-blue-300 dark:border-blue-700 rounded-2xl p-8 md:p-10 shadow-lg'
 		>
@@ -507,6 +509,20 @@ const getContentHref = (item: any) => {
 		</div>
 	</section>
 </BaseLayout>
+
+<script>
+	// Initialize AOS (Animate On Scroll)
+	import AOS from 'aos'
+
+	document.addEventListener('DOMContentLoaded', () => {
+		AOS.init({
+			duration: 800,
+			easing: 'ease-in-out',
+			once: true,
+			offset: 100
+		})
+	})
+</script>
 
 <style>
 	.line-clamp-2 {

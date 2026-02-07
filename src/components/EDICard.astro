@@ -1,0 +1,113 @@
+---
+/**
+ * EDICard Component
+ *
+ * Universal card component with consistent EDI styling
+ * Used across all pages for uniform look and feel
+ */
+
+interface Props {
+	title: string
+	description: string
+	icon?: string
+	emoji?: string
+	color?: 'teal' | 'violet' | 'rose' | 'emerald' | 'amber' | 'blue' | 'purple'
+	href?: string
+	ctaText?: string
+	size?: 'sm' | 'md' | 'lg'
+}
+
+const {
+	title,
+	description,
+	icon,
+	emoji,
+	color = 'teal',
+	href,
+	ctaText = 'Learn More',
+	size = 'md'
+} = Astro.props
+
+const colorClasses = {
+	teal: 'from-teal-50 to-emerald-100 dark:from-teal-950 dark:to-emerald-900 border-teal-200 dark:border-teal-800 hover:border-teal-400 dark:hover:border-teal-500',
+	violet:
+		'from-violet-50 to-purple-100 dark:from-violet-950 dark:to-purple-900 border-violet-200 dark:border-violet-800 hover:border-violet-400 dark:hover:border-violet-500',
+	rose: 'from-rose-50 to-amber-100 dark:from-rose-950 dark:to-amber-900 border-rose-200 dark:border-rose-800 hover:border-rose-400 dark:hover:border-rose-500',
+	emerald:
+		'from-emerald-50 to-green-100 dark:from-emerald-950 dark:to-green-900 border-emerald-200 dark:border-emerald-800 hover:border-emerald-400 dark:hover:border-emerald-500',
+	amber:
+		'from-amber-50 to-yellow-100 dark:from-amber-950 dark:to-yellow-900 border-amber-200 dark:border-amber-800 hover:border-amber-400 dark:hover:border-amber-500',
+	blue: 'from-blue-50 to-cyan-100 dark:from-blue-950 dark:to-cyan-900 border-blue-200 dark:border-blue-800 hover:border-blue-400 dark:hover:border-blue-500',
+	purple:
+		'from-purple-50 to-pink-100 dark:from-purple-950 dark:to-pink-900 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-500'
+}
+
+const textColorClasses = {
+	teal: 'text-teal-900 dark:text-teal-100',
+	violet: 'text-violet-900 dark:text-violet-100',
+	rose: 'text-rose-900 dark:text-rose-100',
+	emerald: 'text-emerald-900 dark:text-emerald-100',
+	amber: 'text-amber-900 dark:text-amber-100',
+	blue: 'text-blue-900 dark:text-blue-100',
+	purple: 'text-purple-900 dark:text-purple-100'
+}
+
+const ctaColorClasses = {
+	teal: 'text-teal-700 dark:text-teal-300',
+	violet: 'text-violet-700 dark:text-violet-300',
+	rose: 'text-rose-700 dark:text-rose-300',
+	emerald: 'text-emerald-700 dark:text-emerald-300',
+	amber: 'text-amber-700 dark:text-amber-300',
+	blue: 'text-blue-700 dark:text-blue-300',
+	purple: 'text-purple-700 dark:text-purple-300'
+}
+
+const sizeClasses = {
+	sm: 'p-6',
+	md: 'p-8 md:p-10',
+	lg: 'p-10 md:p-12'
+}
+
+const iconSizeClasses = {
+	sm: 'text-5xl',
+	md: 'text-6xl',
+	lg: 'text-7xl'
+}
+
+const CardTag = href ? 'a' : 'div'
+---
+
+<CardTag
+	href={href}
+	class={`
+		group block
+		bg-gradient-to-br ${colorClasses[color]}
+		border-2 rounded-3xl
+		${sizeClasses[size]}
+		hover:shadow-2xl hover:-translate-y-3
+		transition-all duration-300
+	`}
+>
+	{(emoji || icon) && <div class={`${iconSizeClasses[size]} mb-5`}>{emoji || icon}</div>}
+
+	<h3 class={`text-2xl md:text-3xl font-bold mb-4 ${textColorClasses[color]}`}>
+		{title}
+	</h3>
+
+	<p class='text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6'>
+		{description}
+	</p>
+
+	<slot />
+
+	{
+		href && (
+			<div
+				class={`${ctaColorClasses[color]} font-bold text-lg inline-flex items-center gap-2 group-hover:translate-x-2 transition-transform`}
+			>
+				<span>{ctaText}</span>
+				<span>→</span>
+			</div>
+		)
+	}
+</CardTag>

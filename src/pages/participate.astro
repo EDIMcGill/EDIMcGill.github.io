@@ -4,9 +4,11 @@
  *
  * Get involved with EDI initiatives at McGill
  * Submit stories, share feedback, volunteer opportunities
+ * Features interactive quiz and animated elements
  */
 import BaseLayout from '@/layouts/BaseLayout'
 import TitlePage from '@/components/TitlePage'
+import 'aos/dist/aos.css'
 
 const title = 'Get Involved'
 const description = 'Join EDI McGill - submit your story, share feedback, or volunteer with us'
@@ -23,7 +25,7 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 	</div>
 
 	<!-- INTERACTIVE CASE STUDY QUIZ -->
-	<section class='case-study-quiz mb-16'>
+	<section class='case-study-quiz mb-16' data-aos='fade-up'>
 		<div
 			class='bg-gradient-to-br from-blue-50 via-violet-50 to-purple-50 dark:from-blue-950 dark:via-violet-950 dark:to-purple-950 rounded-3xl p-10 border-2 border-blue-200 dark:border-blue-800 shadow-xl'
 		>
@@ -674,5 +676,15 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 					'📚 Thank you for participating! Explore our workshops and resources to learn more about creating inclusive environments.'
 			}
 		}
+
+		// Initialize AOS
+		import('aos').then((AOS) => {
+			AOS.init({
+				duration: 800,
+				easing: 'ease-in-out',
+				once: true,
+				offset: 100
+			})
+		})
 	})
 </script>

@@ -1,0 +1,50 @@
+---
+/**
+ * CTAButton Component
+ *
+ * Consistent button styles across the site
+ * Three variants: primary (gradient), secondary (outline), ghost (transparent)
+ */
+
+interface Props {
+	href: string
+	variant?: 'primary' | 'secondary' | 'ghost'
+	size?: 'sm' | 'md' | 'lg'
+	colors?: {
+		from: string
+		to: string
+	}
+	icon?: string
+	class?: string
+}
+
+const {
+	href,
+	variant = 'primary',
+	size = 'md',
+	colors = { from: 'teal-500', to: 'emerald-500' },
+	icon,
+	class: className = ''
+} = Astro.props
+
+const sizeClasses = {
+	sm: 'px-6 py-2 text-sm',
+	md: 'px-10 py-4 text-base',
+	lg: 'px-12 py-5 text-lg'
+}
+
+const variantClasses = {
+	primary: `bg-gradient-to-r from-${colors.from} to-${colors.to} text-white hover:from-${colors.from.replace('500', '600')} hover:to-${colors.to.replace('500', '600')} shadow-lg hover:shadow-xl`,
+	secondary: `bg-white/95 dark:bg-gray-800 text-${colors.from.split('-')[0]}-700 dark:text-${colors.from.split('-')[0]}-300 border-2 border-${colors.from} hover:bg-${colors.from.split('-')[0]}-50 dark:hover:bg-gray-700 shadow-lg`,
+	ghost: `bg-transparent text-${colors.from.split('-')[0]}-700 dark:text-${colors.from.split('-')[0]}-300 border-2 border-${colors.from} hover:bg-${colors.from.split('-')[0]}-50 dark:hover:bg-${colors.from.split('-')[0]}-900/30`
+}
+---
+
+<a
+	href={href}
+	class={`inline-flex items-center gap-2 ${sizeClasses[size]} rounded-2xl font-bold transition-all hover:scale-105 ${variantClasses[variant]} ${className}`}
+>
+	{icon && <span>{icon}</span>}
+	<slot />
+	<span class='group-hover:translate-x-1 transition-transform'>→</span>
+</a>

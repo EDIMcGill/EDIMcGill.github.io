@@ -1,0 +1,66 @@
+---
+/**
+ * SectionHeader Component
+ *
+ * Consistent section headers across all pages
+ * Includes optional badge, title, and description
+ */
+
+interface Props {
+	badge?: string
+	badgeIcon?: string
+	badgeColor?: string
+	title: string
+	description?: string
+	align?: 'left' | 'center'
+}
+
+const {
+	badge,
+	badgeIcon = '📌',
+	badgeColor = 'blue',
+	title,
+	description,
+	align = 'center'
+} = Astro.props
+
+const colorClasses = {
+	blue: 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300',
+	teal: 'bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300',
+	violet: 'bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300',
+	purple: 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300',
+	rose: 'bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300',
+	emerald: 'bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300',
+	amber: 'bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300'
+}
+
+const alignClasses = align === 'center' ? 'text-center' : 'text-left'
+---
+
+<div class={`section-header mb-12 ${alignClasses}`}>
+	{
+		badge && (
+			<div
+				class={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold mb-4 ${colorClasses[badgeColor]}`}
+			>
+				<span>{badgeIcon}</span>
+				<span>{badge}</span>
+			</div>
+		)
+	}
+
+	<h2 class='text-4xl md:text-5xl font-bold mb-4 dark:text-white'>
+		{title}
+	</h2>
+
+	{
+		description && (
+			<p
+				class='text-xl text-gray-600 dark:text-gray-400 max-w-3xl'
+				class:list={align === 'center' ? 'mx-auto' : ''}
+			>
+				{description}
+			</p>
+		)
+	}
+</div>

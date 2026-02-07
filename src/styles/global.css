@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+	/* Smooth scroll behavior */
+	html {
+		scroll-behavior: smooth;
+		scroll-padding-top: 100px; /* Account for fixed header */
+	}
+
 	/* body {
 		transition: background-color 0.5s ease;
 	} */
@@ -25,6 +31,43 @@
 	html.dark .shiki span {
 	  color: var(--shiki-dark) !important;
 	  background-color: theme(colors.gray.900) !important;
+	}
+	
+	/* Improved focus states for accessibility */
+	*:focus-visible {
+		@apply outline-2 outline-offset-2 outline-teal-500 dark:outline-teal-400;
+	}
+	
+	/* Better button focus */
+	button:focus-visible,
+	a:focus-visible {
+		@apply ring-2 ring-teal-500 ring-offset-2 dark:ring-teal-400 dark:ring-offset-gray-900;
+	}
+}
+
+/* EDI-specific utilities */
+@layer utilities {
+	/* Gradient text */
+	.text-gradient-edi {
+		@apply bg-gradient-to-r from-teal-600 via-violet-600 to-rose-600 bg-clip-text text-transparent;
+	}
+	
+	/* Glass morphism for cards */
+	.glass-edi {
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px) saturate(180%);
+		-webkit-backdrop-filter: blur(10px) saturate(180%);
+	}
+	
+	/* Animated gradient backgrounds */
+	.animate-gradient {
+		background-size: 200% 200%;
+		animation: gradient 4s ease infinite;
+	}
+	
+	@keyframes gradient {
+		0%, 100% { background-position: 0% 50%; }
+		50% { background-position: 100% 50%; }
 	}
 }
 
