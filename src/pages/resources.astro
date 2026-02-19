@@ -65,290 +65,279 @@ try {
 ---
 
 <BaseLayout title={title} description={description}>
-	<section class='mb-0'>
-		<div
-			id='learning-container'
-			class='learning-container rounded-2xl overflow-hidden'
-			style='background: #F6F3FA; border-top: 1px solid rgba(84, 8, 99, 0.15); border-bottom: 1px solid rgba(84, 8, 99, 0.15); border-left: none; border-right: none; position: relative;'
-		>
-			<div class='learning-topbar'></div>
+	<div class='res-canvas'>
+		<div id='learning-container' class='learning-container'>
+			<!-- Page header -->
+			<div class='res-header'>
+				<h1 class='res-page-title'>Learn About EDI</h1>
+				<p class='res-anchor'>Resources & Support</p>
+			</div>
 
-			<div class='p-8 md:p-10'>
-				<!-- Page title -->
-				<div class='mb-10'>
-					<h1 class='text-2xl md:text-3xl font-semibold mb-2 leading-snug' style='color: #2A2A2E;'>
-						Learn About EDI
-					</h1>
-					<p class='text-base font-medium' style='color: #6B7280;'>Resources & Support</p>
-				</div>
-
-				<!-- Motivation -->
-				<div class='section-panel mb-6'>
-					<div class='flex items-start gap-4'>
-						<div class='section-bar flex-shrink-0'></div>
-						<div class='flex-1'>
-							<span class='section-label'>Motivation</span>
-							<p class='text-base leading-loose mt-2' style='color: #374151;'>
-								We believe in learning by doing. These interactive exercises are designed to give
-								you hands-on experience with EDI concepts, helping you understand not just the
-								theory, but how to apply these principles in real-world engineering contexts.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Objective -->
-				<div class='section-panel mb-6'>
-					<div class='flex items-start gap-4'>
-						<div class='section-bar flex-shrink-0'></div>
-						<div class='flex-1'>
-							<span class='section-label'>Objective</span>
-							<p class='text-base leading-loose mt-2' style='color: #374151;'>
-								To familiarize yourself with EDI through interactive exercises that build practical
-								understanding and awareness.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Structure -->
-				<div class='section-panel mb-8'>
-					<div class='flex items-start gap-4'>
-						<div class='section-bar flex-shrink-0'></div>
-						<div class='flex-1'>
-							<span class='section-label'>Structure</span>
-							<p class='text-base leading-loose mt-2' style='color: #374151;'>
-								We have split everything into 3 modules. Explore them in any order — each stands on
-								its own.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Divider -->
-				<div class='flex justify-center mb-8'>
-					<div class='section-divider'></div>
-				</div>
-
-				<!-- ═══════════ CONSTELLATION ═══════════ -->
-				<section
-					class='constellation-canvas'
-					id='constellation-canvas'
-					aria-label='Learning modules'
-				>
-					<svg class='constellation-svg' id='constellation-svg' aria-hidden='true'></svg>
-
-					<div class='constellation-field'>
-						<!-- Module 1 — top-left, narrower -->
-						<article class='cnode cnode-1' data-node='1' data-accent='plum'>
-							<div class='cnode-star'>
-								<div class='cnode-glow'></div>
-								<div class='cnode-dot'></div>
-							</div>
-							<div class='cnode-body'>
-								<span class='cnode-chip'>Module 1</span>
-								<h3 class='cnode-title'>
-									<a href='/resources/module-1' class='cnode-link'
-										>What is EDI and why do I need it as an engineer?</a
-									>
-								</h3>
-								<p class='cnode-desc'>Explore foundational concepts and shared language.</p>
-								<a href='/resources/module-1' class='cnode-action' tabindex='-1' aria-hidden='true'>
-									<span class='cnode-action-dot'></span>
-									<span>Explore</span>
-									<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
-										<path
-											d='M5 12h14M13 6l6 6-6 6'
-											stroke='currentColor'
-											stroke-width='1.8'
-											stroke-linecap='round'
-											stroke-linejoin='round'></path>
-									</svg>
-								</a>
-							</div>
-						</article>
-
-						<!-- Module 2 — right, offset lower -->
-						<article class='cnode cnode-2' data-node='2' data-accent='crimson'>
-							<div class='cnode-star'>
-								<div class='cnode-glow'></div>
-								<div class='cnode-dot'></div>
-							</div>
-							<div class='cnode-body'>
-								<span class='cnode-chip'>Module 2</span>
-								<h3 class='cnode-title'>
-									<a href='/resources/module-2' class='cnode-link'
-										>Applying EDI in Engineering Practice</a
-									>
-								</h3>
-								<p class='cnode-desc'>Practical tools for everyday decisions and collaboration.</p>
-								<a href='/resources/module-2' class='cnode-action' tabindex='-1' aria-hidden='true'>
-									<span class='cnode-action-dot'></span>
-									<span>Explore</span>
-									<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
-										<path
-											d='M5 12h14M13 6l6 6-6 6'
-											stroke='currentColor'
-											stroke-width='1.8'
-											stroke-linecap='round'
-											stroke-linejoin='round'></path>
-									</svg>
-								</a>
-							</div>
-						</article>
-
-						<!-- Module 3 — center-bottom -->
-						<article class='cnode cnode-3' data-node='3' data-accent='peach'>
-							<div class='cnode-star'>
-								<div class='cnode-glow'></div>
-								<div class='cnode-dot'></div>
-							</div>
-							<div class='cnode-body'>
-								<span class='cnode-chip'>Module 3</span>
-								<h3 class='cnode-title'>
-									<a href='/resources/module-3' class='cnode-link'
-										>Leading Change and Building Inclusive Communities</a
-									>
-								</h3>
-								<p class='cnode-desc'>Ways to support inclusive communities and change.</p>
-								<a href='/resources/module-3' class='cnode-action' tabindex='-1' aria-hidden='true'>
-									<span class='cnode-action-dot'></span>
-									<span>Explore</span>
-									<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
-										<path
-											d='M5 12h14M13 6l6 6-6 6'
-											stroke='currentColor'
-											stroke-width='1.8'
-											stroke-linecap='round'
-											stroke-linejoin='round'></path>
-									</svg>
-								</a>
-							</div>
-						</article>
-					</div>
-				</section>
-				<!-- ═══════════ END CONSTELLATION ═══════════ -->
-
-				<!-- Expand-to-Reveal Trigger -->
-				<div class='mt-8 pt-6' style='border-top: 1px solid rgba(84, 8, 99, 0.15);'>
-					<button
-						id='resources-toggle'
-						class='reveal-handle w-full flex items-center justify-between cursor-pointer px-4 py-3 rounded-lg transition-all group'
-						style='background: #540863; border: 1px solid #6B2B7C;'
-						aria-expanded='false'
-						aria-controls='resources-content'
-					>
-						<div class='flex flex-col gap-0.5'>
-							<span class='text-base font-semibold' style='color: #FFFFFF;'>
-								Related Resources & Support
-							</span>
-							<span class='text-sm' style='color: rgba(255,255,255,0.6);'>
-								Guides and services that complement these modules
-							</span>
-						</div>
-						<svg
-							id='resources-chevron'
-							class='flex-shrink-0 reveal-chevron'
-							width='22'
-							height='22'
-							viewBox='0 0 20 20'
-							fill='none'
-							xmlns='http://www.w3.org/2000/svg'
-						>
-							<path d='M5 8L10 13L15 8' fill='rgba(255,255,255,0.7)'></path>
-						</svg>
-					</button>
-				</div>
-			</div><!-- close p-8 wrapper -->
-		</div>
-	</section>
-
-	<!-- Collapsible Resources Section -->
-	<div
-		id='resources-content'
-		class='resources-reveal overflow-hidden'
-		style='max-height: 0; opacity: 0; transform: translateY(-20px); transition: all 220ms cubic-bezier(0.4, 0.0, 0.2, 1);'
-	>
-		<div class='resources-inner'>
-			{
-				Object.keys(resourcesByType).length > 0 && (
-					<div class='space-y-12'>
-						{Object.entries(resourcesByType).map(([type, typeResources]) => (
-							<section>
-								<h2 class='text-2xl font-semibold mb-6' style='color: #111827;'>
-									{typeLabels[type] || type}
-								</h2>
-								<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-									{typeResources.map((resource) => (
-										<PostCard post={resource} />
-									))}
-								</div>
-							</section>
-						))}
-					</div>
-				)
-			}
-
-			{
-				resourcePosts.length > 0 && (
-					<section class='mb-12 mt-12'>
-						<p class='text-sm font-medium mb-3' style='color: #6B7280;'>
-							Related resources to support your learning
+			<!-- Motivation -->
+			<div class='section-panel mb-6'>
+				<div class='flex items-start gap-4'>
+					<div class='section-bar flex-shrink-0'></div>
+					<div class='flex-1'>
+						<span class='section-label'>Motivation</span>
+						<p class='text-base leading-loose mt-2' style='color: #374151;'>
+							We believe in learning by doing. These interactive exercises are designed to give you
+							hands-on experience with EDI concepts, helping you understand not just the theory, but
+							how to apply these principles in real-world engineering contexts.
 						</p>
-						<h2 class='text-2xl md:text-3xl font-semibold mb-6' style='color: #111827;'>
-							Featured Resources & Guides
-						</h2>
-						<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-							{resourcePosts.map((post) => (
-								<a
-									href={`/post/${post.slug}`}
-									class='resource-card group bg-white dark:bg-gray-900 rounded-xl overflow-hidden'
-									style='border: 1px solid #E5E7EB;'
+					</div>
+				</div>
+			</div>
+
+			<!-- Objective -->
+			<div class='section-panel mb-6'>
+				<div class='flex items-start gap-4'>
+					<div class='section-bar flex-shrink-0'></div>
+					<div class='flex-1'>
+						<span class='section-label'>Objective</span>
+						<p class='text-base leading-loose mt-2' style='color: #374151;'>
+							To familiarize yourself with EDI through interactive exercises that build practical
+							understanding and awareness.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Structure -->
+			<div class='section-panel mb-8'>
+				<div class='flex items-start gap-4'>
+					<div class='section-bar flex-shrink-0'></div>
+					<div class='flex-1'>
+						<span class='section-label'>Structure</span>
+						<p class='text-base leading-loose mt-2' style='color: #374151;'>
+							We have split everything into 3 modules. Explore them in any order — each stands on
+							its own.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Divider -->
+			<div class='flex justify-center mb-8'>
+				<div class='section-divider'></div>
+			</div>
+
+			<!-- ═══════════ CONSTELLATION ═══════════ -->
+			<section class='constellation-canvas' id='constellation-canvas' aria-label='Learning modules'>
+				<svg class='constellation-svg' id='constellation-svg' aria-hidden='true'></svg>
+
+				<div class='constellation-field'>
+					<!-- Module 1 — top-left, narrower -->
+					<article class='cnode cnode-1' data-node='1' data-accent='plum'>
+						<div class='cnode-star'>
+							<div class='cnode-glow'></div>
+							<div class='cnode-dot'></div>
+						</div>
+						<div class='cnode-body'>
+							<span class='cnode-chip'>Module 1</span>
+							<h3 class='cnode-title'>
+								<a href='/resources/module-1' class='cnode-link'
+									>What is EDI and why do I need it as an engineer?</a
 								>
-									<div class='aspect-video overflow-hidden bg-gray-50'>
-										<Image
-											src={post.data.heroImage}
-											alt={post.data.title}
-											width={400}
-											height={300}
-											class='w-full h-full object-cover group-hover:scale-[1.03] transition-transform'
-											style='transition-duration: 300ms; transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);'
-										/>
+							</h3>
+							<p class='cnode-desc'>Explore foundational concepts and shared language.</p>
+							<a href='/resources/module-1' class='cnode-action' tabindex='-1' aria-hidden='true'>
+								<span class='cnode-action-dot'></span>
+								<span>Explore</span>
+								<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
+									<path
+										d='M5 12h14M13 6l6 6-6 6'
+										stroke='currentColor'
+										stroke-width='1.8'
+										stroke-linecap='round'
+										stroke-linejoin='round'></path>
+								</svg>
+							</a>
+						</div>
+					</article>
+
+					<!-- Module 2 — right, offset lower -->
+					<article class='cnode cnode-2' data-node='2' data-accent='crimson'>
+						<div class='cnode-star'>
+							<div class='cnode-glow'></div>
+							<div class='cnode-dot'></div>
+						</div>
+						<div class='cnode-body'>
+							<span class='cnode-chip'>Module 2</span>
+							<h3 class='cnode-title'>
+								<a href='/resources/module-2' class='cnode-link'
+									>Applying EDI in Engineering Practice</a
+								>
+							</h3>
+							<p class='cnode-desc'>Practical tools for everyday decisions and collaboration.</p>
+							<a href='/resources/module-2' class='cnode-action' tabindex='-1' aria-hidden='true'>
+								<span class='cnode-action-dot'></span>
+								<span>Explore</span>
+								<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
+									<path
+										d='M5 12h14M13 6l6 6-6 6'
+										stroke='currentColor'
+										stroke-width='1.8'
+										stroke-linecap='round'
+										stroke-linejoin='round'></path>
+								</svg>
+							</a>
+						</div>
+					</article>
+
+					<!-- Module 3 — center-bottom -->
+					<article class='cnode cnode-3' data-node='3' data-accent='peach'>
+						<div class='cnode-star'>
+							<div class='cnode-glow'></div>
+							<div class='cnode-dot'></div>
+						</div>
+						<div class='cnode-body'>
+							<span class='cnode-chip'>Module 3</span>
+							<h3 class='cnode-title'>
+								<a href='/resources/module-3' class='cnode-link'
+									>Leading Change and Building Inclusive Communities</a
+								>
+							</h3>
+							<p class='cnode-desc'>Ways to support inclusive communities and change.</p>
+							<a href='/resources/module-3' class='cnode-action' tabindex='-1' aria-hidden='true'>
+								<span class='cnode-action-dot'></span>
+								<span>Explore</span>
+								<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
+									<path
+										d='M5 12h14M13 6l6 6-6 6'
+										stroke='currentColor'
+										stroke-width='1.8'
+										stroke-linecap='round'
+										stroke-linejoin='round'></path>
+								</svg>
+							</a>
+						</div>
+					</article>
+				</div>
+			</section>
+			<!-- ═══════════ END CONSTELLATION ═══════════ -->
+
+			<!-- Expand-to-Reveal Trigger -->
+			<div class='mt-8 pt-6' style='border-top: 1px solid rgba(84, 8, 99, 0.15);'>
+				<button
+					id='resources-toggle'
+					class='reveal-handle w-full flex items-center justify-between cursor-pointer px-4 py-3 rounded-lg transition-all group'
+					style='background: #540863; border: 1px solid #6B2B7C;'
+					aria-expanded='false'
+					aria-controls='resources-content'
+				>
+					<div class='flex flex-col gap-0.5'>
+						<span class='text-base font-semibold' style='color: #FFFFFF;'>
+							Related Resources & Support
+						</span>
+						<span class='text-sm' style='color: rgba(255,255,255,0.6);'>
+							Guides and services that complement these modules
+						</span>
+					</div>
+					<svg
+						id='resources-chevron'
+						class='flex-shrink-0 reveal-chevron'
+						width='22'
+						height='22'
+						viewBox='0 0 20 20'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'
+					>
+						<path d='M5 8L10 13L15 8' fill='rgba(255,255,255,0.7)'></path>
+					</svg>
+				</button>
+			</div>
+		</div><!-- close learning-container -->
+
+		<!-- Collapsible Resources Section -->
+		<div
+			id='resources-content'
+			class='resources-reveal overflow-hidden'
+			style='max-height: 0; opacity: 0; transform: translateY(-20px); transition: all 220ms cubic-bezier(0.4, 0.0, 0.2, 1);'
+		>
+			<div class='resources-inner'>
+				{
+					Object.keys(resourcesByType).length > 0 && (
+						<div class='space-y-12'>
+							{Object.entries(resourcesByType).map(([type, typeResources]) => (
+								<section>
+									<h2 class='text-2xl font-semibold mb-6' style='color: #111827;'>
+										{typeLabels[type] || type}
+									</h2>
+									<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+										{typeResources.map((resource) => (
+											<PostCard post={resource} />
+										))}
 									</div>
-									<div class='p-6'>
-										<div class='flex items-center gap-3 mb-3'>
-											<span
-												class='px-3 py-1 rounded-full text-xs font-medium'
-												style='background: rgba(84, 8, 99, 0.08); color: #540863;'
-											>
-												Resources
-											</span>
-											<span class='text-sm' style='color: #6B7280;'>
-												<FormattedDate date={post.data.pubDate} />
-											</span>
-										</div>
-										<h3 class='text-lg font-semibold mb-2 dark:text-white' style='color: #1F1F24;'>
-											{post.data.title}
-										</h3>
-										<p class='text-sm leading-relaxed line-clamp-2' style='color: #6B7280;'>
-											{post.data.description}
-										</p>
-										<div
-											class='mt-4 font-medium text-sm group-hover:translate-x-1 inline-flex items-center gap-1'
-											style='color: #540863; transition: transform 180ms cubic-bezier(0.4, 0.0, 0.2, 1);'
-										>
-											<span>Explore resource</span>
-											<span>→</span>
-										</div>
-									</div>
-								</a>
+								</section>
 							))}
 						</div>
-					</section>
-				)
-			}
-		</div>
-	</div>
+					)
+				}
+
+				{
+					resourcePosts.length > 0 && (
+						<section class='mb-12 mt-12'>
+							<p class='text-sm font-medium mb-3' style='color: #6B7280;'>
+								Related resources to support your learning
+							</p>
+							<h2 class='text-2xl md:text-3xl font-semibold mb-6' style='color: #111827;'>
+								Featured Resources & Guides
+							</h2>
+							<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+								{resourcePosts.map((post) => (
+									<a
+										href={`/post/${post.slug}`}
+										class='resource-card group bg-white dark:bg-gray-900 rounded-xl overflow-hidden'
+										style='border: 1px solid #E5E7EB;'
+									>
+										<div class='aspect-video overflow-hidden bg-gray-50'>
+											<Image
+												src={post.data.heroImage}
+												alt={post.data.title}
+												width={400}
+												height={300}
+												class='w-full h-full object-cover group-hover:scale-[1.03] transition-transform'
+												style='transition-duration: 300ms; transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);'
+											/>
+										</div>
+										<div class='p-6'>
+											<div class='flex items-center gap-3 mb-3'>
+												<span
+													class='px-3 py-1 rounded-full text-xs font-medium'
+													style='background: rgba(84, 8, 99, 0.08); color: #540863;'
+												>
+													Resources
+												</span>
+												<span class='text-sm' style='color: #6B7280;'>
+													<FormattedDate date={post.data.pubDate} />
+												</span>
+											</div>
+											<h3
+												class='text-lg font-semibold mb-2 dark:text-white'
+												style='color: #1F1F24;'
+											>
+												{post.data.title}
+											</h3>
+											<p class='text-sm leading-relaxed line-clamp-2' style='color: #6B7280;'>
+												{post.data.description}
+											</p>
+											<div
+												class='mt-4 font-medium text-sm group-hover:translate-x-1 inline-flex items-center gap-1'
+												style='color: #540863; transition: transform 180ms cubic-bezier(0.4, 0.0, 0.2, 1);'
+											>
+												<span>Explore resource</span>
+												<span>→</span>
+											</div>
+										</div>
+									</a>
+								))}
+							</div>
+						</section>
+					)
+				}
+			</div>
+		</div><!-- close resources-reveal -->
+	</div><!-- close res-canvas -->
 </BaseLayout>
 
 <style>
@@ -389,16 +378,9 @@ try {
 		--accent-rgb: 196, 160, 122;
 	}
 
-	/* ── Top bar thread ── */
+	/* ── Top bar thread (hidden — clean canvas) ── */
 	.learning-topbar {
-		height: 5px;
-		background: #540863;
-		box-shadow: 0 2px 8px rgba(84, 8, 99, 0.45);
-	}
-
-	:global(html.dark) .learning-topbar {
-		background: #7b3a8c;
-		box-shadow: 0 2px 10px rgba(123, 58, 140, 0.5);
+		display: none;
 	}
 
 	/* ── Section divider ── */
@@ -840,30 +822,59 @@ try {
 	/* ══════════════════════════════════════
 	   Container fold / reveal
 	   ══════════════════════════════════════ */
+	/* ── Canvas wrapper — matches About/Programs page pattern ── */
+	.res-canvas {
+		background: #ffffff;
+		margin: -1rem -1rem 0;
+		padding: 2rem 1rem 0;
+	}
+
+	@media (min-width: 768px) {
+		.res-canvas {
+			margin: -2rem -2rem 0;
+			padding: 2.5rem 2rem 0;
+		}
+	}
+
+	:global(html.dark) .res-canvas {
+		background: #1b1d21;
+	}
+
+	.res-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.res-page-title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: #2a2a2e;
+		margin: 0;
+	}
+
+	@media (min-width: 768px) {
+		.res-page-title {
+			font-size: 2.25rem;
+		}
+	}
+
+	:global(html.dark) .res-page-title {
+		color: #e8e5ed;
+	}
+
+	.res-anchor {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #6b7280;
+		margin: 0.4rem 0 0;
+	}
+
+	:global(html.dark) .res-anchor {
+		color: #9aacbb;
+	}
+
 	.learning-container {
-		transition:
-			border-bottom-left-radius 220ms cubic-bezier(0.4, 0, 0.2, 1),
-			border-bottom-right-radius 220ms cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	:global(html.dark) .learning-container {
-		background: #1c1a24 !important;
-		border-top-color: rgba(255, 255, 255, 0.06) !important;
-		border-bottom-color: rgba(255, 255, 255, 0.06) !important;
-	}
-
-	:global(html.dark) .learning-container > div:first-child {
-		background: #5c4b78 !important;
-	}
-
-	.learning-container.folded {
-		border-bottom-left-radius: 0.5rem;
-		border-bottom-right-radius: 0.5rem;
-		border-bottom: 1px solid rgba(84, 8, 99, 0.12);
-	}
-
-	:global(html.dark) .learning-container.folded {
-		border-bottom-color: rgba(255, 255, 255, 0.06);
+		background: transparent;
 	}
 
 	.resources-reveal {
@@ -911,14 +922,7 @@ try {
 		overflow: hidden;
 	}
 
-	/* ── Dark mode: page title and section text ── */
-	:global(html.dark) .learning-container h1 {
-		color: #e8e5ed !important;
-	}
-
-	:global(html.dark) .learning-container > div > p {
-		color: #9ca3af !important;
-	}
+	/* ── Dark mode: section panel text ── */
 
 	:global(html.dark) .section-panel p {
 		color: #c5c0ce !important;

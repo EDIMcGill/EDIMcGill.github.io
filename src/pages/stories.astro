@@ -1,92 +1,1038 @@
 ---
 /**
- * Stories Page - EDI McGill
+ * Stories Page — EDI McGill
  *
- * Blog posts, personal narratives, interviews, and student experiences
+ * Indigo & Magenta palette — introspective, narrative-driven on a clean canvas.
+ *   Canvas:       #FFFFFF           (neutral white)
+ *   Surface:      #FFFFFF           (cards, content blocks)
+ *   Ink:          #1F1F24           (deep charcoal)
+ *   Ink-2:        #556370           (secondary body)
+ *   Ink-muted:    #8A9199           (dates, meta)
+ *   Indigo:       #37306B           (primary — headings, left rules, identity)
+ *   Purple:       #66347F           (emphasis — links, card accent, hover)
+ *   Magenta:      #9E4784           (micro energy — dots, arrows, hover cues)
+ *   Rose:         #D27685           (tiny spark only — pullquote dot, subtle fills)
+ *   Border:       #E5E7EB           (cool neutral)
+ *
+ * Dark mode:
+ *   Canvas:       #1B1D21
+ *   Surface:      #252729
+ *   Indigo:       #5A5499 (muted)
+ *   Purple:       #8A5BA0 (accent)
+ *   Magenta:      #B06E9A (hover micro)
+ *   Rose:         #C08A92 (minimal)
  */
 import BaseLayout from '@/layouts/BaseLayout'
-import TitlePage from '@/components/TitlePage'
 import { getCollection } from 'astro:content'
-import PostCard from '@/components/PostCard'
+import { Image } from 'astro:assets'
+import FormattedDate from '@/components/FormattedDate'
 
 const title = 'Stories & Experiences'
 const description =
 	'Read personal narratives, interviews, and experiences from the McGill EDI community'
 
-// Fetch stories from the stories collection
 let stories: any[] = []
 let featuredStory: any = null
 
 try {
 	const allStories = await getCollection('stories', ({ data }) => !data.draft)
-
-	// Sort by date, newest first
 	stories = allStories.sort(
 		(a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
 	)
-
-	// Find featured story if any
 	featuredStory = stories.find((story) => story.data.featured)
 } catch (error) {
 	console.log('Stories collection not yet populated')
 }
+
+let blogStories: any[] = []
+try {
+	const allBlogPosts = await getCollection('blog', ({ data }) => !data.draft)
+	blogStories = allBlogPosts
+		.filter((post) => post.data.category === 'Blogs & Stories')
+		.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+} catch (error) {
+	console.log('Error fetching blog posts:', error)
+}
 ---
 
 <BaseLayout title={title} description={description}>
-	<!-- Page header with accent line -->
-	<div class='mb-8'>
-		<h1 class='text-2xl md:text-3xl font-semibold mb-4 leading-snug' style='color: #111827;'>
-			{title}
-		</h1>
+	<div class='story-canvas'>
+		<div class='story-header'>
+			<h1 class='story-page-title'>{title}</h1>
+			<p class='story-anchor'>
+				Personal narratives, lived experiences, and perspectives from the McGill community.
+			</p>
+		</div>
 
-		<!-- Description with accent line - vibrant colors -->
-		<div class='flex items-start gap-3'>
-			<div
-				class='w-1 h-auto min-h-[60px] rounded-full flex-shrink-0'
-				style='background: linear-gradient(to bottom, #5B2D8B, #E05A1A);'
-			>
-			</div>
-			<div class='flex-1'>
-				<p class='text-base leading-loose' style='color: #374151;'>
-					Discover personal stories, experiences, and perspectives from members of the McGill
-					community. These narratives help us understand diverse experiences and foster empathy and
-					inclusion.
+		<section class='story-section'>
+			<div class='story-mission-block'>
+				<p class='story-body-lead'>
+					These stories help us understand diverse experiences and foster empathy and inclusion.
+					Every voice matters, and every story contributes to a richer understanding of our
+					community.
+				</p>
+				<p class='story-body'>
+					Discover how members of our community navigate challenges, celebrate achievements, and
+					create meaningful change through their unique perspectives.
 				</p>
 			</div>
-		</div>
-	</div>
+		</section>
 
-	{
-		featuredStory && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Featured Story</h2>
-				<div class='bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 p-6 rounded-lg'>
-					<PostCard post={featuredStory} />
-				</div>
-			</section>
-		)
-	}
+		<!-- Featured Story -->
+		{
+			featuredStory && (
+				<section class='story-section story-featured-section'>
+					<h2 class='story-section-title'>Featured story</h2>
+					<a href={`/post/${featuredStory.slug}`} class='story-featured-card group'>
+						{featuredStory.data.heroImage && (
+							<div class='story-featured-img'>
+								<Image
+									src={featuredStory.data.heroImage}
+									alt=''
+									width={800}
+									height={400}
+									class='story-featured-img-inner'
+								/>
+								<div class='story-featured-img-tint' />
+							</div>
+						)}
+						<div class='story-featured-content'>
+							<div class='story-post-meta'>
+								<span class='story-post-date'>
+									<FormattedDate date={featuredStory.data.pubDate} />
+								</span>
+							</div>
+							<h3 class='story-post-title'>{featuredStory.data.title}</h3>
+							<p class='story-post-excerpt'>{featuredStory.data.description}</p>
+							<span class='story-post-link'>
+								Read this story
+								<svg
+									class='story-post-arrow'
+									width='14'
+									height='14'
+									viewBox='0 0 24 24'
+									fill='none'
+									aria-hidden='true'
+								>
+									<path
+										d='M5 12h14M13 6l6 6-6 6'
+										stroke='currentColor'
+										stroke-width='1.8'
+										stroke-linecap='round'
+										stroke-linejoin='round'
+									/>
+								</svg>
+							</span>
+						</div>
+					</a>
+				</section>
+			)
+		}
 
-	{
-		stories.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 dark:text-white'>All Stories</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-					{stories
-						.filter((s) => s !== featuredStory)
-						.map((story) => (
-							<PostCard post={story} />
+		<!-- All Stories -->
+		{
+			stories.length > 0 && (
+				<section class='story-section story-grid-section'>
+					<h2 class='story-section-title'>All stories</h2>
+					<p class='story-grid-sub'>
+						Browse personal narratives and experiences from our community.
+					</p>
+					<div class='story-posts-grid'>
+						{stories
+							.filter((s) => s !== featuredStory)
+							.map((story) => (
+								<a href={`/post/${story.slug}`} class='story-post-card group'>
+									{story.data.heroImage && (
+										<div class='story-post-img'>
+											<Image
+												src={story.data.heroImage}
+												alt=''
+												width={600}
+												height={300}
+												class='story-post-img-inner'
+											/>
+											<div class='story-post-img-tint' />
+										</div>
+									)}
+									<div class='story-post-content'>
+										<div class='story-post-meta'>
+											<span class='story-post-date'>
+												<FormattedDate date={story.data.pubDate} />
+											</span>
+										</div>
+										<h3 class='story-post-title'>{story.data.title}</h3>
+										<p class='story-post-excerpt'>{story.data.description}</p>
+										<span class='story-post-link'>
+											Read more
+											<svg
+												class='story-post-arrow'
+												width='14'
+												height='14'
+												viewBox='0 0 24 24'
+												fill='none'
+												aria-hidden='true'
+											>
+												<path
+													d='M5 12h14M13 6l6 6-6 6'
+													stroke='currentColor'
+													stroke-width='1.8'
+													stroke-linecap='round'
+													stroke-linejoin='round'
+												/>
+											</svg>
+										</span>
+									</div>
+								</a>
+							))}
+					</div>
+				</section>
+			)
+		}
+
+		<!-- Blog Stories -->
+		{
+			blogStories.length > 0 && (
+				<section class='story-section story-grid-section'>
+					<h2 class='story-section-title'>From our blog</h2>
+					<p class='story-grid-sub'>Stories and reflections published on our blog.</p>
+					<div class='story-posts-grid'>
+						{blogStories.map((post) => (
+							<a href={`/post/${post.slug}`} class='story-post-card group'>
+								{post.data.heroImage && (
+									<div class='story-post-img'>
+										<Image
+											src={post.data.heroImage}
+											alt=''
+											width={600}
+											height={300}
+											class='story-post-img-inner'
+										/>
+										<div class='story-post-img-tint' />
+									</div>
+								)}
+								<div class='story-post-content'>
+									<div class='story-post-meta'>
+										<span class='story-post-date'>
+											<FormattedDate date={post.data.pubDate} />
+										</span>
+									</div>
+									<h3 class='story-post-title'>{post.data.title}</h3>
+									<p class='story-post-excerpt'>{post.data.description}</p>
+									<span class='story-post-link'>
+										Read more
+										<svg
+											class='story-post-arrow'
+											width='14'
+											height='14'
+											viewBox='0 0 24 24'
+											fill='none'
+											aria-hidden='true'
+										>
+											<path
+												d='M5 12h14M13 6l6 6-6 6'
+												stroke='currentColor'
+												stroke-width='1.8'
+												stroke-linecap='round'
+												stroke-linejoin='round'
+											/>
+										</svg>
+									</span>
+								</div>
+							</a>
 						))}
-				</div>
-			</section>
-		)
+					</div>
+				</section>
+			)
+		}
+
+		{
+			stories.length === 0 && blogStories.length === 0 && (
+				<section class='story-section'>
+					<div class='story-empty'>
+						<p class='story-body-lead'>No stories available yet.</p>
+						<p class='story-body'>
+							Check back soon — we're always collecting new voices and perspectives.
+						</p>
+					</div>
+				</section>
+			)
+		}
+
+		<section class='story-cta'>
+			<h2 class='story-cta-title'>Have a story to share?</h2>
+			<p class='story-body' style='max-width: 36rem;'>
+				We'd love to hear from you. Your experience could inspire and inform others in the McGill
+				community.
+			</p>
+			<p class='story-cta-reassurance'>
+				All submissions are reviewed with care — your voice, your terms.
+			</p>
+			<div class='story-cta-actions'>
+				<a href='/participate' class='story-cta-primary'>Share your story</a>
+				<a href='/about' class='story-cta-secondary'>Learn about us</a>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	/* ══════════════════════════════════════
+	   STORIES PAGE — Indigo & Magenta palette
+	   Canvas:   #FFFFFF (neutral white)
+	   Ink:      #1F1F24 / #556370
+	   Indigo:   #37306B (primary — authority, identity)
+	   Purple:   #66347F (emphasis — links, accent lines)
+	   Magenta:  #9E4784 (micro energy — dots, arrows, hover)
+	   Rose:     #D27685 (tiny spark only)
+	   Border:   #E5E7EB (cool neutral)
+	   ══════════════════════════════════════ */
+
+	.story-canvas {
+		background: #ffffff;
+		margin: -1rem -1rem 0;
+		padding: 2rem 1rem 0;
 	}
 
-	{
-		stories.length === 0 && (
-			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
-				<p class='text-lg'>No stories available yet. Check back soon!</p>
-			</div>
-		)
+	@media (min-width: 768px) {
+		.story-canvas {
+			margin: -2rem -2rem 0;
+			padding: 2.5rem 2rem 0;
+		}
 	}
-</BaseLayout>
+
+	:global(html.dark) .story-canvas {
+		background: #1b1d21;
+	}
+
+	/* ── Typography ── */
+	.story-page-title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: #37306b;
+		margin: 0;
+	}
+
+	@media (min-width: 768px) {
+		.story-page-title {
+			font-size: 2.25rem;
+		}
+	}
+
+	:global(html.dark) .story-page-title {
+		color: #e8ecf0;
+	}
+
+	.story-anchor {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #556370;
+		margin: 0.6rem 0 0;
+		font-style: italic;
+	}
+
+	:global(html.dark) .story-anchor {
+		color: #9aacbb;
+	}
+
+	.story-section-title {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #37306b;
+		margin: 0 0 0.15rem;
+		line-height: 1.35;
+		position: relative;
+		padding-bottom: 0.6rem;
+	}
+
+	:global(html.dark) .story-section-title {
+		color: #8a5ba0;
+	}
+
+	.story-body-lead {
+		font-size: 1.05rem;
+		line-height: 1.9;
+		color: #1f1f24;
+		margin: 0 0 1rem;
+	}
+
+	:global(html.dark) .story-body-lead {
+		color: #e8ecf0;
+	}
+
+	.story-body {
+		font-size: 0.95rem;
+		line-height: 1.8;
+		color: #556370;
+		margin: 0;
+	}
+
+	:global(html.dark) .story-body {
+		color: #9aacbb;
+	}
+
+	/* ── Layout ── */
+	.story-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.story-section {
+		margin-bottom: 3.5rem;
+	}
+
+	/* ── Mission — editorial left rule (Indigo) ── */
+	.story-mission-block {
+		border-left: 3px solid #37306b;
+		padding-left: 1.25rem;
+		max-width: 56rem;
+		position: relative;
+	}
+
+	.story-mission-block::before {
+		content: '';
+		position: absolute;
+		left: -2px;
+		top: 0;
+		bottom: 0;
+		width: 6px;
+		background: rgba(55, 48, 107, 0.12);
+		filter: blur(4px);
+		pointer-events: none;
+	}
+
+	:global(html.dark) .story-mission-block {
+		border-left-color: #5a5499;
+	}
+
+	:global(html.dark) .story-mission-block::before {
+		background: rgba(90, 84, 153, 0.15);
+	}
+
+	/* ── Value cards — Purple accent line, Indigo title ── */
+	.story-cards {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	@media (min-width: 768px) {
+		.story-cards {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.25rem;
+		}
+	}
+
+	.story-card {
+		position: relative;
+		overflow: hidden;
+		background: #ffffff;
+		border: 1px solid rgba(102, 52, 127, 0.1);
+		border-radius: 12px;
+		padding: 1.5rem;
+		transition:
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .story-card {
+		background: #252729;
+		border-color: rgba(102, 52, 127, 0.08);
+	}
+
+	.story-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 6px 20px rgba(55, 48, 107, 0.06);
+		border-color: rgba(158, 71, 132, 0.2);
+	}
+
+	:global(html.dark) .story-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+		border-color: rgba(138, 91, 160, 0.15);
+	}
+
+	.story-card:hover .story-card-accent {
+		opacity: 0.7;
+		box-shadow: 0 0 10px rgba(158, 71, 132, 0.2);
+	}
+
+	.story-card:hover .story-card-title {
+		color: #66347f;
+	}
+
+	:global(html.dark) .story-card:hover .story-card-title {
+		color: #8a5ba0;
+	}
+
+	.story-card-accent {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: #66347f;
+		opacity: 0.35;
+		box-shadow: 0 0 6px rgba(102, 52, 127, 0.12);
+		transition:
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .story-card-accent {
+		background: #8a5ba0;
+		opacity: 0.3;
+		box-shadow: 0 0 6px rgba(138, 91, 160, 0.15);
+	}
+
+	.story-card-title {
+		font-size: 1rem;
+		font-weight: 650;
+		color: #37306b;
+		margin: 0 0 0.2rem;
+		transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .story-card-title {
+		color: #e8ecf0;
+	}
+
+	.story-card-tagline {
+		font-size: 0.82rem;
+		color: #8a9199;
+		margin: 0 0 0.75rem;
+		font-style: italic;
+		line-height: 1.5;
+		position: relative;
+		padding-left: 0.75rem;
+	}
+
+	.story-card-tagline::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: #9e4784;
+		opacity: 0.6;
+	}
+
+	:global(html.dark) .story-card-tagline {
+		color: #9aacbb;
+	}
+
+	:global(html.dark) .story-card-tagline::before {
+		background: #b06e9a;
+		opacity: 0.5;
+	}
+
+	.story-card-glyph {
+		position: absolute;
+		top: -4px;
+		right: -4px;
+		width: 80px;
+		height: 80px;
+		pointer-events: none;
+	}
+
+	.story-glyph-grid {
+		color: #d27685;
+		opacity: 0.06;
+	}
+
+	.story-glyph-circles {
+		color: #d27685;
+		opacity: 0.06;
+	}
+
+	.story-glyph-echo {
+		color: #d27685;
+		opacity: 0.07;
+	}
+
+	:global(html.dark) .story-glyph-grid,
+	:global(html.dark) .story-glyph-circles {
+		opacity: 0.03;
+	}
+
+	:global(html.dark) .story-glyph-echo {
+		opacity: 0.035;
+	}
+
+	/* ── Pull quote — Magenta spark dot ── */
+	.story-pullquote {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+		padding: 2rem 0 2.5rem;
+		max-width: 32rem;
+	}
+
+	.story-pullquote-mark {
+		flex-shrink: 0;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: #9e4784;
+		margin-top: 0.6rem;
+		box-shadow: 0 0 6px rgba(158, 71, 132, 0.4);
+	}
+
+	:global(html.dark) .story-pullquote-mark {
+		background: #b06e9a;
+		box-shadow: 0 0 6px rgba(176, 110, 154, 0.25);
+	}
+
+	.story-pullquote-text {
+		font-size: 1.15rem;
+		font-weight: 450;
+		line-height: 1.65;
+		color: #37306b;
+		margin: 0;
+		font-style: italic;
+	}
+
+	:global(html.dark) .story-pullquote-text {
+		color: #8a5ba0;
+	}
+
+	/* ── Featured story ── */
+	.story-featured-section {
+		padding-top: 2.5rem;
+		border-top: 1px solid rgba(55, 48, 107, 0.12);
+	}
+
+	:global(html.dark) .story-featured-section {
+		border-top-color: rgba(90, 84, 153, 0.1);
+	}
+
+	.story-featured-card {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-radius: 12px;
+		text-decoration: none;
+		transition:
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	@media (min-width: 768px) {
+		.story-featured-card {
+			flex-direction: row;
+		}
+	}
+
+	:global(html.dark) .story-featured-card {
+		background: #252729;
+		border-color: rgba(90, 84, 153, 0.08);
+	}
+
+	.story-featured-card:hover {
+		box-shadow: 0 6px 20px rgba(55, 48, 107, 0.08);
+		transform: translateY(-2px);
+	}
+
+	:global(html.dark) .story-featured-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	.story-featured-img {
+		position: relative;
+		height: 200px;
+		overflow: hidden;
+		flex-shrink: 0;
+	}
+
+	@media (min-width: 768px) {
+		.story-featured-img {
+			width: 40%;
+			height: auto;
+		}
+	}
+
+	.story-featured-img-inner {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.story-featured-card:hover .story-featured-img-inner {
+		transform: scale(1.03);
+	}
+
+	.story-featured-img-tint {
+		position: absolute;
+		inset: 0;
+		background: rgba(27, 29, 33, 0.05);
+		pointer-events: none;
+	}
+
+	:global(html.dark) .story-featured-img-tint {
+		background: rgba(27, 29, 33, 0.3);
+	}
+
+	.story-featured-content {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 1.5rem;
+	}
+
+	/* ── Grid sections ── */
+	.story-grid-section {
+		padding-top: 2.5rem;
+		border-top: 1px solid rgba(55, 48, 107, 0.12);
+	}
+
+	:global(html.dark) .story-grid-section {
+		border-top-color: rgba(90, 84, 153, 0.1);
+	}
+
+	.story-grid-sub {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #556370;
+		margin: 0 0 1.5rem;
+	}
+
+	:global(html.dark) .story-grid-sub {
+		color: #9aacbb;
+	}
+
+	.story-posts-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	@media (min-width: 768px) {
+		.story-posts-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.story-posts-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	/* ── Post cards ── */
+	.story-post-card {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-radius: 12px;
+		text-decoration: none;
+		transition:
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .story-post-card {
+		background: #252729;
+		border-color: rgba(90, 84, 153, 0.08);
+	}
+
+	.story-post-card:hover {
+		box-shadow: 0 6px 20px rgba(55, 48, 107, 0.08);
+		transform: translateY(-2px);
+	}
+
+	:global(html.dark) .story-post-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	.story-post-img {
+		position: relative;
+		height: 140px;
+		overflow: hidden;
+		flex-shrink: 0;
+	}
+
+	.story-post-img-inner {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.story-post-card:hover .story-post-img-inner,
+	.story-featured-card:hover .story-featured-img-inner {
+		transform: scale(1.03);
+	}
+
+	.story-post-img-tint {
+		position: absolute;
+		inset: 0;
+		background: rgba(27, 29, 33, 0.05);
+		pointer-events: none;
+	}
+
+	:global(html.dark) .story-post-img-tint {
+		background: rgba(27, 29, 33, 0.3);
+	}
+
+	.story-post-content {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 1.25rem 1.35rem;
+	}
+
+	.story-post-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.story-post-date {
+		font-size: 0.78rem;
+		color: #8a9199;
+	}
+
+	:global(html.dark) .story-post-date {
+		color: #7a8a99;
+	}
+
+	.story-post-title {
+		font-size: 1.05rem;
+		font-weight: 600;
+		color: #37306b;
+		line-height: 1.4;
+		margin: 0 0 0.35rem;
+	}
+
+	:global(html.dark) .story-post-title {
+		color: #e8ecf0;
+	}
+
+	.story-post-excerpt {
+		font-size: 0.875rem;
+		line-height: 1.7;
+		color: #556370;
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	:global(html.dark) .story-post-excerpt {
+		color: #9aacbb;
+	}
+
+	.story-post-link {
+		margin-top: auto;
+		padding-top: 0.75rem;
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: #66347f;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .story-post-link {
+		color: #8a5ba0;
+	}
+
+	.story-post-card:hover .story-post-link,
+	.story-featured-card:hover .story-post-link {
+		color: #9e4784;
+	}
+
+	:global(html.dark) .story-post-card:hover .story-post-link,
+	:global(html.dark) .story-featured-card:hover .story-post-link {
+		color: #b06e9a;
+	}
+
+	.story-post-arrow {
+		transition:
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1);
+		opacity: 0;
+	}
+
+	.story-post-card:hover .story-post-arrow,
+	.story-featured-card:hover .story-post-arrow {
+		opacity: 1;
+		transform: translateX(2px);
+	}
+
+	/* ── Empty state ── */
+	.story-empty {
+		text-align: center;
+		padding: 3rem 1rem;
+		border: 1px dashed rgba(55, 48, 107, 0.15);
+		border-radius: 12px;
+	}
+
+	:global(html.dark) .story-empty {
+		border-color: rgba(90, 84, 153, 0.1);
+	}
+
+	/* ── CTA — Indigo divider, Purple primary button ── */
+	.story-cta {
+		border-top: 1px solid rgba(55, 48, 107, 0.12);
+		padding-top: 3rem;
+		margin-bottom: 2rem;
+	}
+
+	:global(html.dark) .story-cta {
+		border-top-color: rgba(90, 84, 153, 0.1);
+	}
+
+	.story-cta-title {
+		font-size: 1.35rem;
+		font-weight: 600;
+		color: #37306b;
+		margin: 0 0 0.75rem;
+		line-height: 1.3;
+	}
+
+	:global(html.dark) .story-cta-title {
+		color: #e8ecf0;
+	}
+
+	.story-cta-reassurance {
+		font-size: 0.88rem;
+		color: #8a9199;
+		font-style: italic;
+		margin: 0.75rem 0 0;
+		max-width: 32rem;
+		line-height: 1.6;
+	}
+
+	:global(html.dark) .story-cta-reassurance {
+		color: #7a8a99;
+	}
+
+	.story-cta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
+
+	.story-cta-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.7rem 1.6rem;
+		border-radius: 9px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		background: #66347f;
+		color: #ffffff;
+		text-decoration: none;
+		box-shadow: 0 2px 10px rgba(102, 52, 127, 0.2);
+		transition:
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			outline-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .story-cta-primary {
+		background: #8a5ba0;
+		color: #1b1d21;
+		box-shadow: 0 2px 10px rgba(138, 91, 160, 0.25);
+	}
+
+	.story-cta-primary:hover {
+		box-shadow:
+			0 4px 18px rgba(102, 52, 127, 0.3),
+			0 0 0 2px rgba(158, 71, 132, 0.15);
+	}
+
+	:global(html.dark) .story-cta-primary:hover {
+		box-shadow:
+			0 4px 18px rgba(138, 91, 160, 0.35),
+			0 0 0 2px rgba(176, 110, 154, 0.12);
+	}
+
+	.story-cta-primary:focus-visible {
+		outline: 2px solid #37306b;
+		outline-offset: 2px;
+	}
+
+	.story-cta-secondary {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #37306b;
+		text-decoration: none;
+		padding: 0.7rem 1.1rem;
+		border: 1px solid #37306b;
+		border-radius: 9px;
+		transition:
+			background 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .story-cta-secondary {
+		color: #8a5ba0;
+		border-color: rgba(138, 91, 160, 0.25);
+	}
+
+	.story-cta-secondary:hover {
+		background: rgba(55, 48, 107, 0.04);
+		border-color: #66347f;
+		color: #66347f;
+		text-decoration: none;
+	}
+
+	:global(html.dark) .story-cta-secondary:hover {
+		background: rgba(90, 84, 153, 0.08);
+		border-color: rgba(138, 91, 160, 0.35);
+		color: #b06e9a;
+	}
+
+	.story-cta-secondary:focus-visible {
+		outline: 2px solid #37306b;
+		outline-offset: 2px;
+	}
+
+	/* ── Focus rings ── */
+	.story-post-card:focus-visible,
+	.story-featured-card:focus-visible,
+	.story-card:focus-visible {
+		outline: 2px solid #37306b;
+		outline-offset: 2px;
+	}
+
+	:global(html.dark) .story-post-card:focus-visible,
+	:global(html.dark) .story-featured-card:focus-visible,
+	:global(html.dark) .story-card:focus-visible,
+	:global(html.dark) .story-cta-primary:focus-visible,
+	:global(html.dark) .story-cta-secondary:focus-visible {
+		outline-color: #5a5499;
+	}
+
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.story-card,
+		.story-card-accent,
+		.story-card-title,
+		.story-post-card,
+		.story-featured-card,
+		.story-post-img-inner,
+		.story-featured-img-inner,
+		.story-post-link,
+		.story-post-arrow,
+		.story-cta-primary,
+		.story-cta-secondary {
+			transition-duration: 0ms !important;
+		}
+	}
+</style>

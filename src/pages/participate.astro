@@ -1,460 +1,860 @@
 ---
 /**
- * Participate Page - EDI McGill
+ * Participate Page — EDI McGill
  *
- * Get involved with EDI initiatives at McGill
- * Submit stories, share feedback, volunteer opportunities
- * Features interactive quiz and animated elements
+ * Constellation map: free-positioned participation nodes as an interactive map.
+ * Per-node accent palette (one color family per node):
+ *   Share Your Story  → Plum/Rose   (#944E63)
+ *   Give Feedback     → Teal/Sky    (#3B8595)
+ *   Volunteer         → Amber/Coral (#C27A3A)
+ *   Join a Committee  → Indigo/Blue (#4A5899)
+ *
+ * Canvas: warm off-white (#FAFAF8), dark: #1B1D21
  */
 import BaseLayout from '@/layouts/BaseLayout'
-import TitlePage from '@/components/TitlePage'
-import 'aos/dist/aos.css'
 
 const title = 'Get Involved'
 const description = 'Join EDI McGill - submit your story, share feedback, or volunteer with us'
 ---
 
 <BaseLayout title={title} description={description}>
-	<!-- Page header with accent line -->
-	<div class='mb-8'>
-		<h1 class='text-2xl md:text-3xl font-semibold mb-4 leading-snug' style='color: #111827;'>
-			{title}
-		</h1>
+	<div class='part-canvas'>
+		<!-- ── 1. Header block ── -->
+		<div class='part-header'>
+			<h1 class='part-title'>Get Involved</h1>
+			<p class='part-sub'>How do you want to show up?</p>
+			<p class='part-micro'>Start anywhere. Every path matters.</p>
+		</div>
 
-		<!-- Description with accent line - vibrant colors -->
-		<div class='flex items-start gap-3'>
-			<div
-				class='w-1 h-auto min-h-[60px] rounded-full flex-shrink-0'
-				style='background: linear-gradient(to bottom, #E05A1A, #5B2D8B);'
-			>
-			</div>
-			<div class='flex-1'>
-				<p class='text-base leading-loose' style='color: #374151;'>
-					Your voice matters! There are many ways to get involved with EDI McGill and contribute to
-					building a more inclusive campus community.
-				</p>
+		<!-- ── 2. Constellation map ── -->
+		<section class='constellation' id='constellation' aria-label='Ways to participate'>
+			<svg class='constellation-svg' id='constellation-svg' aria-hidden='true'></svg>
+
+			<!-- Node 1 — Share Your Story (largest, hero node) -->
+			<article class='cnode cnode-1' data-cnode='0' tabindex='0'>
+				<div class='cnode-star'>
+					<div class='cnode-glow'></div>
+					<div class='cnode-dot'></div>
+				</div>
+				<div class='cnode-body'>
+					<span class='cnode-num'>01</span>
+					<h3 class='cnode-label'>Share Your Story</h3>
+					<p class='cnode-desc'>Your narrative helps others see the world differently.</p>
+					<span class='cnode-action'>Tell your story &rarr;</span>
+				</div>
+			</article>
+
+			<!-- Node 2 — Give Feedback -->
+			<article class='cnode cnode-2' data-cnode='1' tabindex='0'>
+				<div class='cnode-star'>
+					<div class='cnode-glow'></div>
+					<div class='cnode-dot'></div>
+				</div>
+				<div class='cnode-body'>
+					<span class='cnode-num'>02</span>
+					<h3 class='cnode-label'>Give Feedback</h3>
+					<p class='cnode-desc'>Your input shapes what we build next.</p>
+					<span class='cnode-action'>Share feedback &rarr;</span>
+				</div>
+			</article>
+
+			<!-- Node 3 — Volunteer -->
+			<article class='cnode cnode-3' data-cnode='2' tabindex='0'>
+				<div class='cnode-star'>
+					<div class='cnode-glow'></div>
+					<div class='cnode-dot'></div>
+				</div>
+				<div class='cnode-body'>
+					<span class='cnode-num'>03</span>
+					<h3 class='cnode-label'>Volunteer With Us</h3>
+					<p class='cnode-desc'>Hands-on work that makes campus more inclusive.</p>
+					<span class='cnode-action'>Get started &rarr;</span>
+				</div>
+			</article>
+
+			<!-- Node 4 — Join a Committee -->
+			<article class='cnode cnode-4' data-cnode='3' tabindex='0'>
+				<div class='cnode-star'>
+					<div class='cnode-glow'></div>
+					<div class='cnode-dot'></div>
+				</div>
+				<div class='cnode-body'>
+					<span class='cnode-num'>04</span>
+					<h3 class='cnode-label'>Join a Committee</h3>
+					<p class='cnode-desc'>Shape policy and advocate for change.</p>
+					<span class='cnode-action'>Learn more &rarr;</span>
+				</div>
+			</article>
+		</section>
+
+		<!-- ── 3. Support block ── -->
+		<div class='part-support'>
+			<p class='part-support-line'>Not sure where to start? Choose what feels easiest today.</p>
+			<div class='part-support-links'>
+				<a href='/resources' class='part-support-link'>Explore case studies</a>
+				<a href='/stories' class='part-support-link'>Read stories</a>
+				<a href='/about' class='part-support-link'>Contact us</a>
 			</div>
 		</div>
-	</div>
 
-	<!-- INTERACTIVE CASE STUDY QUIZ -->
-	<section class='case-study-quiz mb-16' data-aos='fade-up'>
-		<div
-			class='bg-gradient-to-br from-blue-50 via-violet-50 to-purple-50 dark:from-blue-950 dark:via-violet-950 dark:to-purple-950 rounded-3xl p-10 border-2 border-blue-200 dark:border-blue-800 shadow-xl'
-		>
-			<div class='text-center mb-8'>
-				<div
-					class='inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900 px-4 py-2 rounded-full text-blue-700 dark:text-blue-300 font-semibold mb-4'
-				>
-					<span>🎯</span>
-					<span>Interactive Case Study</span>
-				</div>
-				<h2 class='text-3xl md:text-4xl font-bold mb-3 dark:text-white'>Test Your EDI Knowledge</h2>
-				<p class='text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto'>
-					Explore real scenarios and discover how you would respond in different situations
-				</p>
-			</div>
+		<!-- ── Quiz section ── -->
+		<section class='part-section part-quiz-section'>
+			<h2 class='part-section-title'>Test your EDI knowledge</h2>
+			<p class='part-quiz-sub'>Explore real scenarios and discover how you would respond.</p>
 
-			<!-- Question Container -->
-			<div class='max-w-4xl mx-auto'>
-				<div
-					class='question-container bg-white dark:bg-gray-900 rounded-2xl p-8 border-2 border-violet-200 dark:border-violet-800 shadow-lg mb-6'
-				>
-					<!-- Progress Bar -->
-					<div class='mb-6'>
-						<div
-							class='flex justify-between text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2'
-						>
+			<div class='part-quiz-container'>
+				<div class='part-quiz-inner'>
+					<div class='part-quiz-progress-wrap'>
+						<div class='part-quiz-progress-meta'>
 							<span>Question <span class='current-question'>1</span> of 3</span>
 							<span class='progress-percentage'>33%</span>
 						</div>
-						<div class='w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden'>
-							<div
-								class='quiz-progress bg-gradient-to-r from-blue-500 to-purple-500 h-full rounded-full transition-all duration-500'
-								style='width: 33.33%'
-							>
-							</div>
+						<div class='part-quiz-track'>
+							<div class='quiz-progress part-quiz-bar' style='width: 33.33%'></div>
 						</div>
 					</div>
 
-					<!-- Question 1 -->
 					<div class='question active' data-question='1'>
-						<h3 class='text-2xl font-bold mb-6 text-gray-900 dark:text-white'>
-							🤝 Scenario: Inclusive Group Work
-						</h3>
-						<p class='text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed'>
+						<h3 class='part-quiz-heading'>Scenario: Inclusive Group Work</h3>
+						<p class='part-quiz-desc'>
 							You're leading a group project and notice one international student is quiet during
 							meetings. They seem hesitant to share ideas. What's your best approach?
 						</p>
-
-						<div class='space-y-4'>
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
-								data-answer='a'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
-										>A</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Directly call on them in the next meeting to contribute</span
-									>
-								</div>
+						<div class='part-quiz-options'>
+							<button class='option-btn part-option' data-answer='a'>
+								<span class='part-option-letter'>A</span>
+								<span>Directly call on them in the next meeting to contribute</span>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
-								data-answer='b'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
-										>B</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Have a private conversation to understand their preferred communication style</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='b'>
+								<span class='part-option-letter'>B</span>
+								<span
+									>Have a private conversation to understand their preferred communication style</span
+								>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
-								data-answer='c'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
-										>C</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Assume they're not interested and continue without their input</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='c'>
+								<span class='part-option-letter'>C</span>
+								<span>Assume they're not interested and continue without their input</span>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-lg'
-								data-answer='d'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center'
-										>D</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Provide multiple ways to contribute (speaking, writing, visual)</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='d'>
+								<span class='part-option-letter'>D</span>
+								<span>Provide multiple ways to contribute (speaking, writing, visual)</span>
 							</button>
 						</div>
-
-						<div class='feedback mt-6 p-6 rounded-xl hidden'></div>
+						<div class='feedback part-feedback hidden'></div>
 					</div>
 
-					<!-- Question 2 -->
 					<div class='question hidden' data-question='2'>
-						<h3 class='text-2xl font-bold mb-6 text-gray-900 dark:text-white'>
-							🌍 Scenario: Cultural Celebrations
-						</h3>
-						<p class='text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed'>
+						<h3 class='part-quiz-heading'>Scenario: Cultural Celebrations</h3>
+						<p class='part-quiz-desc'>
 							Your department wants to host cultural celebrations. A colleague suggests only
 							celebrating major holidays to save time. What do you recommend?
 						</p>
-
-						<div class='space-y-4'>
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
-								data-answer='a'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
-										>A</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Agree - focus only on widely recognized holidays</span
-									>
-								</div>
+						<div class='part-quiz-options'>
+							<button class='option-btn part-option' data-answer='a'>
+								<span class='part-option-letter'>A</span>
+								<span>Agree — focus only on widely recognized holidays</span>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
-								data-answer='b'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
-										>B</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Create a rotating monthly celebration featuring different cultures</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='b'>
+								<span class='part-option-letter'>B</span>
+								<span>Create a rotating monthly celebration featuring different cultures</span>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
-								data-answer='c'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
-										>C</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Skip cultural celebrations entirely to avoid potential issues</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='c'>
+								<span class='part-option-letter'>C</span>
+								<span>Skip cultural celebrations entirely to avoid potential issues</span>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-violet-500 dark:hover:border-violet-400 transition-all hover:shadow-lg'
-								data-answer='d'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center'
-										>D</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Survey students to understand which celebrations are meaningful to them</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='d'>
+								<span class='part-option-letter'>D</span>
+								<span>Survey students to understand which celebrations are meaningful to them</span>
 							</button>
 						</div>
-
-						<div class='feedback mt-6 p-6 rounded-xl hidden'></div>
+						<div class='feedback part-feedback hidden'></div>
 					</div>
 
-					<!-- Question 3 -->
 					<div class='question hidden' data-question='3'>
-						<h3 class='text-2xl font-bold mb-6 text-gray-900 dark:text-white'>
-							💬 Scenario: Microaggressions
-						</h3>
-						<p class='text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed'>
+						<h3 class='part-quiz-heading'>Scenario: Microaggressions</h3>
+						<p class='part-quiz-desc'>
 							You witness a colleague make an insensitive comment to a graduate student from a
 							marginalized group. The student looks uncomfortable. What should you do?
 						</p>
-
-						<div class='space-y-4'>
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
-								data-answer='a'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
-										>A</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Ignore it - it's not your place to intervene</span
-									>
-								</div>
+						<div class='part-quiz-options'>
+							<button class='option-btn part-option' data-answer='a'>
+								<span class='part-option-letter'>A</span>
+								<span>Ignore it — it's not your place to intervene</span>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
-								data-answer='b'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
-										>B</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Publicly call out the colleague immediately and harshly</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='b'>
+								<span class='part-option-letter'>B</span>
+								<span>Publicly call out the colleague immediately and harshly</span>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
-								data-answer='c'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
-										>C</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Gently redirect the conversation and check in with the student privately later</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='c'>
+								<span class='part-option-letter'>C</span>
+								<span
+									>Gently redirect the conversation and check in with the student privately later</span
+								>
 							</button>
-
-							<button
-								class='option-btn w-full text-left p-5 border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:shadow-lg'
-								data-answer='d'
-							>
-								<div class='flex items-start gap-4'>
-									<span
-										class='flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center'
-										>D</span
-									>
-									<span class='text-gray-800 dark:text-gray-200'
-										>Wait to see if the student brings it up first</span
-									>
-								</div>
+							<button class='option-btn part-option' data-answer='d'>
+								<span class='part-option-letter'>D</span>
+								<span>Wait to see if the student brings it up first</span>
 							</button>
 						</div>
-
-						<div class='feedback mt-6 p-6 rounded-xl hidden'></div>
+						<div class='feedback part-feedback hidden'></div>
 					</div>
 
-					<!-- Results Screen -->
 					<div class='results hidden'>
-						<div class='text-center'>
-							<div class='text-7xl mb-6'>🎉</div>
-							<h3 class='text-3xl font-bold mb-4 text-gray-900 dark:text-white'>Quiz Complete!</h3>
-							<p class='text-xl text-gray-700 dark:text-gray-300 mb-8'>
-								You scored <span class='score text-4xl font-bold text-blue-600 dark:text-blue-400'
-									>0</span
-								> out of 3
+						<div class='part-results-inner'>
+							<h3 class='part-quiz-heading'>Quiz Complete!</h3>
+							<p class='part-body-lead'>
+								You scored <span class='score' style='color: #944E63; font-weight: 700;'>0</span> out
+								of 3
 							</p>
-							<div
-								class='results-message bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 p-6 rounded-xl mb-8'
-							>
-								<p class='text-lg font-semibold text-gray-800 dark:text-gray-200'></p>
-							</div>
-							<button
-								class='restart-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg'
-							>
-								Retake Quiz →
-							</button>
+							<div class='results-message part-results-message'><p></p></div>
+							<button class='restart-btn part-restart'>Retake Quiz</button>
 						</div>
 					</div>
-				</div>
 
-				<!-- Navigation Buttons -->
-				<div class='nav-buttons flex justify-between items-center'>
-					<button
-						class='prev-btn hidden bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-8 py-3 rounded-xl font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all'
-					>
-						← Previous
-					</button>
-					<div class='flex-1'></div>
-					<button
-						class='next-btn hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg'
-					>
-						Next Question →
-					</button>
+					<div class='nav-buttons part-nav-buttons'>
+						<button class='prev-btn part-nav-prev hidden'>Previous</button>
+						<div class='flex-1'></div>
+						<button class='next-btn part-nav-next hidden'>Next Question</button>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<div class='grid grid-cols-1 md:grid-cols-2 gap-8 mb-12'>
-		<!-- Submit Your Story -->
-		<div
-			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-blue-500 dark:hover:border-blue-400 transition-colors'
-		>
-			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Share Your Story</h2>
-			<p class='text-gray-700 dark:text-gray-300 mb-6'>
-				Have an experience to share? Submit your personal narrative to be featured on our platform
-				and help others understand diverse perspectives.
-			</p>
-			<button
-				class='bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
-			>
-				Submit Story
-			</button>
-			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
-				<em>Story submission form coming soon</em>
-			</p>
-		</div>
-
-		<!-- Share Feedback -->
-		<div
-			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-purple-500 dark:hover:border-purple-400 transition-colors'
-		>
-			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Share Feedback</h2>
-			<p class='text-gray-700 dark:text-gray-300 mb-6'>
-				Help us improve! Share your thoughts, suggestions, and feedback about EDI initiatives at
-				McGill.
-			</p>
-			<button
-				class='bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
-			>
-				Give Feedback
-			</button>
-			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
-				<em>Feedback form coming soon</em>
-			</p>
-		</div>
-
-		<!-- Volunteer -->
-		<div
-			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-green-500 dark:hover:border-green-400 transition-colors'
-		>
-			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Volunteer With Us</h2>
-			<p class='text-gray-700 dark:text-gray-300 mb-6'>
-				Join our team of dedicated volunteers working to promote equity, diversity, and inclusion
-				across campus.
-			</p>
-			<button
-				class='bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
-			>
-				Learn More
-			</button>
-			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
-				<em>Volunteer information coming soon</em>
-			</p>
-		</div>
-
-		<!-- Join Committee -->
-		<div
-			class='border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-orange-500 dark:hover:border-orange-400 transition-colors'
-		>
-			<h2 class='text-2xl font-bold mb-4 dark:text-white'>Join a Committee</h2>
-			<p class='text-gray-700 dark:text-gray-300 mb-6'>
-				Get more involved by joining one of our committees focused on specific EDI initiatives and
-				advocacy work.
-			</p>
-			<button
-				class='bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors'
-			>
-				View Committees
-			</button>
-			<p class='text-sm text-gray-500 dark:text-gray-400 mt-4'>
-				<em>Committee details coming soon</em>
-			</p>
-		</div>
+		</section>
 	</div>
-
-	<section class='prose dark:prose-invert mx-auto'>
-		<h2>Stay Connected</h2>
-		<p>
-			Follow us on social media and subscribe to our newsletter to stay updated on events,
-			opportunities, and EDI news at McGill.
-		</p>
-	</section>
 </BaseLayout>
 
 <style>
-	/* Quiz Styling */
-	.question {
-		display: none;
-		animation: fadeIn 0.3s ease-in;
+	/* ══════════════════════════════════════
+	   PARTICIPATE — Constellation map
+	   Node accents:
+	     Plum   #944E63  (Share Story)
+	     Teal   #3B8595  (Feedback)
+	     Amber  #C27A3A  (Volunteer)
+	     Indigo #4A5899  (Committee)
+	   ══════════════════════════════════════ */
+
+	.part-canvas {
+		background: #fafaf8;
+		margin: -1rem -1rem 0;
+		padding: 3rem 1.25rem 2rem;
+	}
+	@media (min-width: 768px) {
+		.part-canvas {
+			margin: -2rem -2rem 0;
+			padding: 4rem 2.5rem 2.5rem;
+		}
+	}
+	:global(html.dark) .part-canvas {
+		background: #1b1d21;
 	}
 
+	/* ── 1. Header ── */
+	.part-header {
+		margin-bottom: 3.5rem;
+	}
+	@media (min-width: 768px) {
+		.part-header {
+			margin-bottom: 4.5rem;
+		}
+	}
+
+	.part-title {
+		font-size: 2rem;
+		font-weight: 750;
+		line-height: 1.15;
+		color: #944e63;
+		margin: 0;
+		letter-spacing: -0.01em;
+	}
+	@media (min-width: 768px) {
+		.part-title {
+			font-size: 2.75rem;
+		}
+	}
+	:global(html.dark) .part-title {
+		color: #e8ecf0;
+	}
+
+	.part-sub {
+		font-size: 1.15rem;
+		font-weight: 400;
+		color: #3a3a42;
+		margin: 0.6rem 0 0;
+		line-height: 1.5;
+	}
+	:global(html.dark) .part-sub {
+		color: #b0b8c4;
+	}
+
+	.part-micro {
+		font-size: 0.82rem;
+		color: #8a9199;
+		margin: 0.35rem 0 0;
+		font-style: italic;
+	}
+	:global(html.dark) .part-micro {
+		color: #6b7a88;
+	}
+
+	/* ── 2. Constellation map ── */
+	.constellation {
+		position: relative;
+		min-height: 480px;
+		margin-bottom: 3.5rem;
+		padding: 1rem 0;
+	}
+	@media (min-width: 768px) {
+		.constellation {
+			min-height: 520px;
+			margin-bottom: 4rem;
+		}
+	}
+
+	.constellation-svg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	/* Mobile: stack vertically */
+	.cnode {
+		position: relative;
+		z-index: 2;
+		margin-bottom: 1rem;
+		border-radius: 16px;
+		padding: 1.35rem 1.4rem 1.35rem 1.6rem;
+		background: rgba(var(--cn-rgb), 0.03);
+		border: 1px solid rgba(var(--cn-rgb), 0.08);
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.025);
+		cursor: pointer;
+		transition:
+			transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
+			box-shadow 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
+			background 280ms ease,
+			border-color 280ms ease,
+			opacity 280ms ease;
+	}
+
+	/* Desktop: absolute free-positioning */
+	@media (min-width: 768px) {
+		.cnode {
+			position: absolute;
+			margin-bottom: 0;
+		}
+
+		.cnode-1 {
+			top: 0;
+			left: 0;
+			width: 52%;
+			padding: 1.6rem 1.5rem 1.6rem 1.8rem;
+		}
+		.cnode-2 {
+			top: 10px;
+			right: 0;
+			width: 42%;
+		}
+		.cnode-3 {
+			bottom: 60px;
+			left: 6%;
+			width: 40%;
+		}
+		.cnode-4 {
+			bottom: 20px;
+			right: 4%;
+			width: 44%;
+		}
+	}
+
+	/* Per-node accents */
+	.cnode-1 {
+		--cn-rgb: 148, 78, 99;
+		--cn-color: #944e63;
+	}
+	.cnode-2 {
+		--cn-rgb: 59, 133, 149;
+		--cn-color: #3b8595;
+	}
+	.cnode-3 {
+		--cn-rgb: 194, 122, 58;
+		--cn-color: #c27a3a;
+	}
+	.cnode-4 {
+		--cn-rgb: 74, 88, 153;
+		--cn-color: #4a5899;
+	}
+
+	:global(html.dark) .cnode {
+		background: rgba(var(--cn-rgb), 0.05);
+		border-color: rgba(var(--cn-rgb), 0.1);
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+	}
+
+	/* Hover: lift, glow wash, stronger shadow */
+	.cnode:hover,
+	.cnode:focus-visible {
+		transform: translateY(-4px);
+		background: rgba(var(--cn-rgb), 0.07);
+		border-color: rgba(var(--cn-rgb), 0.18);
+		box-shadow:
+			0 8px 28px rgba(var(--cn-rgb), 0.1),
+			0 0 0 1px rgba(var(--cn-rgb), 0.06);
+	}
+	:global(html.dark) .cnode:hover,
+	:global(html.dark) .cnode:focus-visible {
+		background: rgba(var(--cn-rgb), 0.1);
+		border-color: rgba(var(--cn-rgb), 0.2);
+		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+	}
+
+	/* Dim siblings when one is hovered */
+	.constellation.has-hover .cnode:not(:hover) {
+		opacity: 0.45;
+	}
+
+	.cnode:focus-visible {
+		outline: 2px solid var(--cn-color);
+		outline-offset: 3px;
+	}
+
+	/* ── Star dot ── */
+	.cnode-star {
+		position: absolute;
+		top: 1rem;
+		left: 0.9rem;
+	}
+
+	.cnode-dot {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: var(--cn-color);
+		position: relative;
+		z-index: 1;
+		box-shadow: 0 0 4px rgba(var(--cn-rgb), 0.4);
+	}
+
+	.cnode-glow {
+		position: absolute;
+		inset: -6px;
+		border-radius: 50%;
+		background: var(--cn-color);
+		opacity: 0.12;
+		filter: blur(6px);
+		transition: opacity 280ms ease;
+	}
+
+	.cnode:hover .cnode-glow {
+		opacity: 0.35;
+	}
+
+	/* ── Card body ── */
+	.cnode-body {
+		padding-left: 1.4rem;
+	}
+
+	.cnode-num {
+		display: block;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--cn-color);
+		opacity: 0.6;
+		margin-bottom: 0.2rem;
+	}
+	:global(html.dark) .cnode-num {
+		opacity: 0.7;
+	}
+
+	.cnode-label {
+		font-size: 1.05rem;
+		font-weight: 680;
+		color: #1f1f24;
+		line-height: 1.3;
+		margin: 0 0 0.25rem;
+		transition: color 280ms ease;
+	}
+	:global(html.dark) .cnode-label {
+		color: #e8ecf0;
+	}
+
+	.cnode:hover .cnode-label {
+		color: var(--cn-color);
+	}
+
+	.cnode-1 .cnode-label {
+		font-size: 1.15rem;
+	}
+
+	.cnode-desc {
+		font-size: 0.84rem;
+		color: #6b7280;
+		line-height: 1.55;
+		margin: 0;
+		max-width: 28rem;
+	}
+	:global(html.dark) .cnode-desc {
+		color: #8a9aa8;
+	}
+
+	/* Hidden action line — appears on hover */
+	.cnode-action {
+		display: block;
+		margin-top: 0.5rem;
+		font-size: 0.78rem;
+		font-weight: 600;
+		color: var(--cn-color);
+		opacity: 0;
+		transform: translateY(4px);
+		transition:
+			opacity 280ms ease,
+			transform 280ms ease;
+	}
+
+	.cnode:hover .cnode-action,
+	.cnode:focus-visible .cnode-action {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* ── 3. Support block ── */
+	.part-support {
+		text-align: center;
+		padding: 2rem 0 2.5rem;
+		border-top: 1px solid rgba(148, 78, 99, 0.08);
+		margin-bottom: 3rem;
+	}
+
+	.part-support-line {
+		font-size: 0.92rem;
+		color: #8a9199;
+		margin: 0 0 1rem;
+		font-style: italic;
+		line-height: 1.6;
+	}
+	:global(html.dark) .part-support-line {
+		color: #6b7a88;
+	}
+
+	.part-support-links {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+	}
+
+	.part-support-link {
+		font-size: 0.84rem;
+		font-weight: 500;
+		color: #944e63;
+		text-decoration: none;
+		padding: 0.3rem 0;
+		border-bottom: 1px solid rgba(148, 78, 99, 0.15);
+		transition:
+			color 200ms ease,
+			border-color 200ms ease;
+	}
+	.part-support-link:hover {
+		color: #3b8595;
+		border-color: rgba(59, 133, 149, 0.3);
+	}
+	:global(html.dark) .part-support-link {
+		color: #c9949c;
+		border-color: rgba(201, 148, 156, 0.15);
+	}
+	:global(html.dark) .part-support-link:hover {
+		color: #7ab8c5;
+		border-color: rgba(122, 184, 197, 0.3);
+	}
+
+	/* ── Quiz section ── */
+	.part-section {
+		margin-bottom: 3.5rem;
+	}
+	.part-section-title {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #944e63;
+		margin: 0 0 0.15rem;
+		line-height: 1.35;
+		padding-bottom: 0.6rem;
+	}
+	:global(html.dark) .part-section-title {
+		color: #c9949c;
+	}
+
+	.part-body-lead {
+		font-size: 1.05rem;
+		line-height: 1.9;
+		color: #1f1f24;
+		margin: 0 0 1rem;
+	}
+	:global(html.dark) .part-body-lead {
+		color: #e8ecf0;
+	}
+
+	.part-quiz-section {
+		padding-top: 2.5rem;
+		border-top: 1px solid rgba(148, 78, 99, 0.1);
+	}
+	:global(html.dark) .part-quiz-section {
+		border-top-color: rgba(168, 112, 128, 0.08);
+	}
+
+	.part-quiz-sub {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #6b7280;
+		margin: 0 0 1.5rem;
+	}
+	:global(html.dark) .part-quiz-sub {
+		color: #8a9aa8;
+	}
+
+	.part-quiz-container {
+		background: #ffffff;
+		border: 1px solid rgba(180, 123, 132, 0.08);
+		border-radius: 14px;
+		overflow: hidden;
+	}
+	:global(html.dark) .part-quiz-container {
+		background: #252729;
+		border-color: rgba(180, 123, 132, 0.06);
+	}
+
+	.part-quiz-inner {
+		padding: 1.5rem;
+	}
+	@media (min-width: 768px) {
+		.part-quiz-inner {
+			padding: 2rem;
+		}
+	}
+
+	.part-quiz-progress-wrap {
+		margin-bottom: 1.5rem;
+	}
+	.part-quiz-progress-meta {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.82rem;
+		font-weight: 600;
+		color: #8a9199;
+		margin-bottom: 0.5rem;
+	}
+	:global(html.dark) .part-quiz-progress-meta {
+		color: #6b7a88;
+	}
+
+	.part-quiz-track {
+		width: 100%;
+		height: 5px;
+		background: #f0f0ee;
+		border-radius: 3px;
+		overflow: hidden;
+	}
+	:global(html.dark) .part-quiz-track {
+		background: #2e3033;
+	}
+
+	.part-quiz-bar {
+		height: 100%;
+		border-radius: 3px;
+		background: linear-gradient(90deg, #944e63, #b47b84);
+		transition: width 400ms ease;
+	}
+
+	.part-quiz-heading {
+		font-size: 1.1rem;
+		font-weight: 650;
+		color: #944e63;
+		margin: 0 0 0.75rem;
+	}
+	:global(html.dark) .part-quiz-heading {
+		color: #e8ecf0;
+	}
+
+	.part-quiz-desc {
+		font-size: 0.95rem;
+		line-height: 1.8;
+		color: #556370;
+		margin: 0 0 1.25rem;
+	}
+	:global(html.dark) .part-quiz-desc {
+		color: #8a9aa8;
+	}
+
+	.part-quiz-options {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.part-option {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		width: 100%;
+		text-align: left;
+		padding: 0.9rem 1rem;
+		border: 1px solid #ebebea;
+		border-radius: 10px;
+		background: #ffffff;
+		font-size: 0.9rem;
+		line-height: 1.55;
+		color: #1f1f24;
+		cursor: pointer;
+		transition:
+			border-color 200ms ease,
+			box-shadow 200ms ease;
+	}
+	:global(html.dark) .part-option {
+		background: #1b1d21;
+		border-color: #2e3033;
+		color: #e8ecf0;
+	}
+	.part-option:hover:not(:disabled) {
+		border-color: #b47b84;
+		box-shadow: 0 2px 8px rgba(148, 78, 99, 0.05);
+	}
+	.part-option:disabled {
+		cursor: not-allowed;
+		opacity: 0.85;
+	}
+
+	.part-option-letter {
+		flex-shrink: 0;
+		width: 26px;
+		height: 26px;
+		border-radius: 50%;
+		background: rgba(148, 78, 99, 0.06);
+		color: #944e63;
+		font-weight: 700;
+		font-size: 0.78rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	:global(html.dark) .part-option-letter {
+		background: rgba(168, 112, 128, 0.1);
+		color: #c9949c;
+	}
+
+	.part-feedback {
+		margin-top: 1rem;
+		padding: 1rem;
+		border-radius: 10px;
+		font-size: 0.9rem;
+		line-height: 1.65;
+	}
+
+	.part-results-inner {
+		text-align: center;
+		padding: 2rem 0;
+	}
+	.part-results-message {
+		background: rgba(148, 78, 99, 0.05);
+		border-radius: 10px;
+		padding: 1.25rem;
+		margin: 1.25rem 0;
+		font-size: 0.95rem;
+		line-height: 1.7;
+		color: #556370;
+	}
+	:global(html.dark) .part-results-message {
+		background: rgba(168, 112, 128, 0.06);
+		color: #8a9aa8;
+	}
+
+	.part-restart {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.7rem 1.6rem;
+		border-radius: 9px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		background: #944e63;
+		color: #ffffff;
+		border: none;
+		cursor: pointer;
+		box-shadow: 0 2px 10px rgba(148, 78, 99, 0.15);
+		transition: box-shadow 200ms ease;
+	}
+	.part-restart:hover {
+		box-shadow: 0 4px 18px rgba(148, 78, 99, 0.25);
+	}
+	:global(html.dark) .part-restart {
+		background: #a87080;
+		color: #1b1d21;
+	}
+
+	.part-nav-buttons {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 1.25rem;
+	}
+	.part-nav-prev,
+	.part-nav-next {
+		padding: 0.55rem 1.25rem;
+		border-radius: 8px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		cursor: pointer;
+		border: none;
+		transition:
+			background 200ms ease,
+			box-shadow 200ms ease;
+	}
+	.part-nav-prev {
+		background: #f0f0ee;
+		color: #556370;
+	}
+	:global(html.dark) .part-nav-prev {
+		background: #2e3033;
+		color: #8a9aa8;
+	}
+	.part-nav-prev:hover {
+		background: #e5e5e3;
+	}
+	:global(html.dark) .part-nav-prev:hover {
+		background: #3a3d40;
+	}
+
+	.part-nav-next {
+		background: #944e63;
+		color: #ffffff;
+		box-shadow: 0 2px 8px rgba(148, 78, 99, 0.12);
+	}
+	:global(html.dark) .part-nav-next {
+		background: #a87080;
+	}
+	.part-nav-next:hover {
+		box-shadow: 0 4px 14px rgba(148, 78, 99, 0.2);
+	}
+
+	/* ── Quiz animations ── */
+	.question {
+		display: none;
+		animation: fadeUp 0.3s ease;
+	}
 	.question.active {
 		display: block;
 	}
-
 	.results {
 		display: none;
-		animation: fadeIn 0.3s ease-in;
+		animation: fadeUp 0.3s ease;
 	}
-
 	.results:not(.hidden) {
 		display: block;
 	}
 
-	@keyframes fadeIn {
+	@keyframes fadeUp {
 		from {
 			opacity: 0;
-			transform: translateY(10px);
+			transform: translateY(6px);
 		}
 		to {
 			opacity: 1;
@@ -462,200 +862,239 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 		}
 	}
 
-	.option-btn {
-		cursor: pointer;
-	}
-
-	.option-btn:disabled {
-		cursor: not-allowed;
-		opacity: 0.8;
-	}
-
 	.option-btn.correct {
-		animation: correctPulse 0.5s ease;
+		border-color: #10b981 !important;
+		background: rgba(16, 185, 129, 0.05) !important;
 	}
-
 	.option-btn.incorrect {
-		animation: shake 0.5s ease;
+		border-color: #ef4444 !important;
+		background: rgba(239, 68, 68, 0.03) !important;
 	}
 
-	@keyframes correctPulse {
-		0%,
-		100% {
-			transform: scale(1);
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.cnode,
+		.cnode-glow,
+		.cnode-action,
+		.part-option,
+		.part-restart,
+		.part-nav-prev,
+		.part-nav-next {
+			transition-duration: 0ms !important;
 		}
-		50% {
-			transform: scale(1.02);
-		}
-	}
-
-	@keyframes shake {
-		0%,
-		100% {
-			transform: translateX(0);
-		}
-		25% {
-			transform: translateX(-5px);
-		}
-		75% {
-			transform: translateX(5px);
-		}
-	}
-
-	.quiz-progress {
-		transition: width 0.5s ease-out;
 	}
 </style>
 
 <script>
-	// Interactive Quiz Logic
+	function initConstellation() {
+		const svg = document.getElementById('constellation-svg') as SVGSVGElement | null
+		const section = document.getElementById('constellation')
+		const nodes = document.querySelectorAll('.cnode')
+		if (!svg || !section || nodes.length < 2) return
+		const svgEl = svg
+
+		const pairs = [
+			[0, 1],
+			[0, 2],
+			[1, 3],
+			[2, 3],
+			[0, 3]
+		]
+
+		function draw() {
+			svgEl.innerHTML = ''
+			const sr = svgEl.getBoundingClientRect()
+
+			const pts: { x: number; y: number }[] = []
+			nodes.forEach((n) => {
+				const r = n.getBoundingClientRect()
+				pts.push({
+					x: r.left + r.width * 0.12 - sr.left,
+					y: r.top + r.height * 0.15 - sr.top
+				})
+			})
+
+			pairs.forEach(([a, b]) => {
+				if (!pts[a] || !pts[b]) return
+				const p = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+				const mx = (pts[a].x + pts[b].x) / 2
+				const my = (pts[a].y + pts[b].y) / 2 - 15
+				p.setAttribute('d', `M${pts[a].x},${pts[a].y} Q${mx},${my} ${pts[b].x},${pts[b].y}`)
+				p.setAttribute('fill', 'none')
+				p.setAttribute('stroke', '#8a8a8a')
+				p.setAttribute('stroke-width', '0.8')
+				p.setAttribute('stroke-opacity', '0.06')
+				p.setAttribute('stroke-dasharray', '3 7')
+				p.setAttribute('data-from', String(a))
+				p.setAttribute('data-to', String(b))
+				p.style.transition = 'stroke-opacity 280ms ease, stroke 280ms ease'
+				svgEl.appendChild(p)
+			})
+		}
+
+		draw()
+		window.addEventListener('resize', draw)
+
+		const nodeColors = ['#944E63', '#3B8595', '#C27A3A', '#4A5899']
+
+		nodes.forEach((node, idx) => {
+			node.addEventListener('mouseenter', () => {
+				section.classList.add('has-hover')
+				svgEl.querySelectorAll('path').forEach((p) => {
+					const from = parseInt(p.getAttribute('data-from') || '-1')
+					const to = parseInt(p.getAttribute('data-to') || '-1')
+					if (from === idx || to === idx) {
+						p.setAttribute('stroke', nodeColors[idx])
+						p.setAttribute('stroke-opacity', '0.35')
+						p.setAttribute('stroke-width', '1.2')
+					} else {
+						p.setAttribute('stroke-opacity', '0.02')
+					}
+				})
+			})
+
+			node.addEventListener('mouseleave', () => {
+				section.classList.remove('has-hover')
+				svgEl.querySelectorAll('path').forEach((p) => {
+					p.setAttribute('stroke', '#8a8a8a')
+					p.setAttribute('stroke-opacity', '0.06')
+					p.setAttribute('stroke-width', '0.8')
+				})
+			})
+
+			node.addEventListener('focus', () => {
+				section.classList.add('has-hover')
+				svgEl.querySelectorAll('path').forEach((p) => {
+					const from = parseInt(p.getAttribute('data-from') || '-1')
+					const to = parseInt(p.getAttribute('data-to') || '-1')
+					if (from === idx || to === idx) {
+						p.setAttribute('stroke', nodeColors[idx])
+						p.setAttribute('stroke-opacity', '0.35')
+						p.setAttribute('stroke-width', '1.2')
+					} else {
+						p.setAttribute('stroke-opacity', '0.02')
+					}
+				})
+			})
+
+			node.addEventListener('blur', () => {
+				section.classList.remove('has-hover')
+				svgEl.querySelectorAll('path').forEach((p) => {
+					p.setAttribute('stroke', '#8a8a8a')
+					p.setAttribute('stroke-opacity', '0.06')
+					p.setAttribute('stroke-width', '0.8')
+				})
+			})
+		})
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initConstellation)
+	} else {
+		initConstellation()
+	}
+	document.addEventListener('astro:page-load', initConstellation)
+
 	document.addEventListener('DOMContentLoaded', () => {
 		let currentQuestion = 1
 		let score = 0
 		const totalQuestions = 3
-
-		// Correct answers for each question
-		const correctAnswers = {
-			1: 'd', // Multiple ways to contribute
-			2: 'b', // Rotating monthly celebration
-			3: 'c' // Redirect and check in privately
-		}
-
-		// Feedback messages
-		const feedback = {
+		const correctAnswers: Record<number, string> = { 1: 'd', 2: 'b', 3: 'c' }
+		const feedbackText: Record<number, { correct: string; incorrect: string }> = {
 			1: {
 				correct:
-					'✅ Excellent! Providing multiple ways to contribute (speaking, writing, visual) respects different communication styles and cultural norms. This creates an inclusive environment where everyone can participate comfortably.',
+					'Providing multiple ways to contribute respects different communication styles and cultural norms, creating an inclusive environment where everyone can participate comfortably.',
 				incorrect:
-					'💡 Consider that students from different cultural backgrounds may have varying comfort levels with direct verbal participation. Offering multiple modes of contribution (speaking, writing, visual) creates a more inclusive environment.'
+					'Consider that students from different backgrounds may have varying comfort levels with direct verbal participation. Offering multiple modes of contribution creates a more inclusive environment.'
 			},
 			2: {
 				correct:
-					'✅ Great thinking! A rotating monthly celebration ensures diverse representation and gives everyone a chance to share their culture. This approach is both practical and inclusive.',
+					'A rotating monthly celebration ensures diverse representation and gives everyone a chance to share their culture. This approach is both practical and inclusive.',
 				incorrect:
-					'💡 The best approach involves students in the decision-making process. A rotating celebration schedule ensures all cultures are valued equally and creates ongoing learning opportunities.'
+					'The best approach involves students in the decision-making process. A rotating celebration schedule ensures all cultures are valued equally.'
 			},
 			3: {
 				correct:
-					'✅ Perfect response! Gently redirecting protects the student while addressing the issue, and following up privately shows support without putting them on the spot.',
+					'Gently redirecting protects the student while addressing the issue, and following up privately shows support without putting them on the spot.',
 				incorrect:
-					"💡 The most effective approach balances immediate intervention with sensitivity to the affected person's comfort. Gently redirecting the conversation and checking in privately respects the student's agency while addressing the harm."
+					"The most effective approach balances immediate intervention with sensitivity. Gently redirecting the conversation and checking in privately respects the student's agency while addressing the harm."
 			}
 		}
 
 		const questions = document.querySelectorAll('.question')
-		const prevBtn = document.querySelector('.prev-btn')
-		const nextBtn = document.querySelector('.next-btn')
-		const restartBtn = document.querySelector('.restart-btn')
-		const resultsDiv = document.querySelector('.results')
-		const quizProgress = document.querySelector('.quiz-progress')
-		const currentQuestionSpan = document.querySelector('.current-question')
-		const progressPercentage = document.querySelector('.progress-percentage')
+		const prevBtn = document.querySelector('.prev-btn') as HTMLButtonElement
+		const nextBtn = document.querySelector('.next-btn') as HTMLButtonElement
+		const restartBtn = document.querySelector('.restart-btn') as HTMLButtonElement
+		const resultsDiv = document.querySelector('.results') as HTMLElement
+		const quizProgress = document.querySelector('.quiz-progress') as HTMLElement
+		const currentQuestionSpan = document.querySelector('.current-question') as HTMLElement
+		const progressPercentage = document.querySelector('.progress-percentage') as HTMLElement
 
-		// Option button click handlers
 		document.querySelectorAll('.option-btn').forEach((btn) => {
-			btn.addEventListener('click', function () {
-				const question = this.closest('.question')
-				const questionNum = parseInt(question.dataset.question)
+			btn.addEventListener('click', function (this: HTMLButtonElement) {
+				const question = this.closest('.question') as HTMLElement
+				const questionNum = parseInt(question.dataset.question || '1')
 				const selectedAnswer = this.dataset.answer
-				const feedbackDiv = question.querySelector('.feedback')
-
-				// Remove previous selection
-				question.querySelectorAll('.option-btn').forEach((b) => {
-					b.classList.remove('selected', 'correct', 'incorrect')
-				})
-
-				// Mark selected
+				const feedbackDiv = question.querySelector('.feedback') as HTMLElement
+				question
+					.querySelectorAll('.option-btn')
+					.forEach((b) => b.classList.remove('selected', 'correct', 'incorrect'))
 				this.classList.add('selected')
-
-				// Check if correct
 				const isCorrect = selectedAnswer === correctAnswers[questionNum]
 				if (isCorrect) {
 					this.classList.add('correct')
-					this.style.borderColor = '#10b981'
-					this.style.backgroundColor = '#d1fae5'
 					score++
-					feedbackDiv.innerHTML = `<div class="text-green-800 dark:text-green-200">${feedback[questionNum].correct}</div>`
+					feedbackDiv.innerHTML = `<div style="color:#065f46;">${feedbackText[questionNum].correct}</div>`
 				} else {
 					this.classList.add('incorrect')
-					this.style.borderColor = '#ef4444'
-					this.style.backgroundColor = '#fee2e2'
-					feedbackDiv.innerHTML = `<div class="text-red-800 dark:text-red-200">${feedback[questionNum].incorrect}</div>`
+					feedbackDiv.innerHTML = `<div style="color:#944E63;">${feedbackText[questionNum].incorrect}</div>`
 				}
-
 				feedbackDiv.classList.remove('hidden')
-
-				// Disable all buttons after selection
-				question.querySelectorAll('.option-btn').forEach((b) => (b.disabled = true))
-
-				// Show next/prev buttons
-				if (currentQuestion < totalQuestions) {
-					nextBtn.classList.remove('hidden')
-				}
-				if (currentQuestion > 1) {
-					prevBtn.classList.remove('hidden')
-				}
+				question
+					.querySelectorAll('.option-btn')
+					.forEach((b) => ((b as HTMLButtonElement).disabled = true))
+				if (currentQuestion < totalQuestions) nextBtn.classList.remove('hidden')
+				else setTimeout(showResults, 800)
+				if (currentQuestion > 1) prevBtn.classList.remove('hidden')
 			})
 		})
 
-		// Next button
-		nextBtn.addEventListener('click', () => {
+		nextBtn?.addEventListener('click', () => {
 			if (currentQuestion < totalQuestions) {
 				questions[currentQuestion - 1].classList.remove('active')
 				questions[currentQuestion - 1].classList.add('hidden')
 				currentQuestion++
 				questions[currentQuestion - 1].classList.remove('hidden')
 				questions[currentQuestion - 1].classList.add('active')
-
 				nextBtn.classList.add('hidden')
 				updateProgress()
-
-				// Show results if last question
-				if (currentQuestion === totalQuestions) {
-					// Check if last question is answered
-					const lastQuestion = questions[currentQuestion - 1]
-					if (lastQuestion.querySelector('.option-btn.selected')) {
-						setTimeout(showResults, 1000)
-					}
-				}
 			}
 		})
-
-		// Previous button
-		prevBtn.addEventListener('click', () => {
+		prevBtn?.addEventListener('click', () => {
 			if (currentQuestion > 1) {
 				questions[currentQuestion - 1].classList.remove('active')
 				questions[currentQuestion - 1].classList.add('hidden')
 				currentQuestion--
 				questions[currentQuestion - 1].classList.remove('hidden')
 				questions[currentQuestion - 1].classList.add('active')
-
 				nextBtn.classList.remove('hidden')
 				updateProgress()
 			}
 		})
-
-		// Restart button
-		restartBtn.addEventListener('click', () => {
+		restartBtn?.addEventListener('click', () => {
 			currentQuestion = 1
 			score = 0
-
-			// Reset all questions
-			questions.forEach((q, index) => {
+			questions.forEach((q, i) => {
 				q.classList.remove('active', 'hidden')
-				if (index === 0) q.classList.add('active')
+				if (i === 0) q.classList.add('active')
 				else q.classList.add('hidden')
-
-				q.querySelectorAll('.option-btn').forEach((btn) => {
-					btn.disabled = false
-					btn.classList.remove('selected', 'correct', 'incorrect')
-					btn.style.borderColor = ''
-					btn.style.backgroundColor = ''
+				q.querySelectorAll('.option-btn').forEach((b) => {
+					;(b as HTMLButtonElement).disabled = false
+					b.classList.remove('selected', 'correct', 'incorrect')
 				})
-
-				q.querySelector('.feedback').classList.add('hidden')
+				const fb = q.querySelector('.feedback')
+				if (fb) fb.classList.add('hidden')
 			})
-
 			resultsDiv.classList.add('hidden')
 			prevBtn.classList.add('hidden')
 			nextBtn.classList.add('hidden')
@@ -664,40 +1103,29 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 
 		function updateProgress() {
 			const progress = (currentQuestion / totalQuestions) * 100
-			quizProgress.style.width = progress + '%'
-			currentQuestionSpan.textContent = currentQuestion
-			progressPercentage.textContent = Math.round(progress) + '%'
+			if (quizProgress) quizProgress.style.width = progress + '%'
+			if (currentQuestionSpan) currentQuestionSpan.textContent = String(currentQuestion)
+			if (progressPercentage) progressPercentage.textContent = Math.round(progress) + '%'
 		}
-
 		function showResults() {
 			questions.forEach((q) => q.classList.add('hidden'))
 			prevBtn.classList.add('hidden')
 			nextBtn.classList.add('hidden')
-
 			resultsDiv.classList.remove('hidden')
-			document.querySelector('.score').textContent = score
-
+			const scoreEl = document.querySelector('.score')
+			if (scoreEl) scoreEl.textContent = String(score)
 			const messageP = document.querySelector('.results-message p')
-			if (score === 3) {
-				messageP.textContent =
-					'🌟 Outstanding! You have a strong understanding of EDI principles. Consider joining our EDI committees to share your insights!'
-			} else if (score === 2) {
-				messageP.textContent =
-					"👏 Great job! You're on the right track. Keep learning and engaging with EDI resources to deepen your understanding."
-			} else {
-				messageP.textContent =
-					'📚 Thank you for participating! Explore our workshops and resources to learn more about creating inclusive environments.'
+			if (messageP) {
+				if (score === 3)
+					messageP.textContent =
+						'Outstanding! You have a strong understanding of EDI principles. Consider joining our committees to share your insights.'
+				else if (score === 2)
+					messageP.textContent =
+						"Great job! You're on the right track. Keep learning and engaging with EDI resources."
+				else
+					messageP.textContent =
+						'Thank you for participating! Explore our workshops and resources to learn more about creating inclusive environments.'
 			}
 		}
-
-		// Initialize AOS
-		import('aos').then((AOS) => {
-			AOS.init({
-				duration: 800,
-				easing: 'ease-in-out',
-				once: true,
-				offset: 100
-			})
-		})
 	})
 </script>
