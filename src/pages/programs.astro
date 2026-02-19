@@ -173,15 +173,6 @@ try {
 			</div>
 		</section>
 
-		<!-- Pull quote -->
-		<div class='prog-pullquote' aria-hidden='true'>
-			<span class='prog-pullquote-mark'></span>
-			<p class='prog-pullquote-text'>
-				Every event is a chance to learn something new — and to meet someone who sees the world
-				differently.
-			</p>
-		</div>
-
 		<!-- Upcoming Events -->
 		{
 			upcomingEvents.length > 0 && (
@@ -678,41 +669,40 @@ try {
 		opacity: 0.05;
 	}
 
-	/* ── Pull quote — Peach spark dot ── */
-	.prog-pullquote {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.85rem;
-		padding: 2rem 0 2.5rem;
-		max-width: 32rem;
-	}
-
-	.prog-pullquote-mark {
-		flex-shrink: 0;
-		width: 5px;
-		height: 5px;
-		border-radius: 50%;
+	/* ── Pull quote — full-width Peach banner ── */
+	.prog-pullquote-band {
+		width: 100vw;
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
 		background: #ffc69d;
-		margin-top: 0.6rem;
-		box-shadow: 0 0 6px rgba(255, 198, 157, 0.4);
+		padding: 1.1rem 2rem;
+		margin-bottom: 3rem;
+		text-align: center;
 	}
 
-	:global(html.dark) .prog-pullquote-mark {
+	:global(html.dark) .prog-pullquote-band {
 		background: #d4a07a;
-		box-shadow: 0 0 6px rgba(212, 160, 122, 0.25);
 	}
 
 	.prog-pullquote-text {
-		font-size: 1.15rem;
-		font-weight: 450;
-		line-height: 1.65;
+		font-size: 1rem;
+		font-weight: 500;
+		line-height: 1.5;
 		color: #cd2c58;
 		margin: 0;
 		font-style: italic;
+		white-space: nowrap;
+	}
+	@media (max-width: 900px) {
+		.prog-pullquote-text {
+			white-space: normal;
+			font-size: 0.92rem;
+		}
 	}
 
 	:global(html.dark) .prog-pullquote-text {
-		color: #d4607e;
+		color: #1b1d21;
 	}
 
 	/* ── Events sections — Rose top divider ── */

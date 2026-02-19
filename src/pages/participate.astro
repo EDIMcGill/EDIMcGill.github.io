@@ -2,12 +2,12 @@
 /**
  * Participate Page — EDI McGill
  *
- * Constellation map: free-positioned participation nodes as an interactive map.
- * Per-node accent palette (one color family per node):
- *   Share Your Story  → Plum/Rose   (#944E63)
- *   Give Feedback     → Teal/Sky    (#3B8595)
- *   Volunteer         → Amber/Coral (#C27A3A)
- *   Join a Committee  → Indigo/Blue (#4A5899)
+ * 2×2 grid of participation cards with accent top borders.
+ * Per-card accent palette:
+ *   Share Your Story  → Plum   (#944E63)
+ *   Give Feedback     → Teal   (#3B8595)
+ *   Volunteer         → Amber  (#C27A3A)
+ *   Join a Committee  → Indigo (#4A5899)
  *
  * Canvas: warm off-white (#FAFAF8), dark: #1B1D21
  */
@@ -19,72 +19,140 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 
 <BaseLayout title={title} description={description}>
 	<div class='part-canvas'>
-		<!-- ── 1. Header block ── -->
-		<div class='part-header'>
-			<h1 class='part-title'>Get Involved</h1>
-			<p class='part-sub'>How do you want to show up?</p>
-			<p class='part-micro'>Start anywhere. Every path matters.</p>
+		<!-- ── 1. Hero banner ── -->
+		<div class='part-banner'>
+			<img
+				src='/assets/participate-banner.jpg'
+				alt='Painted silhouettes of diverse people in vibrant colours'
+				class='part-banner-img'
+				loading='eager'
+			/>
+			<div class='part-banner-overlay'></div>
+			<div class='part-banner-text'>
+				<h1 class='part-title'>Get Involved</h1>
+				<p class='part-sub'>How do you want to show up?</p>
+				<p class='part-micro'>Start anywhere. Every path matters.</p>
+			</div>
 		</div>
 
-		<!-- ── 2. Constellation map ── -->
-		<section class='constellation' id='constellation' aria-label='Ways to participate'>
-			<svg class='constellation-svg' id='constellation-svg' aria-hidden='true'></svg>
+		<!-- ── 2. Participation grid ── -->
+		<section class='part-grid-wrap' aria-label='Ways to participate'>
+			<div class='part-grid'>
+				<article class='pcard pcard-1' tabindex='0'>
+					<div class='pcard-accent'></div>
+					<div class='pcard-inner'>
+						<div class='pcard-header'>
+							<svg
+								class='pcard-icon'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								stroke-width='1.8'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								aria-hidden='true'
+							>
+								<path d='M12 20h9'></path><path
+									d='M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z'></path>
+							</svg>
+							<h3 class='pcard-title'>Share Your Story</h3>
+						</div>
+						<p class='pcard-desc'>
+							Your narrative helps others see the world differently. Personal stories create bridges
+							of understanding across communities.
+						</p>
+						<span class='pcard-meta'>Anonymous option &middot; 5 min</span>
+						<span class='pcard-reveal'>You can skip any question</span>
+					</div>
+				</article>
 
-			<!-- Node 1 — Share Your Story (largest, hero node) -->
-			<article class='cnode cnode-1' data-cnode='0' tabindex='0'>
-				<div class='cnode-star'>
-					<div class='cnode-glow'></div>
-					<div class='cnode-dot'></div>
-				</div>
-				<div class='cnode-body'>
-					<span class='cnode-num'>01</span>
-					<h3 class='cnode-label'>Share Your Story</h3>
-					<p class='cnode-desc'>Your narrative helps others see the world differently.</p>
-					<span class='cnode-action'>Tell your story &rarr;</span>
-				</div>
-			</article>
+				<article class='pcard pcard-2' tabindex='0'>
+					<div class='pcard-accent'></div>
+					<div class='pcard-inner'>
+						<div class='pcard-header'>
+							<svg
+								class='pcard-icon'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								stroke-width='1.8'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								aria-hidden='true'
+							>
+								<path d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'></path>
+							</svg>
+							<h3 class='pcard-title'>Give Feedback</h3>
+						</div>
+						<p class='pcard-desc'>
+							Your input shapes what we build next. Help us understand what matters most to you on
+							campus.
+						</p>
+						<span class='pcard-meta'>Quick form &middot; 2 min</span>
+						<span class='pcard-reveal'>Responses are reviewed weekly</span>
+					</div>
+				</article>
 
-			<!-- Node 2 — Give Feedback -->
-			<article class='cnode cnode-2' data-cnode='1' tabindex='0'>
-				<div class='cnode-star'>
-					<div class='cnode-glow'></div>
-					<div class='cnode-dot'></div>
-				</div>
-				<div class='cnode-body'>
-					<span class='cnode-num'>02</span>
-					<h3 class='cnode-label'>Give Feedback</h3>
-					<p class='cnode-desc'>Your input shapes what we build next.</p>
-					<span class='cnode-action'>Share feedback &rarr;</span>
-				</div>
-			</article>
+				<article class='pcard pcard-3' tabindex='0'>
+					<div class='pcard-accent'></div>
+					<div class='pcard-inner'>
+						<div class='pcard-header'>
+							<svg
+								class='pcard-icon'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								stroke-width='1.8'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								aria-hidden='true'
+							>
+								<path
+									d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z'
+								></path>
+							</svg>
+							<h3 class='pcard-title'>Volunteer With Us</h3>
+						</div>
+						<p class='pcard-desc'>
+							Hands-on work that makes campus more inclusive. Join events, mentor peers, or lead
+							initiatives.
+						</p>
+						<span class='pcard-meta'>Flexible hours &middot; Join anytime</span>
+						<span class='pcard-reveal'>No prior experience needed</span>
+					</div>
+				</article>
 
-			<!-- Node 3 — Volunteer -->
-			<article class='cnode cnode-3' data-cnode='2' tabindex='0'>
-				<div class='cnode-star'>
-					<div class='cnode-glow'></div>
-					<div class='cnode-dot'></div>
-				</div>
-				<div class='cnode-body'>
-					<span class='cnode-num'>03</span>
-					<h3 class='cnode-label'>Volunteer With Us</h3>
-					<p class='cnode-desc'>Hands-on work that makes campus more inclusive.</p>
-					<span class='cnode-action'>Get started &rarr;</span>
-				</div>
-			</article>
-
-			<!-- Node 4 — Join a Committee -->
-			<article class='cnode cnode-4' data-cnode='3' tabindex='0'>
-				<div class='cnode-star'>
-					<div class='cnode-glow'></div>
-					<div class='cnode-dot'></div>
-				</div>
-				<div class='cnode-body'>
-					<span class='cnode-num'>04</span>
-					<h3 class='cnode-label'>Join a Committee</h3>
-					<p class='cnode-desc'>Shape policy and advocate for change.</p>
-					<span class='cnode-action'>Learn more &rarr;</span>
-				</div>
-			</article>
+				<article class='pcard pcard-4' tabindex='0'>
+					<div class='pcard-accent'></div>
+					<div class='pcard-inner'>
+						<div class='pcard-header'>
+							<svg
+								class='pcard-icon'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								stroke-width='1.8'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								aria-hidden='true'
+							>
+								<path d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'></path><circle
+									cx='9'
+									cy='7'
+									r='4'></circle><path d='M23 21v-2a4 4 0 0 0-3-3.87'></path><path
+									d='M16 3.13a4 4 0 0 1 0 7.75'></path>
+							</svg>
+							<h3 class='pcard-title'>Join a Committee</h3>
+						</div>
+						<p class='pcard-desc'>
+							Shape policy and advocate for change. Committees meet monthly to advance equity on
+							campus.
+						</p>
+						<span class='pcard-meta'>Monthly meetings &middot; All welcome</span>
+						<span class='pcard-reveal'>Open to students &amp; staff</span>
+					</div>
+				</article>
+			</div>
 		</section>
 
 		<!-- ── 3. Support block ── -->
@@ -224,307 +292,354 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 
 <style>
 	/* ══════════════════════════════════════
-	   PARTICIPATE — Constellation map
-	   Node accents:
+	   PARTICIPATE — Grid-based participation cards
+	   Card accents:
 	     Plum   #944E63  (Share Story)
 	     Teal   #3B8595  (Feedback)
 	     Amber  #C27A3A  (Volunteer)
 	     Indigo #4A5899  (Committee)
 	   ══════════════════════════════════════ */
 
+	/* Pull canvas flush to header — eat main's mt-8 and grid gap */
 	.part-canvas {
 		background: #fafaf8;
-		margin: -1rem -1rem 0;
-		padding: 3rem 1.25rem 2rem;
+		padding: 0 1.25rem 2rem;
+		margin-top: -2rem;
+		overflow-x: hidden; /* ← add this */
 	}
 	@media (min-width: 768px) {
 		.part-canvas {
-			margin: -2rem -2rem 0;
-			padding: 4rem 2.5rem 2.5rem;
+			padding: 0 2.5rem 2.5rem;
+			margin-top: -2rem;
 		}
 	}
 	:global(html.dark) .part-canvas {
 		background: #1b1d21;
 	}
 
-	/* ── 1. Header ── */
-	.part-header {
-		margin-bottom: 3.5rem;
+	/* ── 1. Hero banner — full-bleed, flush to header ── */
+	.part-banner {
+		position: relative;
+		width: 100vw;
+		left: 50%;
+		transform: translateX(-50%);
+		margin-bottom: 3rem;
+		overflow: hidden;
+		height: 260px;
 	}
 	@media (min-width: 768px) {
-		.part-header {
-			margin-bottom: 4.5rem;
+		.part-banner {
+			height: 340px;
+			margin-bottom: 3.5rem;
 		}
+	}
+
+	/* Parallax image — will-change for GPU layer */
+	.part-banner-img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 35%;
+		will-change: transform;
+		transform: translateY(0);
+		transition: none;
+	}
+
+	.part-banner-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to right,
+			rgba(30, 20, 25, 0.58) 0%,
+			rgba(30, 20, 25, 0.32) 50%,
+			rgba(30, 20, 25, 0.08) 100%
+		);
+		pointer-events: none;
+	}
+
+	/* Text container — positioned bottom-left, aligned to grid max-width */
+	.part-banner-text {
+		position: absolute;
+		bottom: 1.75rem;
+		left: 1.5rem;
+		right: 1.5rem;
+		z-index: 2;
+	}
+	@media (min-width: 768px) {
+		.part-banner-text {
+			bottom: 2.75rem;
+			left: max(2.5rem, calc((100% - 52rem) / 2));
+		}
+	}
+
+	/* Text entrance animation */
+	.part-title,
+	.part-sub,
+	.part-micro {
+		opacity: 0;
+		transform: translateY(14px);
+		animation: heroTextIn 550ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 	}
 
 	.part-title {
 		font-size: 2rem;
 		font-weight: 750;
 		line-height: 1.15;
-		color: #944e63;
+		color: #ffffff;
 		margin: 0;
 		letter-spacing: -0.01em;
+		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+		animation-delay: 80ms;
 	}
 	@media (min-width: 768px) {
 		.part-title {
 			font-size: 2.75rem;
 		}
 	}
-	:global(html.dark) .part-title {
-		color: #e8ecf0;
-	}
 
 	.part-sub {
-		font-size: 1.15rem;
-		font-weight: 400;
-		color: #3a3a42;
-		margin: 0.6rem 0 0;
+		font-size: 1.1rem;
+		font-weight: 420;
+		color: #f5ede0;
+		margin: 0.45rem 0 0;
 		line-height: 1.5;
-	}
-	:global(html.dark) .part-sub {
-		color: #b0b8c4;
+		text-shadow: 0 1px 5px rgba(0, 0, 0, 0.28);
+		animation-delay: 200ms;
 	}
 
 	.part-micro {
-		font-size: 0.82rem;
-		color: #8a9199;
-		margin: 0.35rem 0 0;
+		font-size: 0.8rem;
+		color: rgba(255, 255, 255, 0.75);
+		margin: 0.3rem 0 0;
 		font-style: italic;
-	}
-	:global(html.dark) .part-micro {
-		color: #6b7a88;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+		animation-delay: 320ms;
 	}
 
-	/* ── 2. Constellation map ── */
-	.constellation {
-		position: relative;
-		min-height: 480px;
-		margin-bottom: 3.5rem;
-		padding: 1rem 0;
-	}
-	@media (min-width: 768px) {
-		.constellation {
-			min-height: 520px;
-			margin-bottom: 4rem;
+	@keyframes heroTextIn {
+		to {
+			opacity: 1;
+			transform: translateY(0);
 		}
 	}
 
-	.constellation-svg {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-		z-index: 1;
+	@media (prefers-reduced-motion: reduce) {
+		.part-title,
+		.part-sub,
+		.part-micro {
+			animation: none;
+			opacity: 1;
+			transform: none;
+		}
 	}
 
-	/* Mobile: stack vertically */
-	.cnode {
+	/* ── 2. Card grid ── */
+	.part-grid-wrap {
+		max-width: 52rem;
+		margin: 0 auto 3.5rem;
+	}
+
+	.part-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+	@media (min-width: 640px) {
+		.part-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 1.25rem;
+		}
+	}
+
+	/* ── Scroll-triggered entrance ── */
+	.pcard {
 		position: relative;
-		z-index: 2;
-		margin-bottom: 1rem;
-		border-radius: 16px;
-		padding: 1.35rem 1.4rem 1.35rem 1.6rem;
-		background: rgba(var(--cn-rgb), 0.03);
-		border: 1px solid rgba(var(--cn-rgb), 0.08);
-		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.025);
+		background: #ffffff;
+		border-radius: 12px;
+		overflow: hidden;
+		min-height: 210px;
+		display: flex;
+		flex-direction: column;
 		cursor: pointer;
-		transition:
-			transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
-			box-shadow 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
-			background 280ms ease,
-			border-color 280ms ease,
-			opacity 280ms ease;
-	}
-
-	/* Desktop: absolute free-positioning */
-	@media (min-width: 768px) {
-		.cnode {
-			position: absolute;
-			margin-bottom: 0;
-		}
-
-		.cnode-1 {
-			top: 0;
-			left: 0;
-			width: 52%;
-			padding: 1.6rem 1.5rem 1.6rem 1.8rem;
-		}
-		.cnode-2 {
-			top: 10px;
-			right: 0;
-			width: 42%;
-		}
-		.cnode-3 {
-			bottom: 60px;
-			left: 6%;
-			width: 40%;
-		}
-		.cnode-4 {
-			bottom: 20px;
-			right: 4%;
-			width: 44%;
-		}
-	}
-
-	/* Per-node accents */
-	.cnode-1 {
-		--cn-rgb: 148, 78, 99;
-		--cn-color: #944e63;
-	}
-	.cnode-2 {
-		--cn-rgb: 59, 133, 149;
-		--cn-color: #3b8595;
-	}
-	.cnode-3 {
-		--cn-rgb: 194, 122, 58;
-		--cn-color: #c27a3a;
-	}
-	.cnode-4 {
-		--cn-rgb: 74, 88, 153;
-		--cn-color: #4a5899;
-	}
-
-	:global(html.dark) .cnode {
-		background: rgba(var(--cn-rgb), 0.05);
-		border-color: rgba(var(--cn-rgb), 0.1);
-		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-	}
-
-	/* Hover: lift, glow wash, stronger shadow */
-	.cnode:hover,
-	.cnode:focus-visible {
-		transform: translateY(-4px);
-		background: rgba(var(--cn-rgb), 0.07);
-		border-color: rgba(var(--cn-rgb), 0.18);
+		border: 1px solid rgba(0, 0, 0, 0.05);
 		box-shadow:
-			0 8px 28px rgba(var(--cn-rgb), 0.1),
-			0 0 0 1px rgba(var(--cn-rgb), 0.06);
-	}
-	:global(html.dark) .cnode:hover,
-	:global(html.dark) .cnode:focus-visible {
-		background: rgba(var(--cn-rgb), 0.1);
-		border-color: rgba(var(--cn-rgb), 0.2);
-		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-	}
-
-	/* Dim siblings when one is hovered */
-	.constellation.has-hover .cnode:not(:hover) {
-		opacity: 0.45;
-	}
-
-	.cnode:focus-visible {
-		outline: 2px solid var(--cn-color);
-		outline-offset: 3px;
-	}
-
-	/* ── Star dot ── */
-	.cnode-star {
-		position: absolute;
-		top: 1rem;
-		left: 0.9rem;
-	}
-
-	.cnode-dot {
-		width: 9px;
-		height: 9px;
-		border-radius: 50%;
-		background: var(--cn-color);
-		position: relative;
-		z-index: 1;
-		box-shadow: 0 0 4px rgba(var(--cn-rgb), 0.4);
-	}
-
-	.cnode-glow {
-		position: absolute;
-		inset: -6px;
-		border-radius: 50%;
-		background: var(--cn-color);
-		opacity: 0.12;
-		filter: blur(6px);
-		transition: opacity 280ms ease;
-	}
-
-	.cnode:hover .cnode-glow {
-		opacity: 0.35;
-	}
-
-	/* ── Card body ── */
-	.cnode-body {
-		padding-left: 1.4rem;
-	}
-
-	.cnode-num {
-		display: block;
-		font-size: 0.65rem;
-		font-weight: 700;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: var(--cn-color);
-		opacity: 0.6;
-		margin-bottom: 0.2rem;
-	}
-	:global(html.dark) .cnode-num {
-		opacity: 0.7;
-	}
-
-	.cnode-label {
-		font-size: 1.05rem;
-		font-weight: 680;
-		color: #1f1f24;
-		line-height: 1.3;
-		margin: 0 0 0.25rem;
-		transition: color 280ms ease;
-	}
-	:global(html.dark) .cnode-label {
-		color: #e8ecf0;
-	}
-
-	.cnode:hover .cnode-label {
-		color: var(--cn-color);
-	}
-
-	.cnode-1 .cnode-label {
-		font-size: 1.15rem;
-	}
-
-	.cnode-desc {
-		font-size: 0.84rem;
-		color: #6b7280;
-		line-height: 1.55;
-		margin: 0;
-		max-width: 28rem;
-	}
-	:global(html.dark) .cnode-desc {
-		color: #8a9aa8;
-	}
-
-	/* Hidden action line — appears on hover */
-	.cnode-action {
-		display: block;
-		margin-top: 0.5rem;
-		font-size: 0.78rem;
-		font-weight: 600;
-		color: var(--cn-color);
+			0 1px 3px rgba(0, 0, 0, 0.04),
+			0 4px 12px rgba(0, 0, 0, 0.02);
 		opacity: 0;
-		transform: translateY(4px);
+		transform: translateY(18px);
 		transition:
-			opacity 280ms ease,
-			transform 280ms ease;
+			opacity 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+			border-color 300ms ease;
 	}
-
-	.cnode:hover .cnode-action,
-	.cnode:focus-visible .cnode-action {
+	.pcard.is-visible {
 		opacity: 1;
 		transform: translateY(0);
 	}
 
+	/* Per-card stagger delays + accent tokens */
+	.pcard-1 {
+		--pc-color: #944e63;
+		--pc-rgb: 148, 78, 99;
+		--stagger: 0ms;
+	}
+	.pcard-2 {
+		--pc-color: #3b8595;
+		--pc-rgb: 59, 133, 149;
+		--stagger: 100ms;
+	}
+	.pcard-3 {
+		--pc-color: #c27a3a;
+		--pc-rgb: 194, 122, 58;
+		--stagger: 200ms;
+	}
+	.pcard-4 {
+		--pc-color: #4a5899;
+		--pc-rgb: 74, 88, 153;
+		--stagger: 300ms;
+	}
+
+	/* Step 1 — Progressive accent bar */
+	.pcard-accent {
+		height: 3px;
+		background: var(--pc-color);
+		flex-shrink: 0;
+		transition: height 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+	}
+	.pcard:hover .pcard-accent,
+	.pcard:focus-visible .pcard-accent {
+		height: 5px;
+	}
+
+	/* Dark mode card base */
+	:global(html.dark) .pcard {
+		background: #222428;
+		border-color: rgba(255, 255, 255, 0.05);
+		box-shadow:
+			0 1px 3px rgba(0, 0, 0, 0.15),
+			0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	/* Step 4 — Elevation on intent (only after entrance completes) */
+	.pcard.is-visible:hover,
+	.pcard.is-visible:focus-visible {
+		transform: translateY(-2px);
+		border-color: rgba(var(--pc-rgb), 0.12);
+		box-shadow:
+			0 6px 20px rgba(var(--pc-rgb), 0.08),
+			0 2px 6px rgba(0, 0, 0, 0.04);
+	}
+	:global(html.dark) .pcard.is-visible:hover,
+	:global(html.dark) .pcard.is-visible:focus-visible {
+		border-color: rgba(var(--pc-rgb), 0.18);
+		box-shadow:
+			0 6px 24px rgba(0, 0, 0, 0.35),
+			0 0 12px rgba(var(--pc-rgb), 0.06);
+	}
+
+	/* Step 6 — Focus parity */
+	.pcard:focus-visible {
+		outline: 2px solid var(--pc-color);
+		outline-offset: 2px;
+	}
+
+	/* ── Card inner — Step 3: directional cue ── */
+	.pcard-inner {
+		padding: 1.1rem 1.25rem 1.2rem;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		transform: translateX(0);
+		transition: transform 340ms cubic-bezier(0.22, 0.61, 0.36, 1);
+	}
+	.pcard:hover .pcard-inner,
+	.pcard:focus-visible .pcard-inner {
+		transform: translateX(3px);
+	}
+
+	/* Header row: icon + title */
+	.pcard-header {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-bottom: 0.6rem;
+	}
+
+	.pcard-icon {
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+		color: var(--pc-color);
+	}
+
+	.pcard-title {
+		font-size: 1rem;
+		font-weight: 620;
+		color: #1f1f24;
+		margin: 0;
+		line-height: 1.3;
+		letter-spacing: -0.005em;
+	}
+	:global(html.dark) .pcard-title {
+		color: #e8ecf0;
+	}
+
+	/* Description */
+	.pcard-desc {
+		font-size: 0.85rem;
+		color: #5a6370;
+		line-height: 1.6;
+		margin: 0;
+	}
+	:global(html.dark) .pcard-desc {
+		color: #8a9aa8;
+	}
+
+	/* Step 5 — Unified microcopy: meta line (last visible by default) */
+	.pcard-meta {
+		display: block;
+		margin-top: auto;
+		padding-top: 0.75rem;
+		font-size: 0.72rem;
+		font-weight: 550;
+		color: var(--pc-color);
+		opacity: 0.55;
+		letter-spacing: 0.01em;
+	}
+
+	/* Step 2 — Reveal line: quiet by default, fades in on intent */
+	.pcard-reveal {
+		display: block;
+		margin-top: 0.35rem;
+		font-size: 0.72rem;
+		font-weight: 450;
+		color: #7a838d;
+		font-style: italic;
+		opacity: 0;
+		max-height: 0;
+		overflow: hidden;
+		transition:
+			opacity 320ms ease 60ms,
+			max-height 320ms cubic-bezier(0.22, 0.61, 0.36, 1) 60ms;
+	}
+	:global(html.dark) .pcard-reveal {
+		color: #6b7a88;
+	}
+	.pcard:hover .pcard-reveal,
+	.pcard:focus-visible .pcard-reveal {
+		opacity: 0.75;
+		max-height: 1.5rem;
+	}
+
 	/* ── 3. Support block ── */
 	.part-support {
+		max-width: 52rem;
+		margin: 0 auto 3rem;
 		text-align: center;
 		padding: 2rem 0 2.5rem;
 		border-top: 1px solid rgba(148, 78, 99, 0.08);
-		margin-bottom: 3rem;
 	}
 
 	.part-support-line {
@@ -571,7 +686,8 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 
 	/* ── Quiz section ── */
 	.part-section {
-		margin-bottom: 3.5rem;
+		max-width: 52rem;
+		margin: 0 auto 3.5rem;
 	}
 	.part-section-title {
 		font-size: 1.25rem;
@@ -873,9 +989,14 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 
 	/* ── Reduced motion ── */
 	@media (prefers-reduced-motion: reduce) {
-		.cnode,
-		.cnode-glow,
-		.cnode-action,
+		.pcard {
+			opacity: 1 !important;
+			transform: none !important;
+			transition-duration: 0ms !important;
+		}
+		.pcard-accent,
+		.pcard-inner,
+		.pcard-reveal,
 		.part-option,
 		.part-restart,
 		.part-nav-prev,
@@ -886,114 +1007,73 @@ const description = 'Join EDI McGill - submit your story, share feedback, or vol
 </style>
 
 <script>
-	function initConstellation() {
-		const svg = document.getElementById('constellation-svg') as SVGSVGElement | null
-		const section = document.getElementById('constellation')
-		const nodes = document.querySelectorAll('.cnode')
-		if (!svg || !section || nodes.length < 2) return
-		const svgEl = svg
+	;(function initParallax() {
+		function setup() {
+			const banner = document.querySelector('.part-banner') as HTMLElement | null
+			const img = document.querySelector('.part-banner-img') as HTMLElement | null
+			if (!banner || !img) return
 
-		const pairs = [
-			[0, 1],
-			[0, 2],
-			[1, 3],
-			[2, 3],
-			[0, 3]
-		]
-
-		function draw() {
-			svgEl.innerHTML = ''
-			const sr = svgEl.getBoundingClientRect()
-
-			const pts: { x: number; y: number }[] = []
-			nodes.forEach((n) => {
-				const r = n.getBoundingClientRect()
-				pts.push({
-					x: r.left + r.width * 0.12 - sr.left,
-					y: r.top + r.height * 0.15 - sr.top
+			const bannerEl = banner
+			const imgEl = img
+			let ticking = false
+			function onScroll() {
+				if (ticking) return
+				ticking = true
+				requestAnimationFrame(() => {
+					const rect = bannerEl.getBoundingClientRect()
+					const bannerH = bannerEl.offsetHeight
+					if (rect.bottom > 0 && rect.top < window.innerHeight) {
+						const progress = (window.innerHeight - rect.top) / (window.innerHeight + bannerH)
+						const offset = (progress - 0.5) * bannerH * 0.25
+						imgEl.style.transform = `translateY(${offset}px)`
+					}
+					ticking = false
 				})
-			})
+			}
 
-			pairs.forEach(([a, b]) => {
-				if (!pts[a] || !pts[b]) return
-				const p = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-				const mx = (pts[a].x + pts[b].x) / 2
-				const my = (pts[a].y + pts[b].y) / 2 - 15
-				p.setAttribute('d', `M${pts[a].x},${pts[a].y} Q${mx},${my} ${pts[b].x},${pts[b].y}`)
-				p.setAttribute('fill', 'none')
-				p.setAttribute('stroke', '#8a8a8a')
-				p.setAttribute('stroke-width', '0.8')
-				p.setAttribute('stroke-opacity', '0.06')
-				p.setAttribute('stroke-dasharray', '3 7')
-				p.setAttribute('data-from', String(a))
-				p.setAttribute('data-to', String(b))
-				p.style.transition = 'stroke-opacity 280ms ease, stroke 280ms ease'
-				svgEl.appendChild(p)
-			})
+			window.addEventListener('scroll', onScroll, { passive: true })
+			onScroll()
 		}
 
-		draw()
-		window.addEventListener('resize', draw)
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setup)
+		} else {
+			setup()
+		}
+		document.addEventListener('astro:page-load', setup)
+	})()
+	;(function initScrollReveal() {
+		function setup() {
+			const cards = document.querySelectorAll('.pcard')
+			if (!cards.length) return
 
-		const nodeColors = ['#944E63', '#3B8595', '#C27A3A', '#4A5899']
+			if (!('IntersectionObserver' in window)) {
+				cards.forEach((c) => c.classList.add('is-visible'))
+				return
+			}
 
-		nodes.forEach((node, idx) => {
-			node.addEventListener('mouseenter', () => {
-				section.classList.add('has-hover')
-				svgEl.querySelectorAll('path').forEach((p) => {
-					const from = parseInt(p.getAttribute('data-from') || '-1')
-					const to = parseInt(p.getAttribute('data-to') || '-1')
-					if (from === idx || to === idx) {
-						p.setAttribute('stroke', nodeColors[idx])
-						p.setAttribute('stroke-opacity', '0.35')
-						p.setAttribute('stroke-width', '1.2')
-					} else {
-						p.setAttribute('stroke-opacity', '0.02')
-					}
-				})
-			})
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-visible')
+							observer.unobserve(entry.target)
+						}
+					})
+				},
+				{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+			)
 
-			node.addEventListener('mouseleave', () => {
-				section.classList.remove('has-hover')
-				svgEl.querySelectorAll('path').forEach((p) => {
-					p.setAttribute('stroke', '#8a8a8a')
-					p.setAttribute('stroke-opacity', '0.06')
-					p.setAttribute('stroke-width', '0.8')
-				})
-			})
+			cards.forEach((card) => observer.observe(card))
+		}
 
-			node.addEventListener('focus', () => {
-				section.classList.add('has-hover')
-				svgEl.querySelectorAll('path').forEach((p) => {
-					const from = parseInt(p.getAttribute('data-from') || '-1')
-					const to = parseInt(p.getAttribute('data-to') || '-1')
-					if (from === idx || to === idx) {
-						p.setAttribute('stroke', nodeColors[idx])
-						p.setAttribute('stroke-opacity', '0.35')
-						p.setAttribute('stroke-width', '1.2')
-					} else {
-						p.setAttribute('stroke-opacity', '0.02')
-					}
-				})
-			})
-
-			node.addEventListener('blur', () => {
-				section.classList.remove('has-hover')
-				svgEl.querySelectorAll('path').forEach((p) => {
-					p.setAttribute('stroke', '#8a8a8a')
-					p.setAttribute('stroke-opacity', '0.06')
-					p.setAttribute('stroke-width', '0.8')
-				})
-			})
-		})
-	}
-
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initConstellation)
-	} else {
-		initConstellation()
-	}
-	document.addEventListener('astro:page-load', initConstellation)
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setup)
+		} else {
+			setup()
+		}
+		document.addEventListener('astro:page-load', setup)
+	})()
 
 	document.addEventListener('DOMContentLoaded', () => {
 		let currentQuestion = 1

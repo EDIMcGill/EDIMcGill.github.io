@@ -14,6 +14,7 @@
 		line-height: 1.75; /* Increased for better readability */
 		font-weight: 400; /* Regular weight by default */
 		letter-spacing: 0.01em; /* Slight letter spacing for warmth */
+		overflow-x: hidden;
 	}
 
 	/* Headings - softer, more humanist */
