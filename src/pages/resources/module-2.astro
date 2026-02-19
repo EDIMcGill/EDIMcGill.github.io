@@ -472,41 +472,94 @@ const description = 'Practical strategies for integrating EDI principles into en
 	   FlipCard, QuizSingle, QuizMulti
 	   ══════════════════════════════════════ */
 
-	/* ── FlipCard overrides ── */
-	:global(.mod2 .fc-bar-front) {
-		background: var(--mod-accent) !important;
-	}
-
-	:global(.mod2 .fc-bar-back) {
-		background: var(--mod-accent-strong) !important;
-	}
-
-	:global(.mod2 .flip-card-back) {
-		background: var(--mod-canvas-tint) !important;
-	}
-
-	:global(.mod2 .flip-card) {
-		box-shadow:
-			0 1px 4px rgba(210, 83, 83, 0.06),
-			0 0 0 1px rgba(210, 83, 83, 0.12) !important;
-	}
-
-	:global(.mod2 .flip-card:hover) {
-		box-shadow:
-			0 6px 20px rgba(210, 83, 83, 0.1),
-			0 0 0 1px rgba(210, 83, 83, 0.18) !important;
-	}
-
-	:global(.mod2 .flip-card:focus) {
-		outline-color: var(--mod-accent) !important;
-	}
+	/* ── FlipCard overrides — center band bar + gradient back ── */
 
 	:global(.mod2 .fc-hint) {
 		color: var(--mod-accent-strong) !important;
 	}
 
-	:global(.mod2 .fc-answer) {
-		color: var(--mod-accent-strong) !important;
+	/* Move the bar from top to center: hide top bar, use a pseudo-element band */
+	:global(.mod2 .fc-top-bar) {
+		height: 0 !important;
+	}
+
+	:global(.mod2 .flip-card-face) {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+
+	:global(.mod2 .flip-card-front::after),
+	:global(.mod2 .flip-card-back::after) {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 33.3%;
+		height: 33.3%;
+		pointer-events: none;
+		z-index: 0;
+		border-radius: 0;
+	}
+
+	:global(.mod2 .flip-card-front::after) {
+		background: var(--fc-bar-color, #d25353);
+		opacity: 0.12;
+	}
+
+	:global(.mod2 .flip-card-back::after) {
+		background: var(--fc-bar-color-back, #b04444);
+		opacity: 0.15;
+	}
+
+	:global(.mod2 .fc-content) {
+		position: relative;
+		z-index: 1;
+	}
+
+	/* Per-card slab colors + matching back-face tinge (coral spectrum) */
+	:global(.mod2 .flip-card-container:nth-child(1)) {
+		--fc-bar-color: #d25353;
+		--fc-bar-color-back: #b04444;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(210, 83, 83, 0.07),
+			rgba(210, 83, 83, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+	}
+
+	:global(.mod2 .flip-card-container:nth-child(2)) {
+		--fc-bar-color: #ea7b7b;
+		--fc-bar-color-back: #c96868;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(234, 123, 123, 0.07),
+			rgba(234, 123, 123, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+	}
+
+	:global(.mod2 .flip-card-container:nth-child(3)) {
+		--fc-bar-color: #9e3b3b;
+		--fc-bar-color-back: #7e2f2f;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(158, 59, 59, 0.07),
+			rgba(158, 59, 59, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+	}
+
+	:global(.mod2 .flip-card-container:nth-child(4)) {
+		--fc-bar-color: #c94040;
+		--fc-bar-color-back: #a53535;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(201, 64, 64, 0.07),
+			rgba(201, 64, 64, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
 	}
 
 	/* Dark mode FlipCard */
@@ -514,20 +567,12 @@ const description = 'Practical strategies for integrating EDI principles into en
 		background: var(--mod-surface) !important;
 	}
 
-	:global(html.dark .mod2 .flip-card-back) {
-		background: var(--mod-canvas-tint) !important;
+	:global(html.dark .mod2 .flip-card-front::after) {
+		opacity: 0.08;
 	}
 
-	:global(html.dark .mod2 .flip-card) {
-		box-shadow:
-			0 1px 4px rgba(0, 0, 0, 0.15),
-			0 0 0 1px rgba(201, 85, 85, 0.1) !important;
-	}
-
-	:global(html.dark .mod2 .flip-card:hover) {
-		box-shadow:
-			0 6px 20px rgba(0, 0, 0, 0.25),
-			0 0 0 1px rgba(201, 85, 85, 0.15) !important;
+	:global(html.dark .mod2 .flip-card-back::after) {
+		opacity: 0.1;
 	}
 
 	:global(html.dark .mod2 .fc-question) {

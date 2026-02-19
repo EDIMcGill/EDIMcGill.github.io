@@ -1,21 +1,35 @@
 ---
 /**
- * Programs Page - EDI McGill
+ * Programs Page — EDI McGill
  *
- * Landing page for Events & Workshops
- * Displays upcoming and past events + auto-includes blog posts with category "Events & Workshops"
+ * Rose & Peach palette — warm, inviting, energetic on a clean canvas.
+ *   Canvas:       #FFFFFF           (neutral white)
+ *   Surface:      #FFFFFF           (cards, content blocks)
+ *   Ink:          #1F1F24           (deep charcoal)
+ *   Ink-2:        #556370           (secondary body)
+ *   Ink-muted:    #8A9199           (dates, meta)
+ *   Rose:         #CD2C58           (primary — headings, left rules, identity)
+ *   Pink:         #E06B80           (emphasis — links, card accent, hover)
+ *   Peach:        #FFC69D           (micro energy — dots, arrows, hover cues, glyphs)
+ *   Cream:        #FFE6D4           (tiny spark — pullquote dot, subtle fills)
+ *   Border:       #E5E7EB           (cool neutral)
+ *
+ * Dark mode:
+ *   Canvas:       #1B1D21
+ *   Surface:      #252729
+ *   Rose:         #D4607E (muted)
+ *   Pink:         #E08B9A (accent)
+ *   Peach:        #D4A07A (hover micro)
+ *   Cream:        #C9A88E (minimal)
  */
 import BaseLayout from '@/layouts/BaseLayout'
-import TitlePage from '@/components/TitlePage'
 import { getCollection } from 'astro:content'
-import PostCard from '@/components/PostCard'
 import { Image } from 'astro:assets'
 import FormattedDate from '@/components/FormattedDate'
 
 const title = 'Programs & Events'
 const description = 'Explore EDI workshops, events, and learning opportunities at McGill University'
 
-// Fetch events from the events collection
 let upcomingEvents: any[] = []
 let pastEvents: any[] = []
 
@@ -23,7 +37,6 @@ try {
 	const allEvents = await getCollection('events', ({ data }) => !data.draft)
 	const now = new Date()
 
-	// Sort events by date
 	upcomingEvents = allEvents
 		.filter((event) => event.data.eventDate && new Date(event.data.eventDate) >= now)
 		.sort((a, b) => new Date(a.data.eventDate!).getTime() - new Date(b.data.eventDate!).getTime())
@@ -35,7 +48,6 @@ try {
 	console.log('Events collection not yet populated')
 }
 
-// Auto-fetch blog posts with category "Events & Workshops"
 let programPosts: any[] = []
 try {
 	const allBlogPosts = await getCollection('blog', ({ data }) => !data.draft)
@@ -48,138 +60,1009 @@ try {
 ---
 
 <BaseLayout title={title} description={description}>
-	<!-- Page header with accent line -->
-	<div class='mb-8'>
-		<h1 class='text-2xl md:text-3xl font-semibold mb-4 leading-snug' style='color: #111827;'>
-			{title}
-		</h1>
+	<div class='prog-canvas'>
+		<!-- Page header + emotional anchor -->
+		<div class='prog-header'>
+			<h1 class='prog-page-title'>{title}</h1>
+			<p class='prog-anchor'>
+				Workshops, seminars, and events designed to promote equity, diversity, and inclusion at
+				McGill.
+			</p>
+		</div>
 
-		<!-- Description with accent line - vibrant colors -->
-		<div class='flex items-start gap-3'>
-			<div
-				class='w-1 h-auto min-h-[60px] rounded-full flex-shrink-0'
-				style='background: linear-gradient(to bottom, #E05A1A, #F2C94C);'
-			>
-			</div>
-			<div class='flex-1'>
-				<p class='text-base leading-loose' style='color: #374151;'>
-					Join us for engaging workshops, seminars, and events designed to promote equity,
-					diversity, and inclusion at McGill. Learn, connect, and make a difference.
+		<!-- Intro — editorial left rule -->
+		<section class='prog-section'>
+			<div class='prog-mission-block'>
+				<p class='prog-body-lead'>
+					Join us for engaging programs that bring EDI principles to life. From interactive
+					workshops to thought-provoking panel discussions, our events create spaces for learning,
+					dialogue, and action.
+				</p>
+				<p class='prog-body'>
+					Whether you're new to EDI or a seasoned advocate, there's something here for you. Connect
+					with peers, gain practical skills, and contribute to a more inclusive McGill.
 				</p>
 			</div>
-		</div>
-	</div>
+		</section>
 
-	{
-		upcomingEvents.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Upcoming Events</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-					{upcomingEvents.map((event) => (
-						<PostCard post={event} />
-					))}
-				</div>
-			</section>
-		)
-	}
-
-	{
-		pastEvents.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Past Events</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-					{pastEvents.map((event) => (
-						<PostCard post={event} />
-					))}
-				</div>
-			</section>
-		)
-	}
-
-	<!-- Program Highlights Section - Vibrant playcard (teal theme for programs) -->
-	{
-		programPosts.length > 0 && (
-			<div
-				class='rounded-2xl p-1.5 mb-6 -mx-5 sm:-mx-8 md:-mx-0'
-				style='background: linear-gradient(135deg, rgba(77, 184, 196, 0.20), rgba(77, 184, 196, 0.12)); box-shadow: 0 10px 32px rgba(77, 184, 196, 0.32), 0 0 0 1px rgba(77, 184, 196, 0.14);'
-			>
-				<div class='rounded-xl p-6 md:p-8' style='background: rgba(255, 255, 255, 0.65);'>
-					<div class='flex items-start gap-2 mb-3'>
-						<div
-							class='w-1 h-6 rounded-full flex-shrink-0 mt-1'
-							style='background: linear-gradient(to bottom, #4DB8C4, #E05A1A);'
-						/>
-						<h2 class='text-lg md:text-xl font-semibold leading-relaxed' style='color: #111827;'>
-							Program Highlights
-						</h2>
+		<!-- What we offer — value cards -->
+		<section class='prog-section'>
+			<h2 class='prog-section-title'>What we offer</h2>
+			<div class='prog-cards'>
+				<!-- Workshops -->
+				<div class='prog-card'>
+					<div class='prog-card-glyph prog-glyph-grid' aria-hidden='true'>
+						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
+							<rect
+								x='10'
+								y='10'
+								width='24'
+								height='24'
+								rx='4'
+								stroke='currentColor'
+								stroke-width='0.6'></rect>
+							<rect
+								x='46'
+								y='10'
+								width='24'
+								height='24'
+								rx='4'
+								stroke='currentColor'
+								stroke-width='0.6'></rect>
+							<rect
+								x='28'
+								y='46'
+								width='24'
+								height='24'
+								rx='4'
+								stroke='currentColor'
+								stroke-width='0.6'></rect>
+						</svg>
 					</div>
-					<p class='text-sm mb-6 leading-loose' style='color: #374151;'>
-						Learn about our workshops, seminars, and events promoting EDI at McGill.
+					<div class='prog-card-accent'></div>
+					<h3 class='prog-card-title'>Workshops</h3>
+					<p class='prog-card-tagline'>Hands-on learning experiences</p>
+					<p class='prog-body'>
+						Interactive sessions that build practical skills in recognizing bias, fostering
+						inclusion, and applying EDI principles in engineering contexts.
 					</p>
-					<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
-						{programPosts.map((post) => (
-							<a
-								href={`/post/${post.slug}`}
-								class='group bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors'
-								style='box-shadow: 0 6px 18px rgba(77, 184, 196, 0.15);'
-							>
-								<div class='aspect-[16/10] overflow-hidden'>
-									<Image
-										src={post.data.heroImage}
-										alt={post.data.title}
-										width={600}
-										height={375}
-										class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
-									/>
-								</div>
-								<div class='p-5'>
-									<div class='flex items-center gap-3 mb-2'>
-										<span
-											class='px-3 py-1 rounded-lg text-xs font-medium'
-											style='background: rgba(77, 184, 196, 0.15); color: #0F4C5C;'
+				</div>
+
+				<!-- Seminars -->
+				<div class='prog-card'>
+					<div class='prog-card-glyph prog-glyph-circles' aria-hidden='true'>
+						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
+							<circle cx='40' cy='28' r='18' stroke='currentColor' stroke-width='0.6'></circle>
+							<circle cx='28' cy='52' r='14' stroke='currentColor' stroke-width='0.5'></circle>
+							<circle cx='52' cy='52' r='14' stroke='currentColor' stroke-width='0.5'></circle>
+						</svg>
+					</div>
+					<div class='prog-card-accent'></div>
+					<h3 class='prog-card-title'>Seminars & Panels</h3>
+					<p class='prog-card-tagline'>Voices that shape understanding</p>
+					<p class='prog-body'>
+						Expert-led discussions and panel events that explore current research, lived
+						experiences, and emerging practices in equity and inclusion.
+					</p>
+				</div>
+
+				<!-- Community Events -->
+				<div class='prog-card'>
+					<div class='prog-card-glyph prog-glyph-echo' aria-hidden='true'>
+						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
+							<path
+								d='M20 40 Q40 15 60 40 Q40 65 20 40Z'
+								stroke='currentColor'
+								stroke-width='0.6'
+								fill='none'></path>
+							<path
+								d='M28 40 Q40 24 52 40 Q40 56 28 40Z'
+								stroke='currentColor'
+								stroke-width='0.5'
+								fill='none'></path>
+						</svg>
+					</div>
+					<div class='prog-card-accent'></div>
+					<h3 class='prog-card-title'>Community Events</h3>
+					<p class='prog-card-tagline'>Connection beyond the classroom</p>
+					<p class='prog-body'>
+						Social gatherings, networking events, and celebrations that build community and create
+						belonging across the graduate student body.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Pull quote -->
+		<div class='prog-pullquote' aria-hidden='true'>
+			<span class='prog-pullquote-mark'></span>
+			<p class='prog-pullquote-text'>
+				Every event is a chance to learn something new — and to meet someone who sees the world
+				differently.
+			</p>
+		</div>
+
+		<!-- Upcoming Events -->
+		{
+			upcomingEvents.length > 0 && (
+				<section class='prog-section prog-events-section'>
+					<h2 class='prog-section-title'>Upcoming events</h2>
+					<p class='prog-events-sub'>Mark your calendar — these are coming up soon.</p>
+					<div class='prog-stories-grid'>
+						{upcomingEvents.map((event) => (
+							<a href={`/post/${event.slug}`} class='prog-story-card group'>
+								{event.data.heroImage && (
+									<div class='prog-story-img'>
+										<Image
+											src={event.data.heroImage}
+											alt=''
+											width={600}
+											height={300}
+											class='prog-story-img-inner'
+										/>
+										<div class='prog-story-img-tint' />
+									</div>
+								)}
+								<div class='prog-story-content'>
+									<div class='prog-story-meta'>
+										{event.data.eventDate && (
+											<span class='prog-story-date'>
+												<FormattedDate date={event.data.eventDate} />
+											</span>
+										)}
+									</div>
+									<h3 class='prog-story-title'>{event.data.title}</h3>
+									<p class='prog-story-excerpt'>{event.data.description}</p>
+									<span class='prog-story-link'>
+										Learn more
+										<svg
+											class='prog-story-arrow'
+											width='14'
+											height='14'
+											viewBox='0 0 24 24'
+											fill='none'
+											aria-hidden='true'
 										>
-											Programs
-										</span>
-										<FormattedDate date={post.data.pubDate} class='text-xs' />
-									</div>
-									<h3
-										class='text-base md:text-lg font-semibold mb-2 leading-snug'
-										style='color: #1F2937;'
-									>
-										{post.data.title}
-									</h3>
-									<p class='text-sm line-clamp-3 leading-relaxed' style='color: #5F6368;'>
-										{post.data.description}
-									</p>
-									<div
-										class='mt-3 text-sm inline-block no-underline group-hover:underline font-medium'
-										style='color: #4DB8C4; text-decoration-color: rgba(77, 184, 196, 0.3);'
-									>
-										Read more
-									</div>
+											<path
+												d='M5 12h14M13 6l6 6-6 6'
+												stroke='currentColor'
+												stroke-width='1.8'
+												stroke-linecap='round'
+												stroke-linejoin='round'
+											/>
+										</svg>
+									</span>
 								</div>
 							</a>
 						))}
 					</div>
-				</div>
-			</div>
-		)
-	}
+				</section>
+			)
+		}
 
-	{
-		upcomingEvents.length === 0 && pastEvents.length === 0 && programPosts.length === 0 && (
-			<div class='text-center py-12 text-gray-600 dark:text-gray-400'>
-				<p class='text-lg'>No events currently scheduled. Check back soon for updates!</p>
+		<!-- Program Highlights (blog posts) -->
+		{
+			programPosts.length > 0 && (
+				<section class='prog-section prog-events-section'>
+					<h2 class='prog-section-title'>Program highlights</h2>
+					<p class='prog-events-sub'>
+						Stories and recaps from our workshops, seminars, and community events.
+					</p>
+					<div class='prog-stories-grid'>
+						{programPosts.map((post) => (
+							<a href={`/post/${post.slug}`} class='prog-story-card group'>
+								<div class='prog-story-img'>
+									<Image
+										src={post.data.heroImage}
+										alt=''
+										width={600}
+										height={300}
+										class='prog-story-img-inner'
+									/>
+									<div class='prog-story-img-tint' />
+								</div>
+								<div class='prog-story-content'>
+									<div class='prog-story-meta'>
+										<span class='prog-story-date'>
+											<FormattedDate date={post.data.pubDate} />
+										</span>
+									</div>
+									<h3 class='prog-story-title'>{post.data.title}</h3>
+									<p class='prog-story-excerpt'>{post.data.description}</p>
+									<span class='prog-story-link'>
+										Read more
+										<svg
+											class='prog-story-arrow'
+											width='14'
+											height='14'
+											viewBox='0 0 24 24'
+											fill='none'
+											aria-hidden='true'
+										>
+											<path
+												d='M5 12h14M13 6l6 6-6 6'
+												stroke='currentColor'
+												stroke-width='1.8'
+												stroke-linecap='round'
+												stroke-linejoin='round'
+											/>
+										</svg>
+									</span>
+								</div>
+							</a>
+						))}
+					</div>
+				</section>
+			)
+		}
+
+		<!-- Past Events -->
+		{
+			pastEvents.length > 0 && (
+				<section class='prog-section prog-events-section'>
+					<h2 class='prog-section-title'>Past events</h2>
+					<p class='prog-events-sub'>A look back at what we've done together.</p>
+					<div class='prog-stories-grid'>
+						{pastEvents.map((event) => (
+							<a href={`/post/${event.slug}`} class='prog-story-card group'>
+								{event.data.heroImage && (
+									<div class='prog-story-img'>
+										<Image
+											src={event.data.heroImage}
+											alt=''
+											width={600}
+											height={300}
+											class='prog-story-img-inner'
+										/>
+										<div class='prog-story-img-tint' />
+									</div>
+								)}
+								<div class='prog-story-content'>
+									<div class='prog-story-meta'>
+										<span class='prog-story-date'>
+											<FormattedDate date={event.data.pubDate} />
+										</span>
+									</div>
+									<h3 class='prog-story-title'>{event.data.title}</h3>
+									<p class='prog-story-excerpt'>{event.data.description}</p>
+									<span class='prog-story-link'>
+										View details
+										<svg
+											class='prog-story-arrow'
+											width='14'
+											height='14'
+											viewBox='0 0 24 24'
+											fill='none'
+											aria-hidden='true'
+										>
+											<path
+												d='M5 12h14M13 6l6 6-6 6'
+												stroke='currentColor'
+												stroke-width='1.8'
+												stroke-linecap='round'
+												stroke-linejoin='round'
+											/>
+										</svg>
+									</span>
+								</div>
+							</a>
+						))}
+					</div>
+				</section>
+			)
+		}
+
+		{
+			upcomingEvents.length === 0 && pastEvents.length === 0 && programPosts.length === 0 && (
+				<section class='prog-section'>
+					<div class='prog-empty'>
+						<p class='prog-body-lead'>No events currently scheduled.</p>
+						<p class='prog-body'>Check back soon — we're always planning something new.</p>
+					</div>
+				</section>
+			)
+		}
+
+		<!-- CTA -->
+		<section class='prog-cta'>
+			<h2 class='prog-cta-title'>Want to attend or propose an event?</h2>
+			<p class='prog-body' style='max-width: 36rem;'>
+				We welcome ideas for workshops, panels, and community events. Reach out to collaborate or
+				stay updated on what's coming next.
+			</p>
+			<p class='prog-cta-reassurance'>
+				All events are open to the McGill community — no prior experience needed.
+			</p>
+			<div class='prog-cta-actions'>
+				<a href='/participate' class='prog-cta-primary'>Get involved</a>
+				<a href='/resources' class='prog-cta-secondary'>Browse resources</a>
 			</div>
-		)
-	}
+		</section>
+	</div>
 </BaseLayout>
 
 <style>
-	.line-clamp-3 {
+	/* ══════════════════════════════════════
+	   PROGRAMS PAGE — Rose & Peach palette
+	   Canvas:   #FFFFFF (neutral white)
+	   Ink:      #1F1F24 / #556370
+	   Rose:     #CD2C58 (primary — authority, identity)
+	   Pink:     #E06B80 (emphasis — links, accent lines)
+	   Peach:    #FFC69D (micro energy — dots, arrows, hover)
+	   Cream:    #FFE6D4 (tiny spark only)
+	   Border:   #E5E7EB (cool neutral)
+	   ══════════════════════════════════════ */
+
+	.prog-canvas {
+		background: #ffffff;
+		margin: -1rem -1rem 0;
+		padding: 2rem 1rem 0;
+	}
+
+	@media (min-width: 768px) {
+		.prog-canvas {
+			margin: -2rem -2rem 0;
+			padding: 2.5rem 2rem 0;
+		}
+	}
+
+	:global(html.dark) .prog-canvas {
+		background: #1b1d21;
+	}
+
+	/* ── Typography ── */
+	.prog-page-title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: #cd2c58;
+		margin: 0;
+	}
+
+	@media (min-width: 768px) {
+		.prog-page-title {
+			font-size: 2.25rem;
+		}
+	}
+
+	:global(html.dark) .prog-page-title {
+		color: #e8ecf0;
+	}
+
+	.prog-anchor {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #556370;
+		margin: 0.6rem 0 0;
+		font-style: italic;
+		white-space: nowrap;
+	}
+
+	:global(html.dark) .prog-anchor {
+		color: #9aacbb;
+	}
+
+	.prog-section-title {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #cd2c58;
+		margin: 0 0 0.15rem;
+		line-height: 1.35;
+		position: relative;
+		padding-bottom: 0.6rem;
+	}
+
+	.prog-section-title::after {
+		display: none;
+	}
+
+	:global(html.dark) .prog-section-title {
+		color: #d4607e;
+	}
+
+	:global(html.dark) .prog-section-title::after {
+		display: none;
+	}
+
+	.prog-body-lead {
+		font-size: 1.05rem;
+		line-height: 1.9;
+		color: #1f1f24;
+		margin: 0 0 1rem;
+	}
+
+	:global(html.dark) .prog-body-lead {
+		color: #e8ecf0;
+	}
+
+	.prog-body {
+		font-size: 0.95rem;
+		line-height: 1.8;
+		color: #556370;
+		margin: 0;
+	}
+
+	:global(html.dark) .prog-body {
+		color: #9aacbb;
+	}
+
+	/* ── Layout ── */
+	.prog-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.prog-section {
+		margin-bottom: 3.5rem;
+	}
+
+	/* ── Intro — editorial left rule (Rose) ── */
+	.prog-mission-block {
+		border-left: 3px solid #cd2c58;
+		padding-left: 1.25rem;
+		max-width: 56rem;
+		position: relative;
+	}
+
+	.prog-mission-block::before {
+		content: '';
+		position: absolute;
+		left: -2px;
+		top: 0;
+		bottom: 0;
+		width: 6px;
+		background: rgba(205, 44, 88, 0.12);
+		filter: blur(4px);
+		pointer-events: none;
+	}
+
+	:global(html.dark) .prog-mission-block {
+		border-left-color: #d4607e;
+	}
+
+	:global(html.dark) .prog-mission-block::before {
+		background: rgba(212, 96, 126, 0.15);
+	}
+
+	/* ── Value cards — Pink accent line, Rose title ── */
+	.prog-cards {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	@media (min-width: 768px) {
+		.prog-cards {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.25rem;
+		}
+	}
+
+	.prog-card {
+		position: relative;
+		overflow: hidden;
+		background: #ffffff;
+		border: 1px solid rgba(224, 107, 128, 0.1);
+		border-radius: 12px;
+		padding: 1.5rem;
+		transition:
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .prog-card {
+		background: #252729;
+		border-color: rgba(224, 107, 128, 0.08);
+	}
+
+	.prog-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 6px 20px rgba(205, 44, 88, 0.06);
+		border-color: rgba(255, 198, 157, 0.3);
+	}
+
+	:global(html.dark) .prog-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+		border-color: rgba(212, 96, 126, 0.15);
+	}
+
+	.prog-card:hover .prog-card-accent {
+		opacity: 0.7;
+		box-shadow: 0 0 10px rgba(255, 198, 157, 0.25);
+	}
+
+	.prog-card:hover .prog-card-title {
+		color: #e06b80;
+	}
+
+	:global(html.dark) .prog-card:hover .prog-card-title {
+		color: #e08b9a;
+	}
+
+	/* Top accent thread — Pink */
+	.prog-card-accent {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: #e06b80;
+		opacity: 0.35;
+		box-shadow: 0 0 6px rgba(224, 107, 128, 0.12);
+		transition:
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .prog-card-accent {
+		background: #e08b9a;
+		opacity: 0.3;
+		box-shadow: 0 0 6px rgba(224, 139, 154, 0.15);
+	}
+
+	.prog-card-title {
+		font-size: 1rem;
+		font-weight: 650;
+		color: #cd2c58;
+		margin: 0 0 0.2rem;
+		transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .prog-card-title {
+		color: #e8ecf0;
+	}
+
+	.prog-card-tagline {
+		font-size: 0.82rem;
+		color: #8a9199;
+		margin: 0 0 0.75rem;
+		font-style: italic;
+		line-height: 1.5;
+		position: relative;
+		padding-left: 0.75rem;
+	}
+
+	.prog-card-tagline::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: #ffc69d;
+		opacity: 0.7;
+	}
+
+	:global(html.dark) .prog-card-tagline {
+		color: #9aacbb;
+	}
+
+	:global(html.dark) .prog-card-tagline::before {
+		background: #d4a07a;
+		opacity: 0.5;
+	}
+
+	/* Corner glyph watermarks — Cream spark at 3–4% */
+	.prog-card-glyph {
+		position: absolute;
+		top: -4px;
+		right: -4px;
+		width: 80px;
+		height: 80px;
+		pointer-events: none;
+	}
+
+	.prog-glyph-grid {
+		color: #ffe6d4;
+		opacity: 0.15;
+	}
+
+	.prog-glyph-circles {
+		color: #ffe6d4;
+		opacity: 0.15;
+	}
+
+	.prog-glyph-echo {
+		color: #ffe6d4;
+		opacity: 0.18;
+	}
+
+	:global(html.dark) .prog-glyph-grid,
+	:global(html.dark) .prog-glyph-circles {
+		opacity: 0.04;
+	}
+
+	:global(html.dark) .prog-glyph-echo {
+		opacity: 0.05;
+	}
+
+	/* ── Pull quote — Peach spark dot ── */
+	.prog-pullquote {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+		padding: 2rem 0 2.5rem;
+		max-width: 32rem;
+	}
+
+	.prog-pullquote-mark {
+		flex-shrink: 0;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: #ffc69d;
+		margin-top: 0.6rem;
+		box-shadow: 0 0 6px rgba(255, 198, 157, 0.4);
+	}
+
+	:global(html.dark) .prog-pullquote-mark {
+		background: #d4a07a;
+		box-shadow: 0 0 6px rgba(212, 160, 122, 0.25);
+	}
+
+	.prog-pullquote-text {
+		font-size: 1.15rem;
+		font-weight: 450;
+		line-height: 1.65;
+		color: #cd2c58;
+		margin: 0;
+		font-style: italic;
+	}
+
+	:global(html.dark) .prog-pullquote-text {
+		color: #d4607e;
+	}
+
+	/* ── Events sections — Rose top divider ── */
+	.prog-events-section {
+		padding-top: 2.5rem;
+		border-top: 1px solid rgba(205, 44, 88, 0.12);
+		position: relative;
+		background: transparent;
+	}
+
+	:global(html.dark) .prog-events-section {
+		border-top-color: rgba(212, 96, 126, 0.1);
+		background: transparent;
+	}
+
+	.prog-events-sub {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #556370;
+		margin: 0 0 1.5rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	:global(html.dark) .prog-events-sub {
+		color: #9aacbb;
+	}
+
+	.prog-stories-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	@media (min-width: 768px) {
+		.prog-stories-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.prog-stories-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	/* Story / Event cards */
+	.prog-story-card {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-radius: 12px;
+		text-decoration: none;
+		transition:
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .prog-story-card {
+		background: #252729;
+		border-color: rgba(212, 96, 126, 0.08);
+	}
+
+	.prog-story-card:hover {
+		box-shadow: 0 6px 20px rgba(205, 44, 88, 0.08);
+		transform: translateY(-2px);
+	}
+
+	:global(html.dark) .prog-story-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	.prog-story-img {
+		position: relative;
+		height: 140px;
+		overflow: hidden;
+		flex-shrink: 0;
+	}
+
+	.prog-story-img-inner {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.prog-story-card:hover .prog-story-img-inner {
+		transform: scale(1.03);
+	}
+
+	.prog-story-img-tint {
+		position: absolute;
+		inset: 0;
+		background: rgba(27, 29, 33, 0.05);
+		pointer-events: none;
+	}
+
+	:global(html.dark) .prog-story-img-tint {
+		background: rgba(27, 29, 33, 0.3);
+	}
+
+	.prog-story-content {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 1.25rem 1.35rem;
+	}
+
+	.prog-story-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.prog-story-date {
+		font-size: 0.78rem;
+		color: #8a9199;
+	}
+
+	:global(html.dark) .prog-story-date {
+		color: #7a8a99;
+	}
+
+	.prog-story-title {
+		font-size: 1.05rem;
+		font-weight: 600;
+		color: #cd2c58;
+		line-height: 1.4;
+		margin: 0 0 0.35rem;
+	}
+
+	:global(html.dark) .prog-story-title {
+		color: #e8ecf0;
+	}
+
+	.prog-story-excerpt {
+		font-size: 0.875rem;
+		line-height: 1.7;
+		color: #556370;
+		margin: 0;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+	}
+
+	:global(html.dark) .prog-story-excerpt {
+		color: #9aacbb;
+	}
+
+	.prog-story-link {
+		margin-top: auto;
+		padding-top: 0.75rem;
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: #e06b80;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .prog-story-link {
+		color: #e08b9a;
+	}
+
+	.prog-story-card:hover .prog-story-link {
+		color: #ffc69d;
+	}
+
+	:global(html.dark) .prog-story-card:hover .prog-story-link {
+		color: #d4a07a;
+	}
+
+	.prog-story-arrow {
+		transition:
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1);
+		opacity: 0;
+	}
+
+	.prog-story-card:hover .prog-story-arrow {
+		opacity: 1;
+		transform: translateX(2px);
+	}
+
+	/* ── Empty state ── */
+	.prog-empty {
+		text-align: center;
+		padding: 3rem 1rem;
+		border: 1px dashed rgba(205, 44, 88, 0.15);
+		border-radius: 12px;
+	}
+
+	:global(html.dark) .prog-empty {
+		border-color: rgba(212, 96, 126, 0.1);
+	}
+
+	/* ── CTA — Rose divider, Pink primary button ── */
+	.prog-cta {
+		border-top: 1px solid rgba(205, 44, 88, 0.12);
+		padding-top: 3rem;
+		margin-bottom: 2rem;
+	}
+
+	:global(html.dark) .prog-cta {
+		border-top-color: rgba(212, 96, 126, 0.1);
+	}
+
+	.prog-cta-title {
+		font-size: 1.35rem;
+		font-weight: 600;
+		color: #cd2c58;
+		margin: 0 0 0.75rem;
+		line-height: 1.3;
+	}
+
+	:global(html.dark) .prog-cta-title {
+		color: #e8ecf0;
+	}
+
+	.prog-cta-reassurance {
+		font-size: 0.88rem;
+		color: #8a9199;
+		font-style: italic;
+		margin: 0.75rem 0 0;
+		max-width: 32rem;
+		line-height: 1.6;
+	}
+
+	:global(html.dark) .prog-cta-reassurance {
+		color: #7a8a99;
+	}
+
+	.prog-cta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
+
+	.prog-cta-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.7rem 1.6rem;
+		border-radius: 9px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		background: #e06b80;
+		color: #ffffff;
+		text-decoration: none;
+		box-shadow: 0 2px 10px rgba(224, 107, 128, 0.2);
+		transition:
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			outline-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .prog-cta-primary {
+		background: #e08b9a;
+		color: #1b1d21;
+		box-shadow: 0 2px 10px rgba(224, 139, 154, 0.25);
+	}
+
+	.prog-cta-primary:hover {
+		box-shadow:
+			0 4px 18px rgba(224, 107, 128, 0.3),
+			0 0 0 2px rgba(255, 198, 157, 0.2);
+	}
+
+	:global(html.dark) .prog-cta-primary:hover {
+		box-shadow:
+			0 4px 18px rgba(224, 139, 154, 0.35),
+			0 0 0 2px rgba(212, 160, 122, 0.15);
+	}
+
+	.prog-cta-primary:focus-visible {
+		outline: 2px solid #cd2c58;
+		outline-offset: 2px;
+	}
+
+	.prog-cta-secondary {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #cd2c58;
+		text-decoration: none;
+		padding: 0.7rem 1.1rem;
+		border: 1px solid #cd2c58;
+		border-radius: 9px;
+		transition:
+			background 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .prog-cta-secondary {
+		color: #d4607e;
+		border-color: rgba(212, 96, 126, 0.25);
+	}
+
+	.prog-cta-secondary:hover {
+		background: rgba(205, 44, 88, 0.04);
+		border-color: #e06b80;
+		color: #e06b80;
+		text-decoration: none;
+	}
+
+	:global(html.dark) .prog-cta-secondary:hover {
+		background: rgba(212, 96, 126, 0.08);
+		border-color: rgba(224, 139, 154, 0.35);
+		color: #d4a07a;
+	}
+
+	.prog-cta-secondary:focus-visible {
+		outline: 2px solid #cd2c58;
+		outline-offset: 2px;
+	}
+
+	/* ── Focus rings — Rose for accessibility ── */
+	.prog-story-card:focus-visible,
+	.prog-card:focus-visible {
+		outline: 2px solid #cd2c58;
+		outline-offset: 2px;
+	}
+
+	:global(html.dark) .prog-story-card:focus-visible,
+	:global(html.dark) .prog-card:focus-visible,
+	:global(html.dark) .prog-cta-primary:focus-visible,
+	:global(html.dark) .prog-cta-secondary:focus-visible {
+		outline-color: #d4607e;
+	}
+
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.prog-card,
+		.prog-card-accent,
+		.prog-card-title,
+		.prog-story-card,
+		.prog-story-img-inner,
+		.prog-story-link,
+		.prog-story-arrow,
+		.prog-cta-primary,
+		.prog-cta-secondary {
+			transition-duration: 0ms !important;
+		}
 	}
 </style>

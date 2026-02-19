@@ -2,16 +2,13 @@
 /**
  * Module 3 — Leading Change and Building Inclusive Communities
  *
- * Module-scoped green theme (does NOT replace site identity):
- *   Accent Primary:   #6CA651  Fresh Green (structure, leadership emphasis)
- *   Accent Secondary: #BBCB2E  Lime Accent (highlights, progress cues)
- *   Accent Strong:    #6B7445  Deep Moss (text-on-color, strong borders, labels)
- *   Accent Muted:     #839705  Olive Green (dividers, secondary outlines)
- *   Canvas Tint:      #F0F5EC  (very subtle green wash, small areas only)
- *   Neutral Surface:  white / near-white (reading cards, content)
- *
- * Dark mode: greens become accent lines/labels (no large green fills),
- *   saturation reduced to avoid neon.
+ * Module-scoped green theme:
+ *   Hero Banner:   #437057  (deep forest green with #F6F0D7 / #E3DE61 text)
+ *   Emphasis:      #97B067  (callout emphasis banners)
+ *   Default bg:    translucent #437057  (section callouts)
+ *   Default border:#C5D89D  (callout left border)
+ *   Strong text:   #437057  (headings on neutral)
+ *   Surface:       white / near-white
  */
 import BaseLayout from '@/layouts/BaseLayout'
 import CalloutBox from '@/components/learning/CalloutBox'
@@ -246,11 +243,11 @@ const description = 'Become an advocate and leader for EDI in engineering'
 	   Green — grounded leadership, systems thinking
 	   ══════════════════════════════════════ */
 	.mod3 {
-		--mod-accent: #6ca651;
-		--mod-accent-secondary: #bbcb2e;
-		--mod-accent-strong: #6b7445;
-		--mod-accent-muted: #839705;
-		--mod-canvas-tint: #f0f5ec;
+		--mod-accent: #437057;
+		--mod-accent-secondary: #97b067;
+		--mod-accent-strong: #437057;
+		--mod-accent-muted: #c5d89d;
+		--mod-canvas-tint: rgba(67, 112, 87, 0.06);
 		--mod-surface: #ffffff;
 		--mod-ink: #1f2937;
 		--mod-ink-2: #374151;
@@ -258,30 +255,30 @@ const description = 'Become an advocate and leader for EDI in engineering'
 	}
 
 	:global(html.dark) .mod3 {
-		--mod-accent: #7db866;
-		--mod-accent-secondary: #a5b52e;
-		--mod-accent-strong: #9ba87d;
-		--mod-accent-muted: #8a9745;
-		--mod-canvas-tint: #222620;
+		--mod-accent: #6a9b7a;
+		--mod-accent-secondary: #8fa860;
+		--mod-accent-strong: #8bb89b;
+		--mod-accent-muted: #7a8e5e;
+		--mod-canvas-tint: #1e2620;
 		--mod-surface: #1e201e;
 		--mod-ink: #e8e5ed;
 		--mod-ink-2: #c5c0ce;
-		--mod-border: rgba(108, 166, 81, 0.12);
+		--mod-border: rgba(67, 112, 87, 0.12);
 	}
 
-	/* ── Hero slab — full-width banner ── */
+	/* ── Hero slab — solid #437057 with light text ── */
 	.mod3-hero {
 		max-width: 100%;
 		margin: 0 0 2.5rem;
 		padding: 2.5rem 1.5rem 2rem;
-		background: rgba(240, 245, 236, 0.4);
-		border-top: 4px solid var(--mod-accent);
+		background: #437057;
+		border-top: 4px solid #c5d89d;
 		position: relative;
 	}
 
 	:global(html.dark) .mod3-hero {
-		background: rgba(34, 38, 32, 0.4);
-		border-top-color: var(--mod-accent);
+		background: #2e4f3d;
+		border-top-color: #7a8e5e;
 	}
 
 	@media (min-width: 768px) {
@@ -295,19 +292,19 @@ const description = 'Become an advocate and leader for EDI in engineering'
 		align-items: center;
 		font-size: 0.85rem;
 		font-weight: 500;
-		color: var(--mod-accent-strong);
+		color: rgba(255, 255, 255, 0.7);
 		text-decoration: none;
 		margin-bottom: 1rem;
 		transition: color 140ms ease;
 	}
 
 	.mod3-back:hover {
-		color: var(--mod-accent);
+		color: #ffffff;
 		text-decoration: none;
 	}
 
 	:global(html.dark) .mod3-back {
-		color: var(--mod-accent-strong);
+		color: rgba(255, 255, 255, 0.6);
 	}
 
 	.mod3-pill {
@@ -318,23 +315,23 @@ const description = 'Become an advocate and leader for EDI in engineering'
 		text-transform: uppercase;
 		padding: 0.2rem 0.65rem;
 		border-radius: 5px;
-		background: rgba(187, 203, 46, 0.15);
-		border: 1px solid rgba(187, 203, 46, 0.35);
-		color: var(--mod-accent-strong);
+		background: rgba(255, 255, 255, 0.12);
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		color: #e3de61;
 		margin-bottom: 0.75rem;
 	}
 
 	:global(html.dark) .mod3-pill {
-		background: rgba(165, 181, 46, 0.1);
-		border-color: rgba(165, 181, 46, 0.25);
-		color: var(--mod-accent-strong);
+		background: rgba(255, 255, 255, 0.1);
+		border-color: rgba(255, 255, 255, 0.2);
+		color: #c5c44e;
 	}
 
 	.mod3-title {
 		font-size: 1.65rem;
 		font-weight: 700;
 		line-height: 1.25;
-		color: var(--mod-ink);
+		color: #f6f0d7;
 		margin: 0 0 1.25rem;
 		max-width: 72rem;
 	}
@@ -355,14 +352,14 @@ const description = 'Become an advocate and leader for EDI in engineering'
 		width: 3px;
 		flex-shrink: 0;
 		border-radius: 2px;
-		background: var(--mod-accent);
-		opacity: 0.6;
+		background: #c5d89d;
+		opacity: 0.8;
 	}
 
 	.mod3-intro-text {
 		font-size: 0.95rem;
 		line-height: 1.7;
-		color: var(--mod-ink-2);
+		color: #f6f0d7;
 		margin: 0;
 	}
 
@@ -538,28 +535,28 @@ const description = 'Become an advocate and leader for EDI in engineering'
 		border-radius: 8px;
 		font-size: 0.875rem;
 		font-weight: 600;
-		background: var(--mod-accent-strong);
+		background: #437057;
 		color: #ffffff;
 		text-decoration: none;
-		box-shadow: 0 2px 8px rgba(107, 116, 69, 0.2);
+		box-shadow: 0 2px 8px rgba(67, 112, 87, 0.2);
 		transition:
 			background 140ms ease,
 			box-shadow 140ms ease;
 	}
 
 	.mod3-nav-next:hover {
-		background: var(--mod-accent);
-		box-shadow: 0 4px 14px rgba(108, 166, 81, 0.25);
+		background: #97b067;
+		box-shadow: 0 4px 14px rgba(151, 176, 103, 0.25);
 		text-decoration: none;
 	}
 
 	:global(html.dark) .mod3-nav-next {
-		background: var(--mod-accent);
-		box-shadow: 0 2px 8px rgba(125, 184, 102, 0.25);
+		background: #6a9b7a;
+		box-shadow: 0 2px 8px rgba(106, 155, 122, 0.25);
 	}
 
 	:global(html.dark) .mod3-nav-next:hover {
-		background: var(--mod-accent-secondary);
+		background: #8fa860;
 		color: #1e201e;
 	}
 
@@ -568,80 +565,85 @@ const description = 'Become an advocate and leader for EDI in engineering'
 	   FlipCard, QuizSingle, QuizMulti, CalloutBox
 	   ══════════════════════════════════════ */
 
-	/* ── CalloutBox: emphasis uses Deep Moss for contrast with white text ── */
+	/* ── CalloutBox: emphasis banner #97B067, default translucent #437057 + #C5D89D border ── */
 	:global(.mod3 .callout-emphasis) {
-		background: var(--mod-accent-strong) !important;
+		background: #97b067 !important;
+		color: #ffffff !important;
+	}
+
+	:global(.mod3 .callout-emphasis h3) {
+		color: #ffffff !important;
+	}
+
+	:global(.mod3 .callout-emphasis p) {
+		color: rgba(255, 255, 255, 0.85) !important;
 	}
 
 	:global(html.dark .mod3 .callout-emphasis) {
-		background: #4a5235 !important;
+		background: #6a8450 !important;
+	}
+
+	:global(.mod3 .callout-default) {
+		background: rgba(67, 112, 87, 0.06) !important;
+		border-left: 4px solid #c5d89d !important;
+	}
+
+	:global(.mod3 .callout-default h3) {
+		color: #437057 !important;
 	}
 
 	:global(html.dark .mod3 .callout-default) {
-		background: var(--mod-canvas-tint) !important;
-		border-left-color: var(--mod-accent) !important;
+		background: rgba(67, 112, 87, 0.1) !important;
+		border-left-color: #7a8e5e !important;
 	}
 
 	:global(html.dark .mod3 .callout-default h3) {
 		color: var(--mod-ink) !important;
 	}
 
-	/* ── FlipCard overrides ── */
-	:global(.mod3 .fc-bar-front) {
-		background: var(--mod-accent) !important;
-	}
-
-	:global(.mod3 .fc-bar-back) {
-		background: var(--mod-accent-strong) !important;
-	}
-
-	:global(.mod3 .flip-card-back) {
-		background: var(--mod-canvas-tint) !important;
-	}
-
-	:global(.mod3 .flip-card) {
-		box-shadow:
-			0 1px 4px rgba(108, 166, 81, 0.06),
-			0 0 0 1px rgba(108, 166, 81, 0.12) !important;
-	}
-
-	:global(.mod3 .flip-card:hover) {
-		box-shadow:
-			0 6px 20px rgba(108, 166, 81, 0.1),
-			0 0 0 1px rgba(108, 166, 81, 0.18) !important;
-	}
-
-	:global(.mod3 .flip-card:focus) {
-		outline-color: var(--mod-accent) !important;
-	}
+	/* ── FlipCard overrides — back face matches bar as gradient tinge ── */
 
 	:global(.mod3 .fc-hint) {
-		color: var(--mod-accent-strong) !important;
+		color: #437057 !important;
 	}
 
-	:global(.mod3 .fc-answer) {
-		color: var(--mod-accent-strong) !important;
+	/* Per-card slab colors + matching back-face tinge (green spectrum) */
+	:global(.mod3 .flip-card-container:nth-child(1)) {
+		--fc-bar-color: #437057;
+		--fc-bar-color-back: #365c47;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(67, 112, 87, 0.07),
+			rgba(67, 112, 87, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+	}
+
+	:global(.mod3 .flip-card-container:nth-child(2)) {
+		--fc-bar-color: #97b067;
+		--fc-bar-color-back: #7e9455;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(151, 176, 103, 0.07),
+			rgba(151, 176, 103, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+	}
+
+	:global(.mod3 .flip-card-container:nth-child(3)) {
+		--fc-bar-color: #c5d89d;
+		--fc-bar-color-back: #a3b67e;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(197, 216, 157, 0.09),
+			rgba(197, 216, 157, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
 	}
 
 	/* Dark mode FlipCard */
 	:global(html.dark .mod3 .flip-card-front) {
 		background: var(--mod-surface) !important;
-	}
-
-	:global(html.dark .mod3 .flip-card-back) {
-		background: var(--mod-canvas-tint) !important;
-	}
-
-	:global(html.dark .mod3 .flip-card) {
-		box-shadow:
-			0 1px 4px rgba(0, 0, 0, 0.15),
-			0 0 0 1px rgba(108, 166, 81, 0.1) !important;
-	}
-
-	:global(html.dark .mod3 .flip-card:hover) {
-		box-shadow:
-			0 6px 20px rgba(0, 0, 0, 0.25),
-			0 0 0 1px rgba(108, 166, 81, 0.15) !important;
 	}
 
 	:global(html.dark .mod3 .fc-question) {
@@ -653,35 +655,35 @@ const description = 'Become an advocate and leader for EDI in engineering'
 	}
 
 	:global(html.dark .mod3 .fc-hint) {
-		color: var(--mod-accent-strong) !important;
+		color: var(--mod-accent-secondary) !important;
 	}
 
 	/* ── Quiz overrides (radio + checkbox) ── */
 	:global(.mod3 .quiz-radio:checked + .radio-custom) {
-		border-color: var(--mod-accent) !important;
+		border-color: #437057 !important;
 	}
 
 	:global(.mod3 .quiz-radio:checked + .radio-custom::after) {
-		background: var(--mod-accent-strong) !important;
+		background: #437057 !important;
 	}
 
 	:global(.mod3 .quiz-option:has(.quiz-radio:checked)) {
-		border-color: var(--mod-accent) !important;
-		background: rgba(240, 245, 236, 0.5) !important;
+		border-color: #c5d89d !important;
+		background: rgba(67, 112, 87, 0.06) !important;
 	}
 
 	:global(.mod3 .quiz-radio:focus + .radio-custom) {
-		outline-color: var(--mod-accent) !important;
+		outline-color: #97b067 !important;
 	}
 
 	:global(.mod3 .quiz-checkbox:checked + .checkbox-custom) {
-		background: var(--mod-accent-strong) !important;
-		border-color: var(--mod-accent-strong) !important;
+		background: #437057 !important;
+		border-color: #437057 !important;
 	}
 
 	:global(.mod3 .quiz-option:has(.quiz-checkbox:checked)) {
-		border-color: var(--mod-accent) !important;
-		background: rgba(240, 245, 236, 0.5) !important;
+		border-color: #c5d89d !important;
+		background: rgba(67, 112, 87, 0.06) !important;
 	}
 
 	:global(.mod3 .quiz-checkbox:focus + .checkbox-custom) {

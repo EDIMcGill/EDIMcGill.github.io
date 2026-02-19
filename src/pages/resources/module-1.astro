@@ -224,19 +224,19 @@ const description = 'Explore the fundamental concepts of Diversity, Equity, and 
 		--mod-border: rgba(123, 107, 173, 0.12);
 	}
 
-	/* ── Hero slab — full-width banner ── */
+	/* ── Hero slab — solid #473472 with white/beige text ── */
 	.mod1-hero {
 		max-width: 100%;
 		margin: 0 0 2.5rem;
 		padding: 2.5rem 1.5rem 2rem;
-		background: var(--mod-canvas-tint);
-		border-top: 4px solid var(--mod-accent);
+		background: #473472;
+		border-top: 4px solid #87bac3;
 		position: relative;
 	}
 
 	:global(html.dark) .mod1-hero {
-		background: rgba(30, 32, 40, 0.5);
-		border-top-color: var(--mod-accent);
+		background: #352558;
+		border-top-color: #6a9ba3;
 	}
 
 	@media (min-width: 768px) {
@@ -250,19 +250,19 @@ const description = 'Explore the fundamental concepts of Diversity, Equity, and 
 		align-items: center;
 		font-size: 0.85rem;
 		font-weight: 500;
-		color: var(--mod-accent-secondary);
+		color: rgba(255, 255, 255, 0.7);
 		text-decoration: none;
 		margin-bottom: 1rem;
 		transition: color 140ms ease;
 	}
 
 	.mod1-back:hover {
-		color: var(--mod-accent);
+		color: #ffffff;
 		text-decoration: none;
 	}
 
 	:global(html.dark) .mod1-back {
-		color: var(--mod-accent-secondary);
+		color: rgba(255, 255, 255, 0.6);
 	}
 
 	.mod1-pill {
@@ -273,23 +273,23 @@ const description = 'Explore the fundamental concepts of Diversity, Equity, and 
 		text-transform: uppercase;
 		padding: 0.2rem 0.65rem;
 		border-radius: 5px;
-		background: rgba(83, 98, 158, 0.12);
-		border: 1px solid rgba(83, 98, 158, 0.25);
-		color: var(--mod-accent);
+		background: rgba(255, 255, 255, 0.12);
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		color: #f5e6ca;
 		margin-bottom: 0.75rem;
 	}
 
 	:global(html.dark) .mod1-pill {
-		background: rgba(123, 107, 173, 0.12);
-		border-color: rgba(123, 107, 173, 0.25);
-		color: var(--mod-accent-secondary);
+		background: rgba(255, 255, 255, 0.1);
+		border-color: rgba(255, 255, 255, 0.2);
+		color: #d6c9ab;
 	}
 
 	.mod1-title {
 		font-size: 1.65rem;
 		font-weight: 700;
 		line-height: 1.25;
-		color: var(--mod-ink);
+		color: #ffffff;
 		margin: 0 0 1.25rem;
 		max-width: 72rem;
 	}
@@ -310,14 +310,14 @@ const description = 'Explore the fundamental concepts of Diversity, Equity, and 
 		width: 3px;
 		flex-shrink: 0;
 		border-radius: 2px;
-		background: var(--mod-accent);
-		opacity: 0.6;
+		background: #87bac3;
+		opacity: 0.8;
 	}
 
 	.mod1-intro-text {
 		font-size: 0.95rem;
 		line-height: 1.7;
-		color: var(--mod-ink-2);
+		color: #f5e6ca;
 		margin: 0;
 	}
 
@@ -475,62 +475,49 @@ const description = 'Explore the fundamental concepts of Diversity, Equity, and 
 	   FlipCard, QuizSingle, QuizMulti, CalloutBox
 	   ══════════════════════════════════════ */
 
-	/* ── FlipCard overrides ── */
-	:global(.mod1 .fc-bar-front) {
-		background: var(--mod-accent-secondary) !important;
-	}
-
-	:global(.mod1 .fc-bar-back) {
-		background: var(--mod-accent) !important;
-	}
-
-	:global(.mod1 .flip-card-back) {
-		background: var(--mod-canvas-tint) !important;
-	}
-
-	:global(.mod1 .flip-card) {
-		box-shadow:
-			0 1px 4px rgba(71, 52, 114, 0.06),
-			0 0 0 1px rgba(83, 98, 158, 0.12) !important;
-	}
-
-	:global(.mod1 .flip-card:hover) {
-		box-shadow:
-			0 6px 20px rgba(71, 52, 114, 0.1),
-			0 0 0 1px rgba(83, 98, 158, 0.18) !important;
-	}
-
-	:global(.mod1 .flip-card:focus) {
-		outline-color: var(--mod-accent-soft) !important;
-	}
+	/* ── FlipCard overrides — back face matches bar as gradient tinge ── */
 
 	:global(.mod1 .fc-hint) {
-		color: var(--mod-accent) !important;
+		color: #088395 !important;
 	}
 
-	:global(.mod1 .fc-answer) {
-		color: var(--mod-accent) !important;
+	/* Per-card slab colors + matching back-face tinge (teal→indigo→violet) */
+	:global(.mod1 .flip-card-container:nth-child(1)) {
+		--fc-bar-color: #087e8b;
+		--fc-bar-color-back: #066a75;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(8, 126, 139, 0.07),
+			rgba(8, 126, 139, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+	}
+
+	:global(.mod1 .flip-card-container:nth-child(2)) {
+		--fc-bar-color: #53629e;
+		--fc-bar-color-back: #3f4e82;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(83, 98, 158, 0.07),
+			rgba(83, 98, 158, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+	}
+
+	:global(.mod1 .flip-card-container:nth-child(3)) {
+		--fc-bar-color: #473472;
+		--fc-bar-color-back: #35265a;
+		--fc-back-bg: linear-gradient(
+			135deg,
+			rgba(71, 52, 114, 0.07),
+			rgba(71, 52, 114, 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
 	}
 
 	/* Dark mode FlipCard */
 	:global(html.dark .mod1 .flip-card-front) {
 		background: var(--mod-surface) !important;
-	}
-
-	:global(html.dark .mod1 .flip-card-back) {
-		background: var(--mod-canvas-tint) !important;
-	}
-
-	:global(html.dark .mod1 .flip-card) {
-		box-shadow:
-			0 1px 4px rgba(0, 0, 0, 0.15),
-			0 0 0 1px rgba(123, 107, 173, 0.1) !important;
-	}
-
-	:global(html.dark .mod1 .flip-card:hover) {
-		box-shadow:
-			0 6px 20px rgba(0, 0, 0, 0.25),
-			0 0 0 1px rgba(123, 107, 173, 0.15) !important;
 	}
 
 	:global(html.dark .mod1 .fc-question) {
@@ -542,7 +529,7 @@ const description = 'Explore the fundamental concepts of Diversity, Equity, and 
 	}
 
 	:global(html.dark .mod1 .fc-hint) {
-		color: var(--mod-accent-secondary) !important;
+		color: #7ab2b2 !important;
 	}
 
 	/* ── Quiz overrides (radio + checkbox) ── */
@@ -627,21 +614,51 @@ const description = 'Explore the fundamental concepts of Diversity, Equity, and 
 	}
 
 	/* ── CalloutBox overrides within .mod1 ── */
-	:global(.mod1 .callout-default) {
-		border-left-color: var(--mod-accent-secondary) !important;
+
+	/* "What is EDI?" emphasis banner: #87BAC3 bg, black + #53629E text */
+	:global(.mod1 .callout-emphasis) {
+		background: #87bac3 !important;
+		color: #000000 !important;
+	}
+
+	:global(.mod1 .callout-emphasis h3) {
+		color: #000000 !important;
+	}
+
+	:global(.mod1 .callout-emphasis p) {
+		color: #53629e !important;
 	}
 
 	:global(html.dark .mod1 .callout-emphasis) {
-		background: var(--mod-accent) !important;
+		background: #5e8a93 !important;
+		color: #000000 !important;
+	}
+
+	:global(html.dark .mod1 .callout-emphasis h3) {
+		color: #000000 !important;
+	}
+
+	:global(html.dark .mod1 .callout-emphasis p) {
+		color: #3a4e7a !important;
+	}
+
+	/* Default callouts: #088395 bg, #7AB2B2 left border */
+	:global(.mod1 .callout-default) {
+		background: rgba(8, 131, 149, 0.08) !important;
+		border-left: 4px solid #7ab2b2 !important;
+	}
+
+	:global(.mod1 .callout-default h3) {
+		color: #088395 !important;
 	}
 
 	:global(html.dark .mod1 .callout-default) {
-		background: var(--mod-canvas-tint) !important;
-		border-left-color: var(--mod-accent-secondary) !important;
+		background: rgba(8, 131, 149, 0.12) !important;
+		border-left-color: #5e8a8a !important;
 	}
 
 	:global(html.dark .mod1 .callout-default h3) {
-		color: var(--mod-ink) !important;
+		color: #7ab2b2 !important;
 	}
 
 	/* ── Body text dark mode ── */
