@@ -1,0 +1,209 @@
+---
+/**
+ * QuizMulti - Multi-choice quiz (checkboxes)
+ *
+ * Always white card. Neutral button default, accent on hover/focus.
+ * Selected: accent border + subtle tint. No colored backgrounds.
+ */
+interface Option {
+	id: string
+	text: string
+	isCorrect: boolean
+	feedback?: string
+}
+
+interface Props {
+	quizId: string
+	question: string
+	options: Option[]
+}
+
+const { quizId, question, options } = Astro.props
+---
+
+<div class='quiz-multi mb-8' data-quiz-id={quizId}>
+	<div class='bg-white dark:bg-gray-800 rounded-xl p-6 border' style='border-color: #E5E7EB;'>
+		<h4 class='text-lg font-semibold mb-4' style='color: #1F2937;' id={`${quizId}-question`}>
+			{question}
+		</h4>
+
+		<div class='space-y-3 mb-4' role='group' aria-labelledby={`${quizId}-question`}>
+			{
+				options.map((option) => (
+					<label
+						class='quiz-option flex items-start gap-3 p-4 rounded-lg cursor-pointer transition-all'
+						style='border: 2px solid #E5E7EB; background: #FFFFFF;'
+					>
+						<input
+							type='checkbox'
+							name={`${quizId}[]`}
+							value={option.id}
+							data-correct={option.isCorrect}
+							data-feedback={option.feedback || ''}
+							class='quiz-checkbox'
+							aria-label={option.text}
+						/>
+						<span class='checkbox-custom' aria-hidden='true' />
+						<span class='flex-1 text-base' style='color: #1F2937;'>
+							{option.text}
+						</span>
+					</label>
+				))
+			}
+		</div>
+
+		<button
+			class='quiz-submit px-6 py-3 rounded-lg font-semibold text-sm transition-all'
+			aria-label='Check answers'
+		>
+			Check Answers
+		</button>
+
+		<div class='quiz-feedback mt-4 p-4 rounded-lg hidden' role='alert' aria-live='polite'></div>
+	</div>
+</div>
+
+<style>
+	.quiz-checkbox {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.checkbox-custom {
+		width: 22px;
+		height: 22px;
+		border: 2px solid #d1d5db;
+		border-radius: 5px;
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.15s;
+	}
+
+	.checkbox-custom::after {
+		content: '✓';
+		font-size: 14px;
+		font-weight: bold;
+		color: #ffffff;
+		opacity: 0;
+		transform: scale(0);
+		transition: all 0.15s;
+	}
+
+	.quiz-checkbox:checked + .checkbox-custom {
+		background: #374151;
+		border-color: #374151;
+	}
+
+	.quiz-checkbox:checked + .checkbox-custom::after {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	/* Selected option: accent border + 6% tint */
+	.quiz-option:has(.quiz-checkbox:checked) {
+		border-color: #374151 !important;
+		background: #f9fafb !important;
+	}
+
+	.quiz-checkbox:focus + .checkbox-custom {
+		outline: 2px solid #374151;
+		outline-offset: 2px;
+	}
+
+	.quiz-option:hover {
+		border-color: #d1d5db !important;
+		background: #fafafa !important;
+	}
+
+	.quiz-option:hover .checkbox-custom {
+		border-color: #9ca3af;
+	}
+
+	/* Neutral submit button */
+	.quiz-submit {
+		background: #ffffff;
+		color: #374151;
+		border: 2px solid #d1d5db;
+	}
+
+	.quiz-submit:hover {
+		background: #374151;
+		color: #ffffff;
+		border-color: #374151;
+	}
+
+	.quiz-submit:focus {
+		outline: 2px solid #374151;
+		outline-offset: 2px;
+	}
+</style>
+
+<script>
+	function initQuizMulti() {
+		const quizzes = document.querySelectorAll('.quiz-multi')
+
+		quizzes.forEach((quiz) => {
+			const submitBtn = quiz.querySelector('.quiz-submit') as HTMLButtonElement
+			const feedbackDiv = quiz.querySelector('.quiz-feedback') as HTMLDivElement
+			const quizId = quiz.getAttribute('data-quiz-id')
+
+			if (!submitBtn || !feedbackDiv || !quizId) return
+
+			const newSubmitBtn = submitBtn.cloneNode(true) as HTMLButtonElement
+			submitBtn.parentNode?.replaceChild(newSubmitBtn, submitBtn)
+
+			newSubmitBtn.addEventListener('click', () => {
+				const checkboxes = quiz.querySelectorAll(
+					`input[name="${quizId}[]"]`
+				) as NodeListOf<HTMLInputElement>
+				const selectedIds = Array.from(checkboxes)
+					.filter((cb) => cb.checked)
+					.map((cb) => cb.value)
+
+				if (selectedIds.length === 0) {
+					feedbackDiv.textContent = 'Please select at least one answer.'
+					feedbackDiv.style.background = '#FEF3C7'
+					feedbackDiv.style.color = '#92400E'
+					feedbackDiv.classList.remove('hidden')
+					return
+				}
+
+				const correctIds = Array.from(checkboxes)
+					.filter((cb) => cb.getAttribute('data-correct') === 'true')
+					.map((cb) => cb.value)
+
+				const allCorrect = correctIds.every((id) => selectedIds.includes(id))
+				const noIncorrect = selectedIds.every((id) => correctIds.includes(id))
+
+				if (allCorrect && noIncorrect) {
+					feedbackDiv.style.background = '#D1FAE5'
+					feedbackDiv.style.color = '#065F46'
+					feedbackDiv.innerHTML = '<strong>Correct.</strong> You selected all the right answers.'
+				} else if (allCorrect && !noIncorrect) {
+					feedbackDiv.style.background = '#FEF3C7'
+					feedbackDiv.style.color = '#92400E'
+					feedbackDiv.innerHTML =
+						'<strong>Partially correct.</strong> You have all correct answers, but also selected some incorrect ones.'
+				} else {
+					feedbackDiv.style.background = '#FEE2E2'
+					feedbackDiv.style.color = '#991B1B'
+					feedbackDiv.innerHTML =
+						'<strong>Not quite.</strong> Review the correct answers and try again.'
+				}
+
+				feedbackDiv.classList.remove('hidden')
+			})
+		})
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initQuizMulti)
+	} else {
+		initQuizMulti()
+	}
+
+	document.addEventListener('astro:page-load', initQuizMulti)
+</script>

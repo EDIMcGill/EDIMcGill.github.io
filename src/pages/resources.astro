@@ -1,9 +1,18 @@
 ---
 /**
- * Resources Page - EDI McGill
+ * Resources Page — EDI McGill
  *
- * Support materials, guides, external links, and helpful resources
- * Auto-includes blog posts with category "Resources & Support"
+ * Constellation layout: modules as anchored points in space,
+ * connected by faint curved dotted SVG paths.
+ *
+ * Per-node accent palette (single-color rule):
+ *   Plum    (#7B6B9D) → Module 1   |  Dark: #9B8DBF
+ *   Crimson (#C2636A) → Module 2   |  Dark: #C9817A
+ *   Peach   (#D4956A) → Module 3   |  Dark: #C4A07A
+ *
+ * Accent used ONLY for: dot fill, dot glow, chip outline/text,
+ * CTA action-dot, SVG line tint on hover.
+ * Surfaces and text stay neutral in both modes.
  */
 import BaseLayout from '@/layouts/BaseLayout'
 import TitlePage from '@/components/TitlePage'
@@ -15,19 +24,16 @@ import FormattedDate from '@/components/FormattedDate'
 const title = 'Resources & Support'
 const description = 'Access helpful resources, guides, and support materials for EDI at McGill'
 
-// Fetch resources from the resources collection
 let resources: any[] = []
 let resourcesByType: Record<string, any[]> = {}
 
 try {
 	const allResources = await getCollection('resources', ({ data }) => !data.draft)
 
-	// Sort by date
 	resources = allResources.sort(
 		(a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
 	)
 
-	// Group by resource type
 	resources.forEach((resource) => {
 		const type = resource.data.resourceType || 'general'
 		if (!resourcesByType[type]) {
@@ -47,7 +53,6 @@ const typeLabels: Record<string, string> = {
 	general: 'General Resources'
 }
 
-// Auto-fetch blog posts with category "Resources & Support"
 let resourcePosts: any[] = []
 try {
 	const allBlogPosts = await getCollection('blog', ({ data }) => !data.draft)
@@ -60,86 +65,1037 @@ try {
 ---
 
 <BaseLayout title={title} description={description}>
-	<!-- Page header with accent line -->
-	<div class='mb-8'>
-		<h1 class='text-2xl md:text-3xl font-semibold mb-4 leading-snug' style='color: #111827;'>
-			{title}
-		</h1>
+	<section class='mb-0'>
+		<div
+			id='learning-container'
+			class='learning-container rounded-2xl overflow-hidden'
+			style='background: #F6F3FA; border: 1px solid #EDE8F5; position: relative;'
+		>
+			<div class='learning-topbar'></div>
 
-		<!-- Description with accent line - vibrant colors -->
-		<div class='flex items-start gap-3'>
-			<div
-				class='w-1 h-auto min-h-[60px] rounded-full flex-shrink-0'
-				style='background: linear-gradient(to bottom, #5B2D8B, #F2C94C);'
-			>
-			</div>
-			<div class='flex-1'>
-				<p class='text-base leading-loose' style='color: #374151;'>
-					Find resources, support materials, and helpful links to assist you in your EDI journey.
-					These resources cover mental health, academic support, and community connections.
-				</p>
-			</div>
+			<div class='p-8 md:p-10'>
+				<!-- Page title -->
+				<div class='mb-10'>
+					<h1 class='text-2xl md:text-3xl font-semibold mb-2 leading-snug' style='color: #2A2A2E;'>
+						Learn About EDI
+					</h1>
+					<p class='text-base font-medium' style='color: #6B7280;'>Resources & Support</p>
+				</div>
+
+				<!-- Motivation -->
+				<div class='section-panel mb-6'>
+					<div class='flex items-start gap-4'>
+						<div class='section-bar flex-shrink-0'></div>
+						<div class='flex-1'>
+							<span class='section-label'>Motivation</span>
+							<p class='text-base leading-loose mt-2' style='color: #374151;'>
+								We believe in learning by doing. These interactive exercises are designed to give
+								you hands-on experience with EDI concepts, helping you understand not just the
+								theory, but how to apply these principles in real-world engineering contexts.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Objective -->
+				<div class='section-panel mb-6'>
+					<div class='flex items-start gap-4'>
+						<div class='section-bar flex-shrink-0'></div>
+						<div class='flex-1'>
+							<span class='section-label'>Objective</span>
+							<p class='text-base leading-loose mt-2' style='color: #374151;'>
+								To familiarize yourself with EDI through interactive exercises that build practical
+								understanding and awareness.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Structure -->
+				<div class='section-panel mb-8'>
+					<div class='flex items-start gap-4'>
+						<div class='section-bar flex-shrink-0'></div>
+						<div class='flex-1'>
+							<span class='section-label'>Structure</span>
+							<p class='text-base leading-loose mt-2' style='color: #374151;'>
+								We have split everything into 3 modules. Explore them in any order — each stands on
+								its own.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Divider -->
+				<div class='flex justify-center mb-8'>
+					<div class='section-divider'></div>
+				</div>
+
+				<!-- ═══════════ CONSTELLATION ═══════════ -->
+				<section
+					class='constellation-canvas'
+					id='constellation-canvas'
+					aria-label='Learning modules'
+				>
+					<svg class='constellation-svg' id='constellation-svg' aria-hidden='true'></svg>
+
+					<div class='constellation-field'>
+						<!-- Module 1 — top-left, narrower -->
+						<article class='cnode cnode-1' data-node='1' data-accent='plum'>
+							<div class='cnode-star'>
+								<div class='cnode-glow'></div>
+								<div class='cnode-dot'></div>
+							</div>
+							<div class='cnode-body'>
+								<span class='cnode-chip'>Module 1</span>
+								<h3 class='cnode-title'>
+									<a href='/resources/module-1' class='cnode-link'
+										>What is EDI and why do I need it as an engineer?</a
+									>
+								</h3>
+								<p class='cnode-desc'>Explore foundational concepts and shared language.</p>
+								<a href='/resources/module-1' class='cnode-action' tabindex='-1' aria-hidden='true'>
+									<span class='cnode-action-dot'></span>
+									<span>Explore</span>
+									<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
+										<path
+											d='M5 12h14M13 6l6 6-6 6'
+											stroke='currentColor'
+											stroke-width='1.8'
+											stroke-linecap='round'
+											stroke-linejoin='round'></path>
+									</svg>
+								</a>
+							</div>
+						</article>
+
+						<!-- Module 2 — right, offset lower -->
+						<article class='cnode cnode-2' data-node='2' data-accent='crimson'>
+							<div class='cnode-star'>
+								<div class='cnode-glow'></div>
+								<div class='cnode-dot'></div>
+							</div>
+							<div class='cnode-body'>
+								<span class='cnode-chip'>Module 2</span>
+								<h3 class='cnode-title'>
+									<a href='/resources/module-2' class='cnode-link'
+										>Applying EDI in Engineering Practice</a
+									>
+								</h3>
+								<p class='cnode-desc'>Practical tools for everyday decisions and collaboration.</p>
+								<a href='/resources/module-2' class='cnode-action' tabindex='-1' aria-hidden='true'>
+									<span class='cnode-action-dot'></span>
+									<span>Explore</span>
+									<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
+										<path
+											d='M5 12h14M13 6l6 6-6 6'
+											stroke='currentColor'
+											stroke-width='1.8'
+											stroke-linecap='round'
+											stroke-linejoin='round'></path>
+									</svg>
+								</a>
+							</div>
+						</article>
+
+						<!-- Module 3 — center-bottom -->
+						<article class='cnode cnode-3' data-node='3' data-accent='peach'>
+							<div class='cnode-star'>
+								<div class='cnode-glow'></div>
+								<div class='cnode-dot'></div>
+							</div>
+							<div class='cnode-body'>
+								<span class='cnode-chip'>Module 3</span>
+								<h3 class='cnode-title'>
+									<a href='/resources/module-3' class='cnode-link'
+										>Leading Change and Building Inclusive Communities</a
+									>
+								</h3>
+								<p class='cnode-desc'>Ways to support inclusive communities and change.</p>
+								<a href='/resources/module-3' class='cnode-action' tabindex='-1' aria-hidden='true'>
+									<span class='cnode-action-dot'></span>
+									<span>Explore</span>
+									<svg width='13' height='13' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
+										<path
+											d='M5 12h14M13 6l6 6-6 6'
+											stroke='currentColor'
+											stroke-width='1.8'
+											stroke-linecap='round'
+											stroke-linejoin='round'></path>
+									</svg>
+								</a>
+							</div>
+						</article>
+					</div>
+				</section>
+				<!-- ═══════════ END CONSTELLATION ═══════════ -->
+
+				<!-- Expand-to-Reveal Trigger -->
+				<div class='mt-8 pt-6' style='border-top: 1px solid rgba(61, 48, 85, 0.15);'>
+					<button
+						id='resources-toggle'
+						class='reveal-handle w-full flex items-center justify-between cursor-pointer px-4 py-3 rounded-lg transition-all group'
+						style='background: #2D2245; border: 1px solid #3D3055;'
+						aria-expanded='false'
+						aria-controls='resources-content'
+					>
+						<div class='flex flex-col gap-0.5'>
+							<span class='text-base font-semibold' style='color: #FFFFFF;'>
+								Related Resources & Support
+							</span>
+							<span class='text-sm' style='color: rgba(255,255,255,0.6);'>
+								Guides and services that complement these modules
+							</span>
+						</div>
+						<svg
+							id='resources-chevron'
+							class='flex-shrink-0 reveal-chevron'
+							width='22'
+							height='22'
+							viewBox='0 0 20 20'
+							fill='none'
+							xmlns='http://www.w3.org/2000/svg'
+						>
+							<path d='M5 8L10 13L15 8' fill='rgba(255,255,255,0.7)'></path>
+						</svg>
+					</button>
+				</div>
+			</div><!-- close p-8 wrapper -->
 		</div>
-	</div>
+	</section>
 
-	{
-		Object.keys(resourcesByType).length > 0 && (
-			<div class='space-y-12'>
-				{Object.entries(resourcesByType).map(([type, typeResources]) => (
-					<section>
-						<h2 class='text-2xl font-bold mb-6 dark:text-white'>{typeLabels[type] || type}</h2>
+	<!-- Collapsible Resources Section -->
+	<div
+		id='resources-content'
+		class='resources-reveal overflow-hidden'
+		style='max-height: 0; opacity: 0; transform: translateY(-20px); transition: all 220ms cubic-bezier(0.4, 0.0, 0.2, 1);'
+	>
+		<div class='resources-inner'>
+			{
+				Object.keys(resourcesByType).length > 0 && (
+					<div class='space-y-12'>
+						{Object.entries(resourcesByType).map(([type, typeResources]) => (
+							<section>
+								<h2 class='text-2xl font-semibold mb-6' style='color: #111827;'>
+									{typeLabels[type] || type}
+								</h2>
+								<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+									{typeResources.map((resource) => (
+										<PostCard post={resource} />
+									))}
+								</div>
+							</section>
+						))}
+					</div>
+				)
+			}
+
+			{
+				resourcePosts.length > 0 && (
+					<section class='mb-12 mt-12'>
+						<p class='text-sm font-medium mb-3' style='color: #6B7280;'>
+							Related resources to support your learning
+						</p>
+						<h2 class='text-2xl md:text-3xl font-semibold mb-6' style='color: #111827;'>
+							Featured Resources & Guides
+						</h2>
 						<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-							{typeResources.map((resource) => (
-								<PostCard post={resource} />
+							{resourcePosts.map((post) => (
+								<a
+									href={`/post/${post.slug}`}
+									class='resource-card group bg-white dark:bg-gray-900 rounded-xl overflow-hidden'
+									style='border: 1px solid #E5E7EB;'
+								>
+									<div class='aspect-video overflow-hidden bg-gray-50'>
+										<Image
+											src={post.data.heroImage}
+											alt={post.data.title}
+											width={400}
+											height={300}
+											class='w-full h-full object-cover group-hover:scale-[1.03] transition-transform'
+											style='transition-duration: 300ms; transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);'
+										/>
+									</div>
+									<div class='p-6'>
+										<div class='flex items-center gap-3 mb-3'>
+											<span
+												class='px-3 py-1 rounded-full text-xs font-medium'
+												style='background: #EFEBF5; color: #3D3055;'
+											>
+												Resources
+											</span>
+											<span class='text-sm' style='color: #6B7280;'>
+												<FormattedDate date={post.data.pubDate} />
+											</span>
+										</div>
+										<h3 class='text-lg font-semibold mb-2 dark:text-white' style='color: #1F1F24;'>
+											{post.data.title}
+										</h3>
+										<p class='text-sm leading-relaxed line-clamp-2' style='color: #6B7280;'>
+											{post.data.description}
+										</p>
+										<div
+											class='mt-4 font-medium text-sm group-hover:translate-x-1 inline-flex items-center gap-1'
+											style='color: #3D3055; transition: transform 180ms cubic-bezier(0.4, 0.0, 0.2, 1);'
+										>
+											<span>Explore resource</span>
+											<span>→</span>
+										</div>
+									</div>
+								</a>
 							))}
 						</div>
 					</section>
-				))}
-			</div>
-		)
+				)
+			}
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	/* ──────────────────────────────────────
+	   Constellation palette — per-node accent
+	     Plum:    #7B6B9D  (Module 1)
+	     Crimson: #C2636A  (Module 2)
+	     Peach:   #D4956A  (Module 3)
+	   Neutrals:
+	     Canvas:  #F6F3FA (light) / #1C1A24 (dark)
+	     Nodes:   cool-white / dark elevated
+	   ────────────────────────────────────── */
+
+	/* ── Per-node accent tokens (single-color rule) ── */
+	.cnode[data-accent='plum'] {
+		--accent: #7b6b9d;
+		--accent-rgb: 123, 107, 157;
+	}
+	.cnode[data-accent='crimson'] {
+		--accent: #c2636a;
+		--accent-rgb: 194, 99, 106;
+	}
+	.cnode[data-accent='peach'] {
+		--accent: #d4956a;
+		--accent-rgb: 212, 149, 106;
 	}
 
-	<!-- Auto-generated tiles from blog posts with category "Resources & Support" -->
-	{
-		resourcePosts.length > 0 && (
-			<section class='mb-12 mt-6'>
-				<h2 class='text-2xl font-bold mb-6 dark:text-white'>Featured Resources & Guides</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-					{resourcePosts.map((post) => (
-						<a
-							href={`/post/${post.slug}`}
-							class='group bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:border-green-500 dark:hover:border-green-400 transition-all hover:shadow-2xl hover:-translate-y-2'
-						>
-							<div class='aspect-video overflow-hidden'>
-								<Image
-									src={post.data.heroImage}
-									alt={post.data.title}
-									width={400}
-									height={300}
-									class='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
-								/>
-							</div>
-							<div class='p-6'>
-								<div class='flex items-center gap-3 mb-3'>
-									<span class='px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'>
-										Resources
-									</span>
-									<FormattedDate date={post.data.pubDate} class='text-sm' />
-								</div>
-								<h3 class='text-lg font-bold mb-3 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors'>
-									{post.data.title}
-								</h3>
-								<p class='text-gray-600 dark:text-gray-400 text-sm line-clamp-2'>
-									{post.data.description}
-								</p>
-								<div class='mt-4 text-green-600 dark:text-green-400 font-semibold text-sm group-hover:translate-x-2 transition-transform inline-block'>
-									Explore resource →
-								</div>
-							</div>
-						</a>
-					))}
-				</div>
-			</section>
-		)
+	:global(html.dark) .cnode[data-accent='plum'] {
+		--accent: #9b8dbf;
+		--accent-rgb: 155, 141, 191;
 	}
-</BaseLayout>
+	:global(html.dark) .cnode[data-accent='crimson'] {
+		--accent: #c9817a;
+		--accent-rgb: 201, 129, 122;
+	}
+	:global(html.dark) .cnode[data-accent='peach'] {
+		--accent: #c4a07a;
+		--accent-rgb: 196, 160, 122;
+	}
+
+	/* ── Top bar thread ── */
+	.learning-topbar {
+		height: 5px;
+		background: #1e1838;
+		box-shadow: 0 2px 8px rgba(30, 24, 56, 0.45);
+	}
+
+	:global(html.dark) .learning-topbar {
+		background: #5c4b78;
+		box-shadow: 0 2px 10px rgba(92, 75, 120, 0.5);
+	}
+
+	/* ── Section divider ── */
+	.section-divider {
+		width: 80px;
+		height: 7px;
+		border-radius: 999px;
+		background: #2d2245;
+		opacity: 0.45;
+		box-shadow: 0 0 8px rgba(45, 34, 69, 0.25);
+	}
+
+	:global(html.dark) .section-divider {
+		background: #7b6b9d;
+		opacity: 0.45;
+		box-shadow: 0 0 10px rgba(123, 107, 157, 0.35);
+	}
+
+	/* ── Section panels ── */
+	.section-panel {
+		transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.section-panel:hover {
+		transform: translateX(2px);
+	}
+
+	.section-panel:hover .section-bar {
+		background: #0f0b1f !important;
+		box-shadow:
+			0 0 14px rgba(30, 24, 56, 0.6),
+			0 0 28px rgba(61, 48, 85, 0.3);
+	}
+
+	:global(html.dark) .section-panel:hover .section-bar {
+		background: #b8acce !important;
+		box-shadow:
+			0 0 14px rgba(155, 141, 191, 0.6),
+			0 0 28px rgba(155, 141, 191, 0.3);
+	}
+
+	.section-bar {
+		width: 5px;
+		border-radius: 3px;
+		min-height: 100%;
+		align-self: stretch;
+		background: #1e1838;
+		box-shadow: 0 0 6px rgba(30, 24, 56, 0.3);
+		transition:
+			background 180ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .section-bar {
+		background: #7b6b9d;
+		box-shadow: 0 0 8px rgba(123, 107, 157, 0.35);
+	}
+
+	.section-label {
+		display: inline-block;
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		padding: 0.25rem 0.7rem;
+		border-radius: 4px;
+		background: #efebf5;
+		color: #3d3055;
+	}
+
+	:global(html.dark) .section-label {
+		background: rgba(155, 141, 191, 0.12);
+		color: #b8acce;
+	}
+
+	/* ══════════════════════════════════════
+	   CONSTELLATION — points in space, not tiles
+	   ══════════════════════════════════════ */
+	.constellation-canvas {
+		position: relative;
+		padding: 1.5rem 0 1rem;
+	}
+
+	.constellation-svg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 0;
+		overflow: visible;
+	}
+
+	.constellation-field {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	@media (min-width: 768px) {
+		.constellation-field {
+			display: grid;
+			grid-template-columns: 5fr 4fr 5fr;
+			grid-template-rows: auto auto;
+			gap: 2.5rem 1rem;
+		}
+
+		.cnode-1 {
+			grid-column: 1;
+			grid-row: 1;
+			max-width: 270px;
+			margin-top: 0;
+		}
+
+		.cnode-2 {
+			grid-column: 3;
+			grid-row: 1;
+			max-width: 300px;
+			margin-top: 3.5rem;
+			justify-self: end;
+		}
+
+		.cnode-3 {
+			grid-column: 2;
+			grid-row: 2;
+			max-width: 285px;
+			margin-top: -1.5rem;
+			justify-self: center;
+		}
+	}
+
+	/* ── Node: accent-tinted cards ── */
+	.cnode {
+		position: relative;
+		padding: 1.15rem 1.25rem 1.15rem 2.25rem;
+		text-decoration: none;
+		background: linear-gradient(
+			135deg,
+			rgba(var(--accent-rgb, 123, 107, 157), 0.07),
+			rgba(var(--accent-rgb, 123, 107, 157), 0.03) 60%,
+			rgba(255, 255, 255, 0.4)
+		);
+		border: 1px solid rgba(var(--accent-rgb, 61, 48, 85), 0.08);
+		border-radius: 22px;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+		transition:
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			background 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .cnode {
+		background: linear-gradient(
+			135deg,
+			rgba(var(--accent-rgb, 155, 141, 191), 0.08),
+			rgba(var(--accent-rgb, 155, 141, 191), 0.03) 60%,
+			rgba(45, 40, 58, 0.45)
+		);
+		border-color: rgba(var(--accent-rgb, 155, 141, 191), 0.1);
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+	}
+
+	.cnode:hover {
+		transform: translateY(-2px);
+		background: linear-gradient(
+			135deg,
+			rgba(var(--accent-rgb, 123, 107, 157), 0.12),
+			rgba(var(--accent-rgb, 123, 107, 157), 0.05) 60%,
+			rgba(255, 255, 255, 0.55)
+		);
+		box-shadow: 0 4px 16px rgba(var(--accent-rgb, 61, 48, 85), 0.08);
+	}
+
+	:global(html.dark) .cnode:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(var(--accent-rgb, 155, 141, 191), 0.14),
+			rgba(var(--accent-rgb, 155, 141, 191), 0.05) 60%,
+			rgba(50, 44, 64, 0.6)
+		);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+	}
+
+	.cnode:focus-within {
+		outline: 2px solid #5c4b78;
+		outline-offset: 3px;
+	}
+
+	:global(html.dark) .cnode:focus-within {
+		outline-color: #9b8dbf;
+	}
+
+	/* De-emphasize siblings */
+	.constellation-canvas[data-active] .cnode {
+		opacity: 0.82;
+	}
+
+	.constellation-canvas[data-active] .cnode[data-active-self] {
+		opacity: 1;
+	}
+
+	/* ── Dot: the visual anchor, overlaps container edge ── */
+	.cnode-star {
+		position: absolute;
+		left: -5px;
+		top: 1.15rem;
+		width: 30px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 2;
+	}
+
+	.cnode-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--accent, #7b6b9d);
+		position: relative;
+		z-index: 1;
+		transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.cnode-glow {
+		position: absolute;
+		inset: -2px;
+		border-radius: 50%;
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb, 123, 107, 157), 0.18) 0%,
+			transparent 70%
+		);
+		transition: background 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .cnode-glow {
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb, 155, 141, 191), 0.1) 0%,
+			transparent 70%
+		);
+	}
+
+	.cnode:hover .cnode-glow,
+	.cnode:focus-within .cnode-glow {
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb, 123, 107, 157), 0.38) 0%,
+			transparent 70%
+		);
+	}
+
+	:global(html.dark) .cnode:hover .cnode-glow,
+	:global(html.dark) .cnode:focus-within .cnode-glow {
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb, 155, 141, 191), 0.22) 0%,
+			transparent 70%
+		);
+	}
+
+	.cnode:hover .cnode-dot,
+	.cnode:focus-within .cnode-dot {
+		transform: scale(1.15);
+	}
+
+	/* ── Node body ── */
+	.cnode-body {
+		min-width: 0;
+	}
+
+	.cnode-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		padding: 0.12rem 0.5rem;
+		border-radius: 4px;
+		border: 1px solid rgba(var(--accent-rgb, 61, 48, 85), 0.22);
+		background: transparent;
+		color: var(--accent, #5c4b78);
+		margin-bottom: 0.35rem;
+	}
+
+	:global(html.dark) .cnode-chip {
+		border-color: rgba(var(--accent-rgb, 155, 141, 191), 0.2);
+	}
+
+	.cnode-title {
+		font-size: 0.98rem;
+		font-weight: 600;
+		line-height: 1.4;
+		margin: 0 0 0.3rem;
+	}
+
+	.cnode-link {
+		color: #2a2a2e;
+		text-decoration: none;
+		transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .cnode-link {
+		color: #e0dde6;
+	}
+
+	.cnode-link:focus {
+		outline: none;
+	}
+
+	.cnode:hover .cnode-link,
+	.cnode:focus-within .cnode-link {
+		color: #3d3055;
+	}
+
+	:global(html.dark) .cnode:hover .cnode-link,
+	:global(html.dark) .cnode:focus-within .cnode-link {
+		color: #f0edf5;
+	}
+
+	.cnode-desc {
+		font-size: 0.84rem;
+		line-height: 1.55;
+		color: #6b7280;
+		margin: 0 0 0.6rem;
+	}
+
+	:global(html.dark) .cnode-desc {
+		color: #9ca3af;
+	}
+
+	.cnode-action {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: #5c4b78;
+		text-decoration: none;
+		transition:
+			gap 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .cnode-action {
+		color: #9b8dbf;
+	}
+
+	.cnode-action-dot {
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: var(--accent, #5c4b78);
+		opacity: 0.55;
+		transition: opacity 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.cnode:hover .cnode-action {
+		gap: 0.45rem;
+		color: var(--accent, #3d3055);
+	}
+
+	:global(html.dark) .cnode:hover .cnode-action {
+		color: var(--accent, #9b8dbf);
+	}
+
+	.cnode:hover .cnode-action-dot {
+		opacity: 1;
+	}
+
+	/* ── SVG connection lines ── */
+	:global(.constellation-svg path) {
+		opacity: 0.22;
+		transition:
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			stroke 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			filter 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark .constellation-svg path) {
+		stroke: #8b7faa !important;
+		opacity: 0.12;
+	}
+
+	:global(.constellation-canvas[data-active='1'] .constellation-svg path[data-connects~='1']),
+	:global(.constellation-canvas[data-active='2'] .constellation-svg path[data-connects~='2']),
+	:global(.constellation-canvas[data-active='3'] .constellation-svg path[data-connects~='3']) {
+		opacity: 0.45;
+		stroke: var(--active-accent, #2d2245);
+		filter: drop-shadow(0 0 4px rgba(45, 34, 69, 0.35));
+	}
+
+	:global(
+		html.dark .constellation-canvas[data-active='1'] .constellation-svg path[data-connects~='1']
+	),
+	:global(
+		html.dark .constellation-canvas[data-active='2'] .constellation-svg path[data-connects~='2']
+	),
+	:global(
+		html.dark .constellation-canvas[data-active='3'] .constellation-svg path[data-connects~='3']
+	) {
+		opacity: 0.35;
+		filter: drop-shadow(0 0 5px rgba(155, 141, 191, 0.3));
+	}
+
+	@media (max-width: 767px) {
+		.constellation-svg {
+			display: none;
+		}
+
+		.cnode-star {
+			position: absolute;
+			left: -5px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+
+	/* ══════════════════════════════════════
+	   Container fold / reveal
+	   ══════════════════════════════════════ */
+	.learning-container {
+		transition:
+			border-bottom-left-radius 220ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-bottom-right-radius 220ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .learning-container {
+		background: #1c1a24 !important;
+		border-color: rgba(255, 255, 255, 0.08) !important;
+	}
+
+	:global(html.dark) .learning-container > div:first-child {
+		background: #5c4b78 !important;
+	}
+
+	.learning-container.folded {
+		border-bottom-left-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
+		border-bottom: 1px solid #ede8f5;
+	}
+
+	:global(html.dark) .learning-container.folded {
+		border-bottom-color: rgba(255, 255, 255, 0.08);
+	}
+
+	.resources-reveal {
+		margin-top: -1px;
+	}
+
+	.reveal-handle {
+		transition:
+			background 200ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.reveal-handle:hover {
+		background: #362a50 !important;
+		border-color: #4a3d66 !important;
+	}
+
+	.reveal-handle:focus {
+		outline: 2px solid rgba(61, 48, 85, 0.15);
+		outline-offset: 2px;
+	}
+
+	.reveal-chevron {
+		flex-shrink: 0;
+		transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	/* ── Resource cards ── */
+	.resource-card {
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+		transition:
+			box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
+			transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.resource-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+		transform: translateY(-2px);
+	}
+
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* ── Dark mode: page title and section text ── */
+	:global(html.dark) .learning-container h1 {
+		color: #e8e5ed !important;
+	}
+
+	:global(html.dark) .learning-container > div > p {
+		color: #9ca3af !important;
+	}
+
+	:global(html.dark) .section-panel p {
+		color: #c5c0ce !important;
+	}
+
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.cnode,
+		.cnode-dot,
+		.cnode-glow,
+		.cnode-action,
+		.cnode-action-dot,
+		.cnode-link,
+		.section-panel,
+		.section-bar,
+		.learning-container,
+		.reveal-handle,
+		.reveal-chevron,
+		.resource-card {
+			transition-duration: 0ms !important;
+		}
+
+		:global(.constellation-svg path) {
+			transition-duration: 0ms !important;
+		}
+
+		.resources-reveal {
+			transition-duration: 0ms !important;
+		}
+	}
+</style>
+
+<script>
+	function initConstellation() {
+		const canvas = document.getElementById('constellation-canvas')
+		const svg = document.getElementById('constellation-svg') as unknown as SVGSVGElement
+		const nodes = canvas?.querySelectorAll('.cnode')
+
+		if (!canvas || !svg || !nodes || nodes.length < 3) return
+
+		const dots = canvas.querySelectorAll('.cnode-dot')
+		if (dots.length < 3) return
+
+		const connections = [
+			{ from: 0, to: 1, ids: '1 2' },
+			{ from: 1, to: 2, ids: '2 3' },
+			{ from: 0, to: 2, ids: '1 3' }
+		]
+
+		function drawPaths() {
+			const isMobile = window.innerWidth < 768
+			svg.innerHTML = ''
+
+			if (isMobile) return
+
+			const canvasRect = canvas!.getBoundingClientRect()
+
+			connections.forEach((conn) => {
+				const d1 = dots[conn.from].getBoundingClientRect()
+				const d2 = dots[conn.to].getBoundingClientRect()
+
+				const x1 = d1.left + d1.width / 2 - canvasRect.left
+				const y1 = d1.top + d1.height / 2 - canvasRect.top
+				const x2 = d2.left + d2.width / 2 - canvasRect.left
+				const y2 = d2.top + d2.height / 2 - canvasRect.top
+
+				const dx = x2 - x1
+				const dy = y2 - y1
+				const len = Math.sqrt(dx * dx + dy * dy)
+
+				if (len < 1) return
+
+				const dirX = dx / len
+				const dirY = dy / len
+
+				const inset = 22
+				const sx = x1 + dirX * inset
+				const sy = y1 + dirY * inset
+				const ex = x2 - dirX * inset
+				const ey = y2 - dirY * inset
+
+				const mx = (sx + ex) / 2
+				const my = (sy + ey) / 2
+				const nx = -dy / len
+				const ny = dx / len
+				const curve = len * 0.13
+
+				const cx = mx + nx * curve
+				const cy = my + ny * curve
+
+				const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+				path.setAttribute('d', `M${sx},${sy} Q${cx},${cy} ${ex},${ey}`)
+				path.setAttribute('data-connects', conn.ids)
+				path.setAttribute('fill', 'none')
+				path.setAttribute('stroke', '#1E1838')
+				path.setAttribute('stroke-width', '2')
+				path.setAttribute('stroke-dasharray', '4 5')
+				path.setAttribute('stroke-linecap', 'round')
+
+				svg.appendChild(path)
+			})
+		}
+
+		drawPaths()
+
+		let resizeTimer: ReturnType<typeof setTimeout>
+		window.addEventListener('resize', () => {
+			clearTimeout(resizeTimer)
+			resizeTimer = setTimeout(drawPaths, 80)
+		})
+
+		function activate(nodeId: string) {
+			canvas!.setAttribute('data-active', nodeId)
+			const activeNode = canvas!.querySelector(`[data-node="${nodeId}"]`) as HTMLElement
+			if (activeNode) {
+				const accent = getComputedStyle(activeNode).getPropertyValue('--accent').trim()
+				if (accent) canvas!.style.setProperty('--active-accent', accent)
+			}
+			nodes!.forEach((n) => {
+				if ((n as HTMLElement).dataset.node === nodeId) {
+					;(n as HTMLElement).setAttribute('data-active-self', '')
+				} else {
+					;(n as HTMLElement).removeAttribute('data-active-self')
+				}
+			})
+		}
+
+		function deactivate() {
+			canvas!.removeAttribute('data-active')
+			canvas!.style.removeProperty('--active-accent')
+			nodes!.forEach((n) => (n as HTMLElement).removeAttribute('data-active-self'))
+		}
+
+		nodes.forEach((node) => {
+			const el = node as HTMLElement
+			const id = el.dataset.node || ''
+
+			el.addEventListener('mouseenter', () => activate(id))
+			el.addEventListener('mouseleave', deactivate)
+			el.addEventListener('focusin', () => activate(id))
+			el.addEventListener('focusout', deactivate)
+		})
+	}
+
+	function initResourcesToggle() {
+		const toggle = document.getElementById('resources-toggle')
+		const content = document.getElementById('resources-content')
+		const chevron = document.getElementById('resources-chevron')
+		const container = document.getElementById('learning-container')
+
+		if (!toggle || !content || !chevron || !container) return
+
+		const newToggle = toggle.cloneNode(true) as HTMLElement
+		toggle.parentNode?.replaceChild(newToggle, toggle)
+
+		const toggleBtn = document.getElementById('resources-toggle')
+		if (!toggleBtn) return
+
+		toggleBtn.addEventListener('click', () => {
+			const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true'
+
+			if (isExpanded) {
+				content.style.maxHeight = '0'
+				content.style.opacity = '0'
+				content.style.transform = 'translateY(-20px)'
+				chevron.style.transform = 'rotate(0deg)'
+				container.classList.remove('folded')
+				toggleBtn.setAttribute('aria-expanded', 'false')
+			} else {
+				const inner = content.querySelector('.resources-inner') as HTMLElement
+				if (inner) {
+					content.style.maxHeight = inner.scrollHeight + 100 + 'px'
+					content.style.opacity = '1'
+					content.style.transform = 'translateY(0)'
+				}
+				chevron.style.transform = 'rotate(180deg)'
+				container.classList.add('folded')
+				toggleBtn.setAttribute('aria-expanded', 'true')
+			}
+		})
+	}
+
+	function initAll() {
+		initConstellation()
+		initResourcesToggle()
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initAll)
+	} else {
+		initAll()
+	}
+
+	document.addEventListener('astro:page-load', initAll)
+</script>

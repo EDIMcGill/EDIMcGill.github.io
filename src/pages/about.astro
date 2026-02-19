@@ -1,12 +1,29 @@
 ---
 /**
- * About Page - EDI McGill
+ * About Page — EDI McGill
  *
- * This page provides information about EDI McGill's mission, approach, and team.
- * Auto-displays blog posts with category "Home Page" as tiles.
+ * Color strategy (cool, editorial, no warmth):
+ *   Canvas:       #FFFFFF / #F9FAFB  (pure white / cool near-white — NO cream)
+ *   Surface:      #FFFFFF            (cards, content blocks)
+ *   Ink:          #1E2B3A            (deep cool charcoal)
+ *   Ink-2:        #556370            (secondary body)
+ *   Ink-muted:    #8A9199            (dates, meta)
+ *   Accent:       #355872            (structural blue — headings, left rules, buttons)
+ *   Accent-2:     #7AAACE            (soft blue — subtitles, card borders, hover)
+ *   Spark:        #9CD5FF            (micro ONLY — tiny dots, faint glows, ≤4% fills)
+ *   Purple:       #7B6B9D            (site identity — dividers, underlines, dots, focus)
+ *   Paper inset:  #F7F8F0            (small callouts/quotes ONLY, never canvas)
+ *   Border:       #E5E7EB            (cool neutral)
+ *
+ * Dark mode (charcoal, no navy, no warm tones):
+ *   Canvas:       #1B1D21            (deep cool charcoal)
+ *   Surface:      #252729            (elevated charcoal)
+ *   Text:         #E8ECF0 / #9AACBB
+ *   Accent:       #7AAACE            (main highlight)
+ *   Purple:       #9B8DBF            (muted punctuation)
+ *   Spark:        #9CD5FF            (tiny glow only)
  */
 import BaseLayout from '@/layouts/BaseLayout'
-import TitlePage from '@/components/TitlePage'
 import { getCollection } from 'astro:content'
 import { Image } from 'astro:assets'
 import FormattedDate from '@/components/FormattedDate'
@@ -15,7 +32,6 @@ const title = 'About EDI McGill'
 const description =
 	'Learn about our mission to promote Equity, Diversity, and Inclusion at McGill University'
 
-// Auto-fetch blog posts with category "Home Page" to display as tiles
 let aboutPosts: any[] = []
 try {
 	const allBlogPosts = await getCollection('blog', ({ data }) => !data.draft)
@@ -25,153 +41,847 @@ try {
 } catch (error) {
 	console.log('Error fetching blog posts:', error)
 }
+
+const storyHooks: Record<string, string> = {
+	'Our Team': 'Who we are, how we work, and why this community matters.',
+	'Research & Reports on EDI': 'Evidence that informs action, policy, and practice.',
+	'team-edi-mcgill': 'The people behind the work — and why they showed up.'
+}
 ---
 
 <BaseLayout title={title} description={description}>
-	<!-- Page header with mission text -->
-	<div class='mb-6'>
-		<h1 class='text-2xl md:text-3xl font-semibold mb-4 leading-snug' style='color: #111827;'>
-			{title}
-		</h1>
+	<div class='about-canvas'>
+		<!-- Page header + emotional anchor -->
+		<div class='about-header'>
+			<h1 class='about-page-title'>{title}</h1>
+			<p class='about-anchor'>
+				EDI at McGill Engineering is shaped by the people who live it every day.
+			</p>
+		</div>
 
-		<!-- Mission text with accent line - vibrant colors -->
-		<div class='flex items-start gap-3 mb-6'>
-			<div
-				class='w-1 h-auto min-h-[120px] rounded-full flex-shrink-0'
-				style='background: linear-gradient(to bottom, #5B2D8B, #E05A1A);'
-			>
-			</div>
-			<div class='flex-1'>
-				<p class='text-base md:text-lg leading-loose mb-4' style='color: #1F2937;'>
+		<!-- Mission — editorial left rule -->
+		<section class='about-section'>
+			<div class='about-mission-block'>
+				<p class='about-body-lead'>
 					EDI McGill is dedicated to strengthening an inclusive and equitable graduate community at
-					McGill University—one grounded in mutual respect, shared responsibility, and collective
+					McGill University — one grounded in mutual respect, shared responsibility, and collective
 					growth.
 				</p>
-				<p class='text-sm md:text-base leading-loose' style='color: #374151;'>
+				<p class='about-body'>
 					Through education, peer-led programs, and community engagement, we support graduate
 					students, foster dialogue across differences, and create spaces for learning, connection,
 					and advocacy that contribute to meaningful and sustained change.
 				</p>
 			</div>
-		</div>
-	</div>
+		</section>
 
-	<!-- Team Stories Section - Vibrant playcard -->
-	{
-		aboutPosts.length > 0 && (
-			<div
-				class='rounded-2xl p-1.5 mb-6 -mx-5 sm:-mx-8 md:-mx-0'
-				style='background: linear-gradient(135deg, rgba(91, 45, 139, 0.20), rgba(91, 45, 139, 0.12)); box-shadow: 0 10px 32px rgba(91, 45, 139, 0.32), 0 0 0 1px rgba(91, 45, 139, 0.14);'
-			>
-				<div class='rounded-xl p-6 md:p-8' style='background: rgba(255, 255, 255, 0.65);'>
-					<div class='flex items-start gap-2 mb-3'>
-						<div
-							class='w-1 h-6 rounded-full flex-shrink-0 mt-1'
-							style='background: linear-gradient(to bottom, #5B2D8B, #F2C94C);'
-						/>
-						<h2 class='text-lg md:text-xl font-semibold leading-relaxed' style='color: #111827;'>
-							Stories from our team
-						</h2>
+		<!-- Our approach — values tiles -->
+		<section class='about-section'>
+			<h2 class='about-section-title'>Our approach</h2>
+			<div class='about-cards'>
+				<!-- Education -->
+				<div class='about-card'>
+					<div class='about-card-glyph about-glyph-grid' aria-hidden='true'>
+						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
+							<line x1='0' y1='16' x2='80' y2='16' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='0' y1='32' x2='80' y2='32' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='0' y1='48' x2='80' y2='48' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='0' y1='64' x2='80' y2='64' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='16' y1='0' x2='16' y2='80' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='32' y1='0' x2='32' y2='80' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='48' y1='0' x2='48' y2='80' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='64' y1='0' x2='64' y2='80' stroke='currentColor' stroke-width='0.5'></line>
+						</svg>
 					</div>
-					<p class='text-sm mb-6 leading-loose' style='color: #374151;'>
-						Meet the people building an inclusive community at McGill Engineering.
+					<div class='about-card-accent'></div>
+					<h3 class='about-card-title'>Education</h3>
+					<p class='about-card-tagline'>How we learn together</p>
+					<p class='about-body'>
+						Interactive learning modules and workshops that build practical understanding of equity,
+						diversity, and inclusion in engineering contexts.
 					</p>
-					<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
-						{aboutPosts.map((post) => (
-							<a
-								href={`/post/${post.slug}`}
-								class='group bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors'
-								style='box-shadow: 0 6px 18px rgba(91, 45, 139, 0.15);'
-							>
-								<div class='aspect-[16/10] overflow-hidden'>
-									<Image
-										src={post.data.heroImage}
-										alt={post.data.title}
-										width={600}
-										height={375}
-										class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
-									/>
-								</div>
-								<div class='p-5'>
-									<div class='flex items-center gap-3 mb-2'>
-										<span
-											class='px-3 py-1 rounded-lg text-xs font-medium'
-											style='background: rgba(91, 45, 139, 0.15); color: #5B2D8B;'
-										>
-											About
-										</span>
-										<FormattedDate date={post.data.pubDate} class='text-xs' />
-									</div>
-									<h3
-										class='text-base md:text-lg font-semibold mb-2 leading-snug'
-										style='color: #1F2937;'
-									>
-										{post.data.title}
-									</h3>
-									<p class='text-sm line-clamp-3 leading-relaxed' style='color: #5F6368;'>
-										{post.data.description}
-									</p>
-									<div
-										class='mt-3 text-sm inline-block no-underline group-hover:underline font-medium'
-										style='color: #5B2D8B; text-decoration-color: rgba(91, 45, 139, 0.3);'
-									>
-										Read more
-									</div>
-								</div>
-							</a>
-						))}
+				</div>
+
+				<!-- Community -->
+				<div class='about-card'>
+					<div class='about-card-glyph about-glyph-circles' aria-hidden='true'>
+						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
+							<circle cx='30' cy='35' r='22' stroke='currentColor' stroke-width='0.7'></circle>
+							<circle cx='50' cy='35' r='22' stroke='currentColor' stroke-width='0.7'></circle>
+							<circle cx='40' cy='50' r='22' stroke='currentColor' stroke-width='0.7'></circle>
+						</svg>
 					</div>
+					<div class='about-card-accent'></div>
+					<h3 class='about-card-title'>Community</h3>
+					<p class='about-card-tagline'>How we support one another</p>
+					<p class='about-body'>
+						Peer-led programs and events that foster connection, dialogue, and a sense of belonging
+						across the graduate community.
+					</p>
+				</div>
+
+				<!-- Advocacy -->
+				<div class='about-card'>
+					<div class='about-card-glyph about-glyph-echo' aria-hidden='true'>
+						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
+							<line x1='28' y1='10' x2='28' y2='70' stroke='currentColor' stroke-width='0.8'></line>
+							<line x1='38' y1='18' x2='38' y2='62' stroke='currentColor' stroke-width='0.6'></line>
+							<line x1='48' y1='26' x2='48' y2='54' stroke='currentColor' stroke-width='0.5'></line>
+							<line x1='56' y1='32' x2='56' y2='48' stroke='currentColor' stroke-width='0.4'></line>
+						</svg>
+					</div>
+					<div class='about-card-accent'></div>
+					<h3 class='about-card-title'>Advocacy</h3>
+					<p class='about-card-tagline'>How we create change beyond ourselves</p>
+					<p class='about-body'>
+						Supporting systemic change through research, policy engagement, and amplifying the
+						voices of underrepresented groups.
+					</p>
 				</div>
 			</div>
-		)
-	}
+		</section>
 
-	<!-- Footer CTA - Vibrant framing with warm colors -->
-	<!-- Outer container: Warm vibrant background -->
-	<div
-		class='-mx-5 sm:-mx-8 md:-mx-0 md:rounded-2xl px-5 sm:px-8 md:px-10 py-12 md:py-16 mt-6 mb-6'
-		style='background: #FFFBF5;'
-	>
-		<!-- Inner card: Burnt orange playcard -->
-		<div
-			class='rounded-2xl p-1.5 max-w-3xl mx-auto'
-			style='background: linear-gradient(135deg, rgba(224, 90, 26, 0.22), rgba(224, 90, 26, 0.14)); box-shadow: 0 12px 36px rgba(224, 90, 26, 0.38), 0 0 0 1px rgba(224, 90, 26, 0.18);'
-		>
-			<div class='rounded-xl px-6 md:px-8 py-8' style='background: rgba(255, 255, 255, 0.65);'>
-				<!-- Content: Left-aligned, constrained width -->
-				<div class='flex flex-col md:flex-row md:items-start md:justify-between gap-6'>
-					<!-- Text content -->
-					<div class='flex-1 max-w-xl'>
-						<h3 class='text-xl md:text-2xl font-semibold mb-3 leading-snug' style='color: #111827;'>
-							Want to connect or get involved?
-						</h3>
-						<p class='text-sm md:text-base leading-loose' style='color: #374151;'>
-							We'd love to hear from you. Join our community or reach out to learn more about our
-							initiatives.
-						</p>
-					</div>
-
-					<!-- CTA area: Offset to right -->
-					<div class='flex flex-col gap-3 md:mt-2'>
-						<a
-							href='/participate'
-							class='px-6 py-2.5 rounded-xl text-sm font-semibold text-center whitespace-nowrap transition-all'
-							style='background: #E05A1A; color: #FFFFFF; box-shadow: 0 6px 20px rgba(224, 90, 26, 0.45);'
-							onmouseover="this.style.background='#C94F17'; this.style.boxShadow='0 8px 26px rgba(224, 90, 26, 0.55)';"
-							onmouseout="this.style.background='#E05A1A'; this.style.boxShadow='0 6px 20px rgba(224, 90, 26, 0.45)';"
-						>
-							Get involved
-						</a>
-						<a
-							href='/resources'
-							class='text-sm font-medium text-center no-underline hover:underline transition-all px-3 py-2'
-							style='color: #5B2D8B; text-decoration-color: rgba(91, 45, 139, 0.3);'
-						>
-							Browse resources
-						</a>
-					</div>
-				</div>
-			</div>
+		<!-- Pull quote — warmth between sections -->
+		<div class='about-pullquote' aria-hidden='true'>
+			<span class='about-pullquote-mark'></span>
+			<p class='about-pullquote-text'>
+				Change begins with understanding — and understanding begins with each other.
+			</p>
 		</div>
+
+		<!-- Voices from our community -->
+		{
+			aboutPosts.length > 0 && (
+				<section class='about-section about-voices-section'>
+					<h2 class='about-section-title'>Voices from our community</h2>
+					<p class='about-voices-sub'>
+						Reflections, research, and lived experiences shaping EDI at McGill Engineering.
+					</p>
+					<div class='about-stories-grid'>
+						{aboutPosts.map((post) => {
+							const hook = storyHooks[post.data.title] || storyHooks[post.slug] || null
+							return (
+								<a href={`/post/${post.slug}`} class='about-story-card group'>
+									<div class='about-story-img'>
+										<Image
+											src={post.data.heroImage}
+											alt=''
+											width={600}
+											height={300}
+											class='about-story-img-inner'
+										/>
+										<div class='about-story-img-tint' />
+									</div>
+									<div class='about-story-content'>
+										<div class='about-story-meta'>
+											<span class='about-story-date'>
+												<FormattedDate date={post.data.pubDate} />
+											</span>
+										</div>
+										<h3 class='about-story-title'>{post.data.title}</h3>
+										{hook && <p class='about-story-hook'>{hook}</p>}
+										<p class='about-story-excerpt'>{post.data.description}</p>
+										<span class='about-story-link'>
+											Explore this story
+											<svg
+												class='about-story-arrow'
+												width='14'
+												height='14'
+												viewBox='0 0 24 24'
+												fill='none'
+												aria-hidden='true'
+											>
+												<path
+													d='M5 12h14M13 6l6 6-6 6'
+													stroke='currentColor'
+													stroke-width='1.8'
+													stroke-linecap='round'
+													stroke-linejoin='round'
+												/>
+											</svg>
+										</span>
+									</div>
+								</a>
+							)
+						})}
+					</div>
+				</section>
+			)
+		}
+
+		<!-- CTA — warm, invitational -->
+		<section class='about-cta'>
+			<h2 class='about-cta-title'>Want to connect or get involved?</h2>
+			<p class='about-body' style='max-width: 36rem;'>
+				We'd love to hear from you. Join our community or reach out to learn more about our
+				initiatives.
+			</p>
+			<p class='about-cta-reassurance'>
+				You don't need to have the right words — just curiosity and care.
+			</p>
+			<div class='about-cta-actions'>
+				<a href='/participate' class='about-cta-primary'> Get involved</a>
+				<a href='/resources' class='about-cta-secondary'> Browse resources</a>
+			</div>
+		</section>
 	</div>
 </BaseLayout>
+
+<style>
+	/* ══════════════════════════════════════
+	   ABOUT PAGE — Cool editorial palette
+	   Canvas:   #FFFFFF (cool white, NO cream)
+	   Ink:      #1E2B3A / #556370
+	   Accent:   #355872 (authority blue)
+	   Accent-2: #7AAACE (soft blue)
+	   Spark:    #9CD5FF (micro only, ≤4%)
+	   Purple:   #7B6B9D (site identity punctuation)
+	   Paper:    #F7F8F0 (small insets only)
+	   Border:   #E5E7EB (cool neutral)
+	   ══════════════════════════════════════ */
+
+	.about-canvas {
+		background: #ffffff;
+		margin: -1rem -1rem 0;
+		padding: 2rem 1rem 0;
+	}
+
+	@media (min-width: 768px) {
+		.about-canvas {
+			margin: -2rem -2rem 0;
+			padding: 2.5rem 2rem 0;
+		}
+	}
+
+	:global(html.dark) .about-canvas {
+		background: #1b1d21;
+	}
+
+	/* ── Typography ── */
+	.about-page-title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: #1e2b3a;
+		margin: 0;
+	}
+
+	@media (min-width: 768px) {
+		.about-page-title {
+			font-size: 2.25rem;
+		}
+	}
+
+	:global(html.dark) .about-page-title {
+		color: #e8ecf0;
+	}
+
+	.about-anchor {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #556370;
+		max-width: 36rem;
+		margin: 0.6rem 0 0;
+		font-style: italic;
+	}
+
+	:global(html.dark) .about-anchor {
+		color: #9aacbb;
+	}
+
+	.about-section-title {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #355872;
+		margin: 0 0 1rem;
+		line-height: 1.35;
+	}
+
+	:global(html.dark) .about-section-title {
+		color: #7aaace;
+	}
+
+	.about-body-lead {
+		font-size: 1.05rem;
+		line-height: 1.9;
+		color: #1e2b3a;
+		margin: 0 0 1rem;
+	}
+
+	:global(html.dark) .about-body-lead {
+		color: #e8ecf0;
+	}
+
+	.about-body {
+		font-size: 0.95rem;
+		line-height: 1.8;
+		color: #556370;
+		margin: 0;
+	}
+
+	:global(html.dark) .about-body {
+		color: #9aacbb;
+	}
+
+	/* ── Layout ── */
+	.about-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.about-section {
+		margin-bottom: 3.5rem;
+	}
+
+	/* ── Mission — editorial left rule (transparent bg, no tint) ── */
+	.about-mission-block {
+		border-left: 3px solid #355872;
+		padding-left: 1.25rem;
+		max-width: 56rem;
+		position: relative;
+	}
+
+	.about-mission-block::before {
+		content: '';
+		position: absolute;
+		left: -2px;
+		top: 0;
+		bottom: 0;
+		width: 6px;
+		background: rgba(53, 88, 114, 0.12);
+		filter: blur(4px);
+		pointer-events: none;
+	}
+
+	:global(html.dark) .about-mission-block {
+		border-left-color: #7aaace;
+	}
+
+	:global(html.dark) .about-mission-block::before {
+		background: rgba(122, 170, 206, 0.15);
+	}
+
+	/* ── Approach cards — white surface, cool borders ── */
+	.about-cards {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	@media (min-width: 768px) {
+		.about-cards {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.25rem;
+		}
+	}
+
+	.about-card {
+		position: relative;
+		overflow: hidden;
+		background: #ffffff;
+		border: 1px solid rgba(122, 170, 206, 0.18);
+		border-radius: 12px;
+		padding: 1.5rem;
+		transition:
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .about-card {
+		background: #252729;
+		border-color: rgba(122, 170, 206, 0.1);
+	}
+
+	.about-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 6px 20px rgba(53, 88, 114, 0.08);
+		border-color: rgba(122, 170, 206, 0.32);
+	}
+
+	:global(html.dark) .about-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+		border-color: rgba(122, 170, 206, 0.2);
+	}
+
+	.about-card:hover .about-card-accent {
+		opacity: 0.6;
+		box-shadow: 0 0 10px rgba(123, 107, 157, 0.3);
+	}
+
+	.about-card:hover .about-card-title {
+		color: #355872;
+	}
+
+	:global(html.dark) .about-card:hover .about-card-title {
+		color: #7aaace;
+	}
+
+	/* Top accent thread — purple for site identity */
+	.about-card-accent {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: #7b6b9d;
+		opacity: 0.3;
+		box-shadow: 0 0 6px rgba(123, 107, 157, 0.15);
+		transition:
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .about-card-accent {
+		background: #9b8dbf;
+		opacity: 0.3;
+		box-shadow: 0 0 6px rgba(155, 141, 191, 0.2);
+	}
+
+	.about-card-title {
+		font-size: 1rem;
+		font-weight: 650;
+		color: #355872;
+		margin: 0 0 0.2rem;
+		transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .about-card-title {
+		color: #e8ecf0;
+	}
+
+	.about-card-tagline {
+		font-size: 0.82rem;
+		color: #7aaace;
+		margin: 0 0 0.75rem;
+		font-style: italic;
+		line-height: 1.5;
+	}
+
+	:global(html.dark) .about-card-tagline {
+		color: #9aacbb;
+	}
+
+	/* Corner glyph watermarks — spark at 3–4% opacity */
+	.about-card-glyph {
+		position: absolute;
+		top: -4px;
+		right: -4px;
+		width: 80px;
+		height: 80px;
+		pointer-events: none;
+	}
+
+	.about-glyph-grid {
+		color: #9cd5ff;
+		opacity: 0.035;
+	}
+
+	.about-glyph-circles {
+		color: #9cd5ff;
+		opacity: 0.035;
+	}
+
+	.about-glyph-echo {
+		color: #9cd5ff;
+		opacity: 0.04;
+	}
+
+	:global(html.dark) .about-glyph-grid,
+	:global(html.dark) .about-glyph-circles {
+		opacity: 0.025;
+	}
+
+	:global(html.dark) .about-glyph-echo {
+		opacity: 0.03;
+	}
+
+	/* ── Pull quote — purple dot for site identity ── */
+	.about-pullquote {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+		padding: 2rem 0 2.5rem;
+		max-width: 32rem;
+	}
+
+	.about-pullquote-mark {
+		flex-shrink: 0;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: #7b6b9d;
+		margin-top: 0.6rem;
+		box-shadow: 0 0 6px rgba(123, 107, 157, 0.35);
+	}
+
+	:global(html.dark) .about-pullquote-mark {
+		background: #9b8dbf;
+		box-shadow: 0 0 8px rgba(155, 141, 191, 0.3);
+	}
+
+	.about-pullquote-text {
+		font-size: 1.15rem;
+		font-weight: 450;
+		line-height: 1.65;
+		color: #355872;
+		margin: 0;
+		font-style: italic;
+	}
+
+	:global(html.dark) .about-pullquote-text {
+		color: #7aaace;
+	}
+
+	/* ── Voices — purple top divider, no warm bg ── */
+	.about-voices-section {
+		padding-top: 2.5rem;
+		border-top: 1px solid rgba(123, 107, 157, 0.2);
+		position: relative;
+		background: transparent;
+	}
+
+	:global(html.dark) .about-voices-section {
+		border-top-color: rgba(155, 141, 191, 0.12);
+		background: transparent;
+	}
+
+	.about-voices-section::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		opacity: 0.012;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+		background-size: 200px 200px;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.about-voices-sub {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: #556370;
+		margin: 0 0 1.5rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	:global(html.dark) .about-voices-sub {
+		color: #9aacbb;
+	}
+
+	.about-stories-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	@media (min-width: 768px) {
+		.about-stories-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* Story cards */
+	.about-story-card {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-radius: 12px;
+		text-decoration: none;
+		transition:
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .about-story-card {
+		background: #252729;
+		border-color: rgba(122, 170, 206, 0.08);
+	}
+
+	.about-story-card:hover {
+		box-shadow: 0 6px 20px rgba(53, 88, 114, 0.1);
+		transform: translateY(-2px);
+	}
+
+	:global(html.dark) .about-story-card:hover {
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	.about-story-img {
+		position: relative;
+		height: 140px;
+		overflow: hidden;
+		flex-shrink: 0;
+	}
+
+	.about-story-img-inner {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.about-story-card:hover .about-story-img-inner {
+		transform: scale(1.03);
+	}
+
+	.about-story-img-tint {
+		position: absolute;
+		inset: 0;
+		background: rgba(27, 29, 33, 0.05);
+		pointer-events: none;
+	}
+
+	:global(html.dark) .about-story-img-tint {
+		background: rgba(27, 29, 33, 0.3);
+	}
+
+	.about-story-content {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 1.25rem 1.35rem;
+	}
+
+	.about-story-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.about-story-date {
+		font-size: 0.78rem;
+		color: #8a9199;
+	}
+
+	:global(html.dark) .about-story-date {
+		color: #7a8a99;
+	}
+
+	.about-story-title {
+		font-size: 1.05rem;
+		font-weight: 600;
+		color: #1e2b3a;
+		line-height: 1.4;
+		margin: 0 0 0.2rem;
+	}
+
+	:global(html.dark) .about-story-title {
+		color: #e8ecf0;
+	}
+
+	.about-story-hook {
+		font-size: 0.82rem;
+		color: #7aaace;
+		font-style: italic;
+		line-height: 1.5;
+		margin: 0 0 0.5rem;
+	}
+
+	:global(html.dark) .about-story-hook {
+		color: #9aacbb;
+	}
+
+	.about-story-excerpt {
+		font-size: 0.875rem;
+		line-height: 1.7;
+		color: #556370;
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	:global(html.dark) .about-story-excerpt {
+		color: #9aacbb;
+	}
+
+	.about-story-link {
+		margin-top: auto;
+		padding-top: 0.75rem;
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: #355872;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .about-story-link {
+		color: #7aaace;
+	}
+
+	.about-story-card:hover .about-story-link {
+		color: #7b6b9d;
+	}
+
+	:global(html.dark) .about-story-card:hover .about-story-link {
+		color: #9b8dbf;
+	}
+
+	.about-story-arrow {
+		transition:
+			transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1);
+		opacity: 0;
+	}
+
+	.about-story-card:hover .about-story-arrow {
+		opacity: 1;
+		transform: translateX(2px);
+	}
+
+	/* ── CTA — purple section divider, blue buttons ── */
+	.about-cta {
+		border-top: 1px solid rgba(123, 107, 157, 0.2);
+		padding-top: 3rem;
+		margin-bottom: 2rem;
+	}
+
+	:global(html.dark) .about-cta {
+		border-top-color: rgba(155, 141, 191, 0.12);
+	}
+
+	.about-cta-title {
+		font-size: 1.35rem;
+		font-weight: 600;
+		color: #1e2b3a;
+		margin: 0 0 0.75rem;
+		line-height: 1.3;
+	}
+
+	:global(html.dark) .about-cta-title {
+		color: #e8ecf0;
+	}
+
+	.about-cta-reassurance {
+		font-size: 0.88rem;
+		color: #8a9199;
+		font-style: italic;
+		margin: 0.75rem 0 0;
+		max-width: 32rem;
+		line-height: 1.6;
+	}
+
+	:global(html.dark) .about-cta-reassurance {
+		color: #7a8a99;
+	}
+
+	.about-cta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
+
+	.about-cta-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.7rem 1.6rem;
+		border-radius: 9px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		background: #355872;
+		color: #ffffff;
+		text-decoration: none;
+		box-shadow: 0 2px 10px rgba(53, 88, 114, 0.25);
+		transition:
+			opacity 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .about-cta-primary {
+		background: #7aaace;
+		color: #1b1d21;
+		box-shadow: 0 2px 10px rgba(122, 170, 206, 0.3);
+	}
+
+	.about-cta-primary:hover {
+		opacity: 0.92;
+		box-shadow: 0 4px 18px rgba(53, 88, 114, 0.35);
+	}
+
+	:global(html.dark) .about-cta-primary:hover {
+		box-shadow: 0 4px 18px rgba(122, 170, 206, 0.4);
+	}
+
+	.about-cta-primary:focus-visible {
+		outline: 2px solid #7b6b9d;
+		outline-offset: 2px;
+	}
+
+	.about-cta-secondary {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #355872;
+		text-decoration: none;
+		padding: 0.7rem 1.1rem;
+		border: 1px solid #e5e7eb;
+		border-radius: 9px;
+		transition:
+			background 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			border-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+			color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	:global(html.dark) .about-cta-secondary {
+		color: #7aaace;
+		border-color: rgba(122, 170, 206, 0.15);
+	}
+
+	.about-cta-secondary:hover {
+		background: rgba(123, 107, 157, 0.06);
+		border-color: rgba(123, 107, 157, 0.25);
+		color: #7b6b9d;
+		text-decoration: none;
+	}
+
+	:global(html.dark) .about-cta-secondary:hover {
+		background: rgba(155, 141, 191, 0.08);
+		border-color: rgba(155, 141, 191, 0.2);
+		color: #9b8dbf;
+	}
+
+	.about-cta-secondary:focus-visible {
+		outline: 2px solid #7b6b9d;
+		outline-offset: 2px;
+	}
+
+	/* ── Focus rings — purple for site identity continuity ── */
+	.about-story-card:focus-visible,
+	.about-card:focus-visible {
+		outline: 2px solid #7b6b9d;
+		outline-offset: 2px;
+	}
+
+	:global(html.dark) .about-story-card:focus-visible,
+	:global(html.dark) .about-card:focus-visible,
+	:global(html.dark) .about-cta-primary:focus-visible,
+	:global(html.dark) .about-cta-secondary:focus-visible {
+		outline-color: #9b8dbf;
+	}
+
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.about-card,
+		.about-card-accent,
+		.about-card-title,
+		.about-story-card,
+		.about-story-img-inner,
+		.about-story-link,
+		.about-story-arrow,
+		.about-cta-primary,
+		.about-cta-secondary {
+			transition-duration: 0ms !important;
+		}
+	}
+</style>

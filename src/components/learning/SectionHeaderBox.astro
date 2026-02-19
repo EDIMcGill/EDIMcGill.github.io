@@ -1,0 +1,210 @@
+---
+/**
+ * SectionHeaderBox — Monochrome tinted heading with solid icon tile + entrance animation
+ *
+ * Indigo-Slate tokens:
+ *   Deep:      #22324D
+ *   Mid:       #36507A
+ *   Surface:   #EEF3FA
+ *   Border:    #D6E1F3
+ */
+interface Props {
+	title: string
+	subtitle?: string
+	icon?: 'book' | 'columns' | 'check-circle' | 'compass' | 'spark' | 'info'
+}
+
+const { title, subtitle, icon = 'book' } = Astro.props
+const headerId = `shb-${Math.random().toString(36).substr(2, 9)}`
+---
+
+<div class='section-header-box' data-header-id={headerId}>
+	<div class='shb-inner'>
+		<div class='shb-icon-tile' aria-hidden='true'>
+			{
+				icon === 'book' && (
+					<svg width='22' height='22' viewBox='0 0 24 24' fill='none'>
+						<path
+							d='M4 4.5C4 3.12 5.12 2 6.5 2H20v20H6.5C5.12 22 4 20.88 4 19.5V4.5Z'
+							fill='white'
+						/>
+						<path d='M8 7h8v2H8V7Zm0 4h5v2H8v-2Z' fill='#22324D' />
+					</svg>
+				)
+			}
+			{
+				icon === 'columns' && (
+					<svg width='22' height='22' viewBox='0 0 24 24' fill='none'>
+						<rect x='3' y='3' width='5' height='18' rx='1.5' fill='white' />
+						<rect x='9.5' y='3' width='5' height='18' rx='1.5' fill='white' />
+						<rect x='16' y='3' width='5' height='18' rx='1.5' fill='white' />
+					</svg>
+				)
+			}
+			{
+				icon === 'check-circle' && (
+					<svg width='22' height='22' viewBox='0 0 24 24' fill='none'>
+						<circle cx='12' cy='12' r='10' fill='white' />
+						<path
+							d='M8 12.5l2.5 2.5L16 9.5'
+							stroke='#22324D'
+							stroke-width='2.2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
+						/>
+					</svg>
+				)
+			}
+			{
+				icon === 'compass' && (
+					<svg width='22' height='22' viewBox='0 0 24 24' fill='none'>
+						<circle cx='12' cy='12' r='10' fill='white' />
+						<polygon points='16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88' fill='#22324D' />
+					</svg>
+				)
+			}
+			{
+				icon === 'spark' && (
+					<svg width='22' height='22' viewBox='0 0 24 24' fill='none'>
+						<path
+							d='M12 2L14.09 8.26L20 9.27L15.55 13.97L16.91 20L12 16.9L7.09 20L8.45 13.97L4 9.27L9.91 8.26L12 2Z'
+							fill='white'
+						/>
+					</svg>
+				)
+			}
+			{
+				icon === 'info' && (
+					<svg width='22' height='22' viewBox='0 0 24 24' fill='none'>
+						<circle cx='12' cy='12' r='10' fill='white' />
+						<rect x='11' y='10.5' width='2' height='6' rx='1' fill='#22324D' />
+						<circle cx='12' cy='8' r='1.2' fill='#22324D' />
+					</svg>
+				)
+			}
+		</div>
+		<div class='shb-text'>
+			<h3 class='shb-title'>{title}</h3>
+			{subtitle && <p class='shb-subtitle'>{subtitle}</p>}
+			<div class='shb-underline'></div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.section-header-box {
+		background: #eef3fa;
+		border: 1px solid #d6e1f3;
+		border-radius: 15px;
+		padding: 1.1rem 1.35rem;
+		margin-bottom: 1.5rem;
+		opacity: 0;
+		transform: translateY(8px);
+		transition:
+			opacity 280ms cubic-bezier(0.4, 0, 0.2, 1),
+			transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.section-header-box.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.shb-inner {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+	}
+
+	.shb-icon-tile {
+		flex-shrink: 0;
+		width: 42px;
+		height: 42px;
+		border-radius: 10px;
+		background: #22324d;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.shb-text {
+		flex: 1;
+		position: relative;
+	}
+
+	.shb-title {
+		font-size: 1.1rem;
+		font-weight: 650;
+		color: #22324d;
+		margin: 0;
+		line-height: 1.3;
+	}
+
+	.shb-subtitle {
+		font-size: 0.85rem;
+		color: #5a6a7e;
+		margin: 0.2rem 0 0;
+		line-height: 1.4;
+	}
+
+	.shb-underline {
+		position: absolute;
+		bottom: -4px;
+		left: 0;
+		height: 2px;
+		width: 0;
+		background: #36507a;
+		border-radius: 1px;
+		transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 80ms;
+	}
+
+	.section-header-box.visible .shb-underline {
+		width: 48px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.section-header-box {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+
+		.shb-underline {
+			width: 48px;
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	function initSectionHeaders() {
+		const headers = document.querySelectorAll('.section-header-box:not(.observed)')
+
+		if (!headers.length) return
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible')
+						observer.unobserve(entry.target)
+					}
+				})
+			},
+			{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+		)
+
+		headers.forEach((h) => {
+			h.classList.add('observed')
+			observer.observe(h)
+		})
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initSectionHeaders)
+	} else {
+		initSectionHeaders()
+	}
+
+	document.addEventListener('astro:page-load', initSectionHeaders)
+</script>

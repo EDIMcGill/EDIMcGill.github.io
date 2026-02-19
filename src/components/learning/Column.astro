@@ -1,0 +1,22 @@
+---
+/**
+ * Column - Individual column within Columns layout
+ */
+interface Props {
+	class?: string
+}
+
+const { class: className = '' } = Astro.props
+---
+
+<div class={`column ${className}`}>
+	<slot />
+</div>
+
+<style>
+	.column {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+</style>

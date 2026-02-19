@@ -1,0 +1,672 @@
+---
+/**
+ * Module 1 — What is EDI and why do I need it as an engineer?
+ *
+ * Module-scoped purple–blue theme (does NOT replace site identity):
+ *   Accent Primary:   #473472  Deep Violet (identity, authority, headings)
+ *   Accent Secondary: #53629E  Slate Indigo (structure, borders, hover)
+ *   Accent Soft:      #87BAC3  Soft Teal (reflection cues, icons, focus)
+ *   Accent Light:     #D6F4ED  Pale Mint (very light callout tints only)
+ *   Neutral Surface:  white / near-white (reading cards, content)
+ *
+ * Dark mode: purples become muted accent lines/labels, teal becomes
+ *   subtle focus ring, mint replaced by cool dark tint.
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import CalloutBox from '@/components/learning/CalloutBox'
+import QuizSingle from '@/components/learning/QuizSingle'
+import QuizMulti from '@/components/learning/QuizMulti'
+import FlipCard from '@/components/learning/FlipCard'
+import Columns from '@/components/learning/Columns'
+import Column from '@/components/learning/Column'
+
+const title = 'Module 1: What is EDI and why do I need it as an engineer?'
+const description = 'Explore the fundamental concepts of Diversity, Equity, and Inclusion'
+---
+
+<BaseLayout title={title} description={description}>
+	<div class='mod1'>
+		<!-- Hero slab -->
+		<div class='mod1-hero'>
+			<a href='/resources' class='mod1-back'> ← Back to Resources</a>
+			<span class='mod1-pill'>Module 1</span>
+			<h1 class='mod1-title'>{title}</h1>
+			<div class='mod1-intro'>
+				<div class='mod1-intro-rule'></div>
+				<p class='mod1-intro-text'>
+					Begin your EDI journey by understanding the core concepts and their importance in
+					engineering.
+				</p>
+			</div>
+		</div>
+
+		<div class='max-w-6xl mx-auto px-4'>
+			<!-- Section 1: What is EDI? — emphasis opening -->
+			<CalloutBox
+				title='What is EDI?'
+				tone='violet'
+				variant='emphasis'
+				subtitle='Understanding the foundation of inclusive engineering'
+			/>
+
+			<p class='text-base leading-relaxed mb-6' style='color: #374151;'>
+				EDI stands for Equity, Diversity, and Inclusion. These interconnected principles guide how
+				we create fair, representative, and welcoming environments in engineering and beyond.
+			</p>
+
+			<Columns ratio='50-50' gap='md'>
+				<Column>
+					<h4 class='font-semibold mb-3 text-lg' style='color: #1F2937;'>Why EDI Matters</h4>
+					<p class='text-base leading-relaxed' style='color: #374151;'>
+						Engineering solutions impact everyone. When engineering teams lack diversity, products
+						and systems may fail to serve entire communities. EDI ensures we build technology that
+						works for all people.
+					</p>
+				</Column>
+				<Column>
+					<div class='mod1-insight'>
+						<p class='mod1-insight-label'>Quick Fact</p>
+						<p class='text-sm leading-relaxed' style='color: #374151;'>
+							Diverse teams are 35% more likely to outperform homogeneous teams in innovation and
+							problem-solving.
+						</p>
+					</div>
+				</Column>
+			</Columns>
+
+			<!-- Section 2: Three Pillars -->
+			<CalloutBox title='Understanding the Three Pillars' tone='violet' />
+
+			<div class='grid grid-cols-1 md:grid-cols-3 gap-4 mb-8'>
+				<FlipCard
+					front='What is Diversity?'
+					back='Diversity encompasses the full range of human differences including race, ethnicity, gender, age, background, and perspectives.'
+				/>
+				<FlipCard
+					front='What is Equity?'
+					back='Equity means ensuring fair treatment, access, and opportunities for everyone by addressing systemic barriers and providing appropriate support.'
+				/>
+				<FlipCard
+					front='What is Inclusion?'
+					back='Inclusion is creating environments where everyone feels welcomed, respected, valued, and able to fully participate and contribute.'
+				/>
+			</div>
+
+			<!-- Section 3: Check Your Understanding -->
+			<CalloutBox title='Check Your Understanding' tone='violet' />
+
+			<QuizSingle
+				quizId='q1-module1'
+				question='Which statement best describes EDI in engineering?'
+				options={[
+					{
+						id: 'a',
+						text: 'EDI is just about meeting diversity quotas',
+						isCorrect: false,
+						feedback:
+							"EDI goes far beyond quotas — it's about creating systemic change and inclusive cultures."
+					},
+					{
+						id: 'b',
+						text: 'EDI creates fair, inclusive environments that leverage diverse perspectives for better engineering solutions',
+						isCorrect: true,
+						feedback: 'EDI is about building better engineering through inclusion and equity.'
+					},
+					{
+						id: 'c',
+						text: 'EDI only applies to hiring practices',
+						isCorrect: false,
+						feedback:
+							'EDI extends to all aspects of engineering work — design, collaboration, decision-making, and culture.'
+					}
+				]}
+			/>
+
+			<QuizMulti
+				quizId='q2-module1'
+				question='Which of the following are benefits of EDI in engineering? (Select all that apply)'
+				options={[
+					{
+						id: 'a',
+						text: 'More innovative problem-solving',
+						isCorrect: true,
+						feedback: 'Diverse perspectives lead to more creative solutions.'
+					},
+					{
+						id: 'b',
+						text: 'Better representation of user needs',
+						isCorrect: true,
+						feedback: 'Diverse teams better understand diverse users.'
+					},
+					{
+						id: 'c',
+						text: 'Slower decision-making processes',
+						isCorrect: false,
+						feedback:
+							'Research shows diverse teams make better decisions, not necessarily slower ones.'
+					},
+					{
+						id: 'd',
+						text: 'Enhanced team creativity',
+						isCorrect: true,
+						feedback: 'Different backgrounds bring different creative approaches.'
+					}
+				]}
+			/>
+
+			<!-- Section 4: Explore Each Concept -->
+			<CalloutBox title='Explore Each Concept in Detail' tone='violet' />
+
+			<div class='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
+				<div class='mod1-resource-card'>
+					<h4 class='text-lg font-semibold mb-3' style='color: #1F2937;'>Diversity</h4>
+					<p class='text-sm leading-relaxed mb-3' style='color: #374151;'>
+						Understanding the variety of perspectives, backgrounds, and experiences in engineering.
+					</p>
+					<a href='/resources/diversity' class='mod1-cta-link'>Explore →</a>
+				</div>
+				<div class='mod1-resource-card'>
+					<h4 class='text-lg font-semibold mb-3' style='color: #1F2937;'>Equity</h4>
+					<p class='text-sm leading-relaxed mb-3' style='color: #374151;'>
+						Ensuring fair access, opportunities, and treatment for all individuals.
+					</p>
+					<a href='/resources/equity' class='mod1-cta-link'>Explore →</a>
+				</div>
+				<div class='mod1-resource-card'>
+					<h4 class='text-lg font-semibold mb-3' style='color: #1F2937;'>Inclusion</h4>
+					<p class='text-sm leading-relaxed mb-3' style='color: #374151;'>
+						Creating environments where everyone feels valued, respected, and can contribute.
+					</p>
+					<a href='/resources/inclusion' class='mod1-cta-link'>Explore →</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Module navigation -->
+		<section class='mod1-nav'>
+			<div class='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4'>
+				<a href='/resources' class='mod1-nav-prev'> ← Back to Resources</a>
+				<a href='/resources/module-2' class='mod1-nav-next'>
+					<span>Next: Module 2</span>
+					<span>→</span>
+				</a>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	/* ══════════════════════════════════════
+	   MODULE 1 SCOPED THEME
+	   Purple–Blue — thoughtful, academic, foundational
+	   ══════════════════════════════════════ */
+	.mod1 {
+		--mod-accent: #473472;
+		--mod-accent-secondary: #53629e;
+		--mod-accent-soft: #87bac3;
+		--mod-accent-light: #d6f4ed;
+		--mod-canvas-tint: rgba(214, 244, 237, 0.18);
+		--mod-surface: #ffffff;
+		--mod-ink: #1f2937;
+		--mod-ink-2: #374151;
+		--mod-border: #e5e7eb;
+	}
+
+	:global(html.dark) .mod1 {
+		--mod-accent: #7b6bad;
+		--mod-accent-secondary: #7a88b8;
+		--mod-accent-soft: #6a9ba3;
+		--mod-accent-light: #2a3038;
+		--mod-canvas-tint: #1e2028;
+		--mod-surface: #1e1e24;
+		--mod-ink: #e8e5ed;
+		--mod-ink-2: #c5c0ce;
+		--mod-border: rgba(123, 107, 173, 0.12);
+	}
+
+	/* ── Hero slab — full-width banner ── */
+	.mod1-hero {
+		max-width: 100%;
+		margin: 0 0 2.5rem;
+		padding: 2.5rem 1.5rem 2rem;
+		background: var(--mod-canvas-tint);
+		border-top: 4px solid var(--mod-accent);
+		position: relative;
+	}
+
+	:global(html.dark) .mod1-hero {
+		background: rgba(30, 32, 40, 0.5);
+		border-top-color: var(--mod-accent);
+	}
+
+	@media (min-width: 768px) {
+		.mod1-hero {
+			padding: 3rem 3rem 2.5rem;
+		}
+	}
+
+	.mod1-back {
+		display: inline-flex;
+		align-items: center;
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: var(--mod-accent-secondary);
+		text-decoration: none;
+		margin-bottom: 1rem;
+		transition: color 140ms ease;
+	}
+
+	.mod1-back:hover {
+		color: var(--mod-accent);
+		text-decoration: none;
+	}
+
+	:global(html.dark) .mod1-back {
+		color: var(--mod-accent-secondary);
+	}
+
+	.mod1-pill {
+		display: inline-block;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		padding: 0.2rem 0.65rem;
+		border-radius: 5px;
+		background: rgba(83, 98, 158, 0.12);
+		border: 1px solid rgba(83, 98, 158, 0.25);
+		color: var(--mod-accent);
+		margin-bottom: 0.75rem;
+	}
+
+	:global(html.dark) .mod1-pill {
+		background: rgba(123, 107, 173, 0.12);
+		border-color: rgba(123, 107, 173, 0.25);
+		color: var(--mod-accent-secondary);
+	}
+
+	.mod1-title {
+		font-size: 1.65rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--mod-ink);
+		margin: 0 0 1.25rem;
+		max-width: 72rem;
+	}
+
+	@media (min-width: 768px) {
+		.mod1-title {
+			font-size: 2.15rem;
+		}
+	}
+
+	.mod1-intro {
+		display: flex;
+		align-items: stretch;
+		gap: 1rem;
+	}
+
+	.mod1-intro-rule {
+		width: 3px;
+		flex-shrink: 0;
+		border-radius: 2px;
+		background: var(--mod-accent);
+		opacity: 0.6;
+	}
+
+	.mod1-intro-text {
+		font-size: 0.95rem;
+		line-height: 1.7;
+		color: var(--mod-ink-2);
+		margin: 0;
+	}
+
+	/* ── Insight / Fact cards ── */
+	.mod1-insight {
+		border-radius: 10px;
+		padding: 1.25rem;
+		background: var(--mod-canvas-tint);
+		border-left: 3px solid var(--mod-accent-secondary);
+	}
+
+	:global(html.dark) .mod1-insight {
+		background: var(--mod-canvas-tint);
+		border-left-color: var(--mod-accent-secondary);
+	}
+
+	.mod1-insight-label {
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: var(--mod-accent);
+		margin: 0 0 0.4rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	:global(html.dark) .mod1-insight p:not(.mod1-insight-label) {
+		color: var(--mod-ink-2) !important;
+	}
+
+	/* ── Resource / link cards ── */
+	.mod1-resource-card {
+		background: var(--mod-surface);
+		border: 1px solid var(--mod-border);
+		border-left: 3px solid var(--mod-accent-secondary);
+		border-radius: 12px;
+		padding: 1.5rem;
+		transition:
+			transform 140ms ease,
+			box-shadow 140ms ease,
+			border-color 140ms ease;
+	}
+
+	.mod1-resource-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(71, 52, 114, 0.08);
+		border-left-color: var(--mod-accent);
+	}
+
+	:global(html.dark) .mod1-resource-card {
+		background: var(--mod-surface);
+		border-color: var(--mod-border);
+		border-left-color: var(--mod-accent-secondary);
+	}
+
+	:global(html.dark) .mod1-resource-card:hover {
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+		border-left-color: var(--mod-accent);
+	}
+
+	:global(html.dark) .mod1-resource-card h4 {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark) .mod1-resource-card p {
+		color: var(--mod-ink-2) !important;
+	}
+
+	.mod1-cta-link {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--mod-accent);
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		transition:
+			color 140ms ease,
+			transform 140ms ease;
+	}
+
+	.mod1-cta-link:hover {
+		color: var(--mod-accent-secondary);
+		text-decoration: none;
+		transform: translateX(3px);
+	}
+
+	:global(html.dark) .mod1-cta-link {
+		color: var(--mod-accent);
+	}
+
+	:global(html.dark) .mod1-cta-link:hover {
+		color: var(--mod-accent-secondary);
+	}
+
+	/* ── Module navigation ── */
+	.mod1-nav {
+		max-width: 72rem;
+		margin: 3rem auto 1rem;
+		padding-top: 2rem;
+		border-top: 2px solid var(--mod-border);
+	}
+
+	.mod1-nav-prev {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--mod-accent-secondary);
+		text-decoration: none;
+		padding: 0.5rem 0;
+		transition: color 140ms ease;
+	}
+
+	.mod1-nav-prev:hover {
+		color: var(--mod-accent);
+		text-decoration: none;
+	}
+
+	:global(html.dark) .mod1-nav-prev {
+		color: var(--mod-accent-secondary);
+	}
+
+	.mod1-nav-next {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.6rem 1.25rem;
+		border-radius: 8px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		background: var(--mod-accent);
+		color: #ffffff;
+		text-decoration: none;
+		box-shadow: 0 2px 8px rgba(71, 52, 114, 0.2);
+		transition:
+			background 140ms ease,
+			box-shadow 140ms ease;
+	}
+
+	.mod1-nav-next:hover {
+		background: var(--mod-accent-secondary);
+		box-shadow: 0 4px 14px rgba(71, 52, 114, 0.25);
+		text-decoration: none;
+	}
+
+	:global(html.dark) .mod1-nav-next {
+		background: var(--mod-accent);
+		box-shadow: 0 2px 8px rgba(123, 107, 173, 0.25);
+	}
+
+	:global(html.dark) .mod1-nav-next:hover {
+		background: var(--mod-accent-secondary);
+	}
+
+	/* ══════════════════════════════════════
+	   COMPONENT OVERRIDES — scoped to .mod1
+	   FlipCard, QuizSingle, QuizMulti, CalloutBox
+	   ══════════════════════════════════════ */
+
+	/* ── FlipCard overrides ── */
+	:global(.mod1 .fc-bar-front) {
+		background: var(--mod-accent-secondary) !important;
+	}
+
+	:global(.mod1 .fc-bar-back) {
+		background: var(--mod-accent) !important;
+	}
+
+	:global(.mod1 .flip-card-back) {
+		background: var(--mod-canvas-tint) !important;
+	}
+
+	:global(.mod1 .flip-card) {
+		box-shadow:
+			0 1px 4px rgba(71, 52, 114, 0.06),
+			0 0 0 1px rgba(83, 98, 158, 0.12) !important;
+	}
+
+	:global(.mod1 .flip-card:hover) {
+		box-shadow:
+			0 6px 20px rgba(71, 52, 114, 0.1),
+			0 0 0 1px rgba(83, 98, 158, 0.18) !important;
+	}
+
+	:global(.mod1 .flip-card:focus) {
+		outline-color: var(--mod-accent-soft) !important;
+	}
+
+	:global(.mod1 .fc-hint) {
+		color: var(--mod-accent) !important;
+	}
+
+	:global(.mod1 .fc-answer) {
+		color: var(--mod-accent) !important;
+	}
+
+	/* Dark mode FlipCard */
+	:global(html.dark .mod1 .flip-card-front) {
+		background: var(--mod-surface) !important;
+	}
+
+	:global(html.dark .mod1 .flip-card-back) {
+		background: var(--mod-canvas-tint) !important;
+	}
+
+	:global(html.dark .mod1 .flip-card) {
+		box-shadow:
+			0 1px 4px rgba(0, 0, 0, 0.15),
+			0 0 0 1px rgba(123, 107, 173, 0.1) !important;
+	}
+
+	:global(html.dark .mod1 .flip-card:hover) {
+		box-shadow:
+			0 6px 20px rgba(0, 0, 0, 0.25),
+			0 0 0 1px rgba(123, 107, 173, 0.15) !important;
+	}
+
+	:global(html.dark .mod1 .fc-question) {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark .mod1 .fc-answer) {
+		color: var(--mod-ink-2) !important;
+	}
+
+	:global(html.dark .mod1 .fc-hint) {
+		color: var(--mod-accent-secondary) !important;
+	}
+
+	/* ── Quiz overrides (radio + checkbox) ── */
+	:global(.mod1 .quiz-radio:checked + .radio-custom) {
+		border-color: var(--mod-accent-secondary) !important;
+	}
+
+	:global(.mod1 .quiz-radio:checked + .radio-custom::after) {
+		background: var(--mod-accent) !important;
+	}
+
+	:global(.mod1 .quiz-option:has(.quiz-radio:checked)) {
+		border-color: var(--mod-accent-secondary) !important;
+		background: rgba(214, 244, 237, 0.3) !important;
+	}
+
+	:global(.mod1 .quiz-radio:focus + .radio-custom) {
+		outline-color: var(--mod-accent-soft) !important;
+	}
+
+	:global(.mod1 .quiz-checkbox:checked + .checkbox-custom) {
+		background: var(--mod-accent) !important;
+		border-color: var(--mod-accent) !important;
+	}
+
+	:global(.mod1 .quiz-option:has(.quiz-checkbox:checked)) {
+		border-color: var(--mod-accent-secondary) !important;
+		background: rgba(214, 244, 237, 0.3) !important;
+	}
+
+	:global(.mod1 .quiz-checkbox:focus + .checkbox-custom) {
+		outline-color: var(--mod-accent-soft) !important;
+	}
+
+	:global(.mod1 .quiz-submit:hover) {
+		background: var(--mod-accent) !important;
+		color: #ffffff !important;
+		border-color: var(--mod-accent) !important;
+	}
+
+	:global(.mod1 .quiz-submit:focus) {
+		outline-color: var(--mod-accent-soft) !important;
+	}
+
+	/* Dark mode quiz */
+	:global(html.dark .mod1 .quiz-single > div, html.dark .mod1 .quiz-multi > div) {
+		background: var(--mod-surface) !important;
+		border-color: var(--mod-border) !important;
+	}
+
+	:global(html.dark .mod1 .quiz-single h4, html.dark .mod1 .quiz-multi h4) {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark .mod1 .quiz-option) {
+		border-color: var(--mod-border) !important;
+		background: var(--mod-surface) !important;
+	}
+
+	:global(html.dark .mod1 .quiz-option span:last-child) {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(
+		html.dark .mod1 .quiz-option:has(.quiz-radio:checked),
+		html.dark .mod1 .quiz-option:has(.quiz-checkbox:checked)
+	) {
+		border-color: var(--mod-accent) !important;
+		background: rgba(30, 32, 40, 0.6) !important;
+	}
+
+	:global(html.dark .mod1 .quiz-submit) {
+		background: var(--mod-surface) !important;
+		color: var(--mod-ink) !important;
+		border-color: var(--mod-border) !important;
+	}
+
+	:global(html.dark .mod1 .quiz-submit:hover) {
+		background: var(--mod-accent) !important;
+		color: #ffffff !important;
+		border-color: var(--mod-accent) !important;
+	}
+
+	/* ── CalloutBox overrides within .mod1 ── */
+	:global(.mod1 .callout-default) {
+		border-left-color: var(--mod-accent-secondary) !important;
+	}
+
+	:global(html.dark .mod1 .callout-emphasis) {
+		background: var(--mod-accent) !important;
+	}
+
+	:global(html.dark .mod1 .callout-default) {
+		background: var(--mod-canvas-tint) !important;
+		border-left-color: var(--mod-accent-secondary) !important;
+	}
+
+	:global(html.dark .mod1 .callout-default h3) {
+		color: var(--mod-ink) !important;
+	}
+
+	/* ── Body text dark mode ── */
+	:global(html.dark) .mod1 p[style*='color: #374151'] {
+		color: var(--mod-ink-2) !important;
+	}
+
+	:global(html.dark) .mod1 h4[style*='color: #1F2937'] {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark) .mod1 span[style*='color: #374151'],
+	:global(html.dark) .mod1 ul[style*='color: #374151'] {
+		color: var(--mod-ink-2) !important;
+	}
+
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.mod1-hero,
+		.mod1-resource-card,
+		.mod1-cta-link,
+		.mod1-back,
+		.mod1-nav-prev,
+		.mod1-nav-next {
+			transition-duration: 0ms !important;
+		}
+	}
+</style>

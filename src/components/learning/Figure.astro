@@ -1,0 +1,53 @@
+---
+/**
+ * Figure - Rich text + image block
+ * Purpose: Easily insert images with captions without custom HTML
+ */
+import { Image } from 'astro:assets'
+
+interface Props {
+	src: string
+	alt: string
+	caption?: string
+	align?: 'left' | 'center' | 'right'
+	width?: number
+	maxWidth?: string
+}
+
+const { src, alt, caption, align = 'center', width = 800, maxWidth = '100%' } = Astro.props
+
+const alignClass = {
+	left: 'text-left',
+	center: 'text-center',
+	right: 'text-right'
+}[align]
+---
+
+<figure class={`figure-component mb-6 ${alignClass}`} style={`max-width: ${maxWidth};`}>
+	<div class='figure-image-wrapper rounded-lg overflow-hidden' style='border: 2px solid #E5E7EB;'>
+		<img src={src} alt={alt} width={width} class='w-full h-auto' loading='lazy' />
+	</div>
+	{
+		caption && (
+			<figcaption class='figure-caption mt-3 text-sm leading-relaxed' style='color: #6B7280;'>
+				{caption}
+			</figcaption>
+		)
+	}
+	<slot />
+</figure>
+
+<style>
+	.figure-component {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.figure-image-wrapper {
+		background: #f9fafb;
+	}
+
+	.figure-caption {
+		font-style: italic;
+	}
+</style>

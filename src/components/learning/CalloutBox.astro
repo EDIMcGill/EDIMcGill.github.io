@@ -1,0 +1,62 @@
+---
+/**
+ * CalloutBox - Section heading with two variants
+ *
+ * Default (90%): White background, thin left accent bar, title in ink
+ * Emphasis (10%): Solid accent banner, white text — major transitions only
+ */
+interface Props {
+	title: string
+	tone?: 'indigo' | 'terracotta' | 'teal' | 'caution' | 'gray' | 'coral' | 'moss' | 'violet'
+	variant?: 'default' | 'emphasis'
+	subtitle?: string
+}
+
+const { title, tone = 'indigo', variant = 'default', subtitle } = Astro.props
+
+const toneTokens = {
+	indigo: { accent: '#22324D', tint: '#EEF3FA' },
+	terracotta: { accent: '#B4532A', tint: '#F8ECE6' },
+	teal: { accent: '#1F6B63', tint: '#E7F2F1' },
+	caution: { accent: '#B3261E', tint: '#FCE8E6' },
+	gray: { accent: '#374151', tint: '#F3F4F6' },
+	coral: { accent: '#D25353', tint: '#FFEAD3' },
+	moss: { accent: '#6CA651', tint: '#F0F5EC' },
+	violet: { accent: '#473472', tint: '#F0F8F5' }
+}
+
+const tokens = toneTokens[tone]
+const isEmphasis = variant === 'emphasis'
+---
+
+{
+	isEmphasis ? (
+		<div
+			class='callout-emphasis rounded-lg px-6 py-4 mb-6'
+			style={`background: ${tokens.accent}; color: #FFFFFF;`}
+			role='note'
+		>
+			<h3 class='text-lg md:text-xl font-semibold m-0 leading-tight'>{title}</h3>
+			{subtitle && <p class='text-sm mt-1.5 mb-0 opacity-85'>{subtitle}</p>}
+			<slot />
+		</div>
+	) : (
+		<div
+			class='callout-default rounded-lg mb-6 overflow-hidden'
+			style={`border-left: 3px solid ${tokens.accent}; background: ${tokens.tint};`}
+			role='note'
+		>
+			<div class='px-5 py-4'>
+				<h3 class='text-lg font-semibold m-0 leading-tight' style='color: #1F2937;'>
+					{title}
+				</h3>
+				{subtitle && (
+					<p class='text-sm mt-1.5 mb-0' style='color: #6B7280;'>
+						{subtitle}
+					</p>
+				)}
+				<slot />
+			</div>
+		</div>
+	)
+}

@@ -1,0 +1,192 @@
+---
+/**
+ * QuizSingle - Single-choice quiz (radio buttons)
+ *
+ * Always white card. Neutral button default, accent on hover/focus.
+ * Selected: accent border + subtle tint. No colored backgrounds.
+ */
+interface Option {
+	id: string
+	text: string
+	isCorrect: boolean
+	feedback?: string
+}
+
+interface Props {
+	quizId: string
+	question: string
+	options: Option[]
+}
+
+const { quizId, question, options } = Astro.props
+---
+
+<div class='quiz-single mb-8' data-quiz-id={quizId}>
+	<div class='bg-white dark:bg-gray-800 rounded-xl p-6 border' style='border-color: #E5E7EB;'>
+		<h4 class='text-lg font-semibold mb-4' style='color: #1F2937;' id={`${quizId}-question`}>
+			{question}
+		</h4>
+
+		<div class='space-y-3 mb-4' role='radiogroup' aria-labelledby={`${quizId}-question`}>
+			{
+				options.map((option) => (
+					<label
+						class='quiz-option flex items-start gap-3 p-4 rounded-lg cursor-pointer transition-all'
+						style='border: 2px solid #E5E7EB; background: #FFFFFF;'
+					>
+						<input
+							type='radio'
+							name={quizId}
+							value={option.id}
+							data-correct={option.isCorrect}
+							data-feedback={option.feedback || (option.isCorrect ? 'Correct!' : 'Not quite.')}
+							class='quiz-radio'
+							aria-label={option.text}
+						/>
+						<span class='radio-custom' aria-hidden='true' />
+						<span class='flex-1 text-base' style='color: #1F2937;'>
+							{option.text}
+						</span>
+					</label>
+				))
+			}
+		</div>
+
+		<button
+			class='quiz-submit px-6 py-3 rounded-lg font-semibold text-sm transition-all'
+			aria-label='Check answer'
+		>
+			Check Answer
+		</button>
+
+		<div class='quiz-feedback mt-4 p-4 rounded-lg hidden' role='alert' aria-live='polite'></div>
+	</div>
+</div>
+
+<style>
+	.quiz-radio {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.radio-custom {
+		width: 22px;
+		height: 22px;
+		border: 2px solid #d1d5db;
+		border-radius: 50%;
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.15s;
+	}
+
+	.radio-custom::after {
+		content: '';
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: #374151;
+		transform: scale(0);
+		transition: transform 0.15s;
+	}
+
+	.quiz-radio:checked + .radio-custom {
+		border-color: #374151;
+	}
+
+	.quiz-radio:checked + .radio-custom::after {
+		transform: scale(1);
+	}
+
+	/* Selected option: accent border + 6% tint */
+	.quiz-option:has(.quiz-radio:checked) {
+		border-color: #374151 !important;
+		background: #f9fafb !important;
+	}
+
+	.quiz-radio:focus + .radio-custom {
+		outline: 2px solid #374151;
+		outline-offset: 2px;
+	}
+
+	.quiz-option:hover {
+		border-color: #d1d5db !important;
+		background: #fafafa !important;
+	}
+
+	.quiz-option:hover .radio-custom {
+		border-color: #9ca3af;
+	}
+
+	/* Neutral submit button */
+	.quiz-submit {
+		background: #ffffff;
+		color: #374151;
+		border: 2px solid #d1d5db;
+	}
+
+	.quiz-submit:hover {
+		background: #374151;
+		color: #ffffff;
+		border-color: #374151;
+	}
+
+	.quiz-submit:focus {
+		outline: 2px solid #374151;
+		outline-offset: 2px;
+	}
+</style>
+
+<script>
+	function initQuizSingle() {
+		const quizzes = document.querySelectorAll('.quiz-single')
+
+		quizzes.forEach((quiz) => {
+			const submitBtn = quiz.querySelector('.quiz-submit') as HTMLButtonElement
+			const feedbackDiv = quiz.querySelector('.quiz-feedback') as HTMLDivElement
+			const quizId = quiz.getAttribute('data-quiz-id')
+
+			if (!submitBtn || !feedbackDiv || !quizId) return
+
+			const newSubmitBtn = submitBtn.cloneNode(true) as HTMLButtonElement
+			submitBtn.parentNode?.replaceChild(newSubmitBtn, submitBtn)
+
+			newSubmitBtn.addEventListener('click', () => {
+				const selected = quiz.querySelector(`input[name="${quizId}"]:checked`) as HTMLInputElement
+
+				if (!selected) {
+					feedbackDiv.textContent = 'Please select an answer.'
+					feedbackDiv.style.background = '#FEF3C7'
+					feedbackDiv.style.color = '#92400E'
+					feedbackDiv.classList.remove('hidden')
+					return
+				}
+
+				const isCorrect = selected.getAttribute('data-correct') === 'true'
+				const feedback = selected.getAttribute('data-feedback') || ''
+
+				if (isCorrect) {
+					feedbackDiv.style.background = '#D1FAE5'
+					feedbackDiv.style.color = '#065F46'
+					feedbackDiv.innerHTML = `<strong>Correct.</strong> ${feedback}`
+				} else {
+					feedbackDiv.style.background = '#FEE2E2'
+					feedbackDiv.style.color = '#991B1B'
+					feedbackDiv.innerHTML = `<strong>Not quite.</strong> ${feedback}`
+				}
+
+				feedbackDiv.classList.remove('hidden')
+			})
+		})
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initQuizSingle)
+	} else {
+		initQuizSingle()
+	}
+
+	document.addEventListener('astro:page-load', initQuizSingle)
+</script>

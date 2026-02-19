@@ -1,0 +1,766 @@
+---
+/**
+ * Module 3 — Leading Change and Building Inclusive Communities
+ *
+ * Module-scoped green theme (does NOT replace site identity):
+ *   Accent Primary:   #6CA651  Fresh Green (structure, leadership emphasis)
+ *   Accent Secondary: #BBCB2E  Lime Accent (highlights, progress cues)
+ *   Accent Strong:    #6B7445  Deep Moss (text-on-color, strong borders, labels)
+ *   Accent Muted:     #839705  Olive Green (dividers, secondary outlines)
+ *   Canvas Tint:      #F0F5EC  (very subtle green wash, small areas only)
+ *   Neutral Surface:  white / near-white (reading cards, content)
+ *
+ * Dark mode: greens become accent lines/labels (no large green fills),
+ *   saturation reduced to avoid neon.
+ */
+import BaseLayout from '@/layouts/BaseLayout'
+import CalloutBox from '@/components/learning/CalloutBox'
+import QuizSingle from '@/components/learning/QuizSingle'
+import QuizMulti from '@/components/learning/QuizMulti'
+import FlipCard from '@/components/learning/FlipCard'
+import Columns from '@/components/learning/Columns'
+import Column from '@/components/learning/Column'
+
+const title = 'Module 3: Leading Change and Building Inclusive Communities'
+const description = 'Become an advocate and leader for EDI in engineering'
+---
+
+<BaseLayout title={title} description={description}>
+	<div class='mod3'>
+		<!-- Hero slab -->
+		<div class='mod3-hero'>
+			<a href='/resources' class='mod3-back'> ← Back to Resources</a>
+			<span class='mod3-pill'>Module 3</span>
+			<h1 class='mod3-title'>{title}</h1>
+			<div class='mod3-intro'>
+				<div class='mod3-intro-rule'></div>
+				<p class='mod3-intro-text'>
+					Explore strategies for creating systemic change, building inclusive communities, and
+					fostering cultures of belonging in engineering organizations. Become an EDI advocate and
+					change agent.
+				</p>
+			</div>
+		</div>
+
+		<div class='max-w-6xl mx-auto px-4'>
+			<!-- Section 1: Systemic Change -->
+			<CalloutBox
+				title='From Individual Action to Systemic Change'
+				tone='moss'
+				variant='emphasis'
+				subtitle='Moving beyond personal awareness to organizational impact'
+			/>
+
+			<p class='text-base leading-relaxed mb-6' style='color: #374151;'>
+				Individual actions matter, but lasting EDI progress requires changing systems, policies, and
+				cultures. Leaders who understand how to drive organizational change can create environments
+				where equity and inclusion become the default, not the exception.
+			</p>
+
+			<Columns ratio='60-40' gap='md'>
+				<Column>
+					<h4 class='font-semibold mb-3 text-lg' style='color: #1F2937;'>
+						Levels of EDI Leadership
+					</h4>
+					<div class='space-y-3'>
+						<div class='mod3-level-card'>
+							<h5 class='mod3-level-label'>Level 1: Self-Work</h5>
+							<p class='text-sm' style='color: #374151;'>
+								Examining your own biases and privileges
+							</p>
+						</div>
+						<div class='mod3-level-card'>
+							<h5 class='mod3-level-label'>Level 2: Interpersonal</h5>
+							<p class='text-sm' style='color: #374151;'>
+								Speaking up, mentoring, building relationships
+							</p>
+						</div>
+						<div class='mod3-level-card'>
+							<h5 class='mod3-level-label'>Level 3: Institutional</h5>
+							<p class='text-sm' style='color: #374151;'>
+								Changing policies, processes, and structures
+							</p>
+						</div>
+					</div>
+				</Column>
+				<Column>
+					<div class='mod3-insight'>
+						<p class='mod3-insight-label'>Key Insight</p>
+						<p class='text-sm leading-relaxed' style='color: #374151;'>
+							Organizations with formal EDI initiatives and accountability measures show 60% better
+							representation outcomes than those relying on individual goodwill alone.
+						</p>
+					</div>
+				</Column>
+			</Columns>
+
+			<!-- Section 2: Building Coalitions -->
+			<CalloutBox title='Building Coalitions for Change' tone='moss' />
+
+			<p class='text-base leading-relaxed mb-4' style='color: #374151;'>
+				You don't have to lead alone. Effective EDI change happens when people across differences —
+				backgrounds, roles, seniority levels — come together with shared purpose.
+			</p>
+
+			<div class='grid grid-cols-1 md:grid-cols-3 gap-4 mb-8'>
+				<FlipCard
+					front='Find Allies'
+					back='Identify others who share your values. Look across departments, seniority levels, and identity groups. Coalition strength comes from diversity.'
+				/>
+				<FlipCard
+					front='Make It Visible'
+					back='Share EDI wins publicly. Celebrate progress, recognize contributors, and make inclusive practices visible so they become normalized.'
+				/>
+				<FlipCard
+					front='Sustain Momentum'
+					back='Change takes time. Create regular touchpoints, track progress, and keep the conversation going even when initial enthusiasm fades.'
+				/>
+			</div>
+
+			<!-- Section 3: Navigating Resistance -->
+			<CalloutBox title='Navigating Resistance' tone='moss' />
+
+			<p class='text-base leading-relaxed mb-4' style='color: #374151;'>
+				EDI work often faces pushback. Understanding common forms of resistance helps you respond
+				effectively.
+			</p>
+
+			<QuizSingle
+				quizId='q1-module3'
+				question='A colleague says: "We should just hire the best person, not focus on diversity." How do you respond?'
+				options={[
+					{
+						id: 'a',
+						text: "Ignore them — they won't change their mind",
+						isCorrect: false,
+						feedback:
+							'Avoiding the conversation allows misconceptions to persist and undermines EDI efforts.'
+					},
+					{
+						id: 'b',
+						text: 'Explain that diverse teams produce better outcomes, and biased processes prevent us from identifying the "best"',
+						isCorrect: true,
+						feedback:
+							'This reframes "diversity vs. merit" as a false choice and highlights how bias undermines meritocracy.'
+					},
+					{
+						id: 'c',
+						text: 'Argue that quotas are necessary to fix historical inequities',
+						isCorrect: false,
+						feedback:
+							'While structural interventions matter, leading with "quotas" often increases resistance. Focus on outcomes and bias.'
+					}
+				]}
+			/>
+
+			<QuizMulti
+				quizId='q2-module3'
+				question='What strategies help sustain long-term EDI progress? (Select all that apply)'
+				options={[
+					{
+						id: 'a',
+						text: 'Embedding EDI metrics into performance reviews',
+						isCorrect: true
+					},
+					{
+						id: 'b',
+						text: 'Making EDI training optional and voluntary',
+						isCorrect: false
+					},
+					{
+						id: 'c',
+						text: 'Creating accountability structures with regular reporting',
+						isCorrect: true
+					},
+					{
+						id: 'd',
+						text: 'Allocating dedicated budget and resources for EDI initiatives',
+						isCorrect: true
+					},
+					{
+						id: 'e',
+						text: 'Treating EDI as a one-time workshop',
+						isCorrect: false
+					}
+				]}
+			/>
+
+			<!-- Section 4: Taking Action -->
+			<CalloutBox title='Your Next Steps' tone='moss' />
+
+			<Columns ratio='50-50'>
+				<Column>
+					<h4 class='font-semibold mb-3 text-lg' style='color: #1F2937;'>Start Small, Think Big</h4>
+					<ul class='space-y-2 text-base' style='color: #374151;'>
+						<li class='flex items-start gap-2'>
+							<span class='mod3-arrow'>→</span>
+							<span>Audit one process for bias (hiring, promotion, project assignments)</span>
+						</li>
+						<li class='flex items-start gap-2'>
+							<span class='mod3-arrow'>→</span>
+							<span>Start a reading group or discussion series</span>
+						</li>
+						<li class='flex items-start gap-2'>
+							<span class='mod3-arrow'>→</span>
+							<span>Propose one concrete policy change</span>
+						</li>
+						<li class='flex items-start gap-2'>
+							<span class='mod3-arrow'>→</span>
+							<span>Mentor someone from an underrepresented group</span>
+						</li>
+					</ul>
+				</Column>
+				<Column>
+					<div class='mod3-resource-card'>
+						<h4 class='text-lg font-semibold mb-3' style='color: #1F2937;'>
+							You've Completed the Foundation
+						</h4>
+						<p class='text-sm leading-relaxed mb-4' style='color: #374151;'>
+							You now have the knowledge to recognize EDI concepts, apply them in practice, and lead
+							change. The real work begins with action.
+						</p>
+						<a href='/participate' class='mod3-cta-link'>
+							<span>Get Involved with EDI McGill</span>
+							<span>→</span>
+						</a>
+					</div>
+				</Column>
+			</Columns>
+		</div>
+
+		<!-- Module navigation -->
+		<section class='mod3-nav'>
+			<div class='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4'>
+				<a href='/resources/module-2' class='mod3-nav-prev'> ← Previous: Module 2</a>
+				<a href='/resources' class='mod3-nav-next'>
+					<span>Back to Resources</span>
+				</a>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	/* ══════════════════════════════════════
+	   MODULE 3 SCOPED THEME
+	   Green — grounded leadership, systems thinking
+	   ══════════════════════════════════════ */
+	.mod3 {
+		--mod-accent: #6ca651;
+		--mod-accent-secondary: #bbcb2e;
+		--mod-accent-strong: #6b7445;
+		--mod-accent-muted: #839705;
+		--mod-canvas-tint: #f0f5ec;
+		--mod-surface: #ffffff;
+		--mod-ink: #1f2937;
+		--mod-ink-2: #374151;
+		--mod-border: #e5e7eb;
+	}
+
+	:global(html.dark) .mod3 {
+		--mod-accent: #7db866;
+		--mod-accent-secondary: #a5b52e;
+		--mod-accent-strong: #9ba87d;
+		--mod-accent-muted: #8a9745;
+		--mod-canvas-tint: #222620;
+		--mod-surface: #1e201e;
+		--mod-ink: #e8e5ed;
+		--mod-ink-2: #c5c0ce;
+		--mod-border: rgba(108, 166, 81, 0.12);
+	}
+
+	/* ── Hero slab — full-width banner ── */
+	.mod3-hero {
+		max-width: 100%;
+		margin: 0 0 2.5rem;
+		padding: 2.5rem 1.5rem 2rem;
+		background: rgba(240, 245, 236, 0.4);
+		border-top: 4px solid var(--mod-accent);
+		position: relative;
+	}
+
+	:global(html.dark) .mod3-hero {
+		background: rgba(34, 38, 32, 0.4);
+		border-top-color: var(--mod-accent);
+	}
+
+	@media (min-width: 768px) {
+		.mod3-hero {
+			padding: 3rem 3rem 2.5rem;
+		}
+	}
+
+	.mod3-back {
+		display: inline-flex;
+		align-items: center;
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: var(--mod-accent-strong);
+		text-decoration: none;
+		margin-bottom: 1rem;
+		transition: color 140ms ease;
+	}
+
+	.mod3-back:hover {
+		color: var(--mod-accent);
+		text-decoration: none;
+	}
+
+	:global(html.dark) .mod3-back {
+		color: var(--mod-accent-strong);
+	}
+
+	.mod3-pill {
+		display: inline-block;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		padding: 0.2rem 0.65rem;
+		border-radius: 5px;
+		background: rgba(187, 203, 46, 0.15);
+		border: 1px solid rgba(187, 203, 46, 0.35);
+		color: var(--mod-accent-strong);
+		margin-bottom: 0.75rem;
+	}
+
+	:global(html.dark) .mod3-pill {
+		background: rgba(165, 181, 46, 0.1);
+		border-color: rgba(165, 181, 46, 0.25);
+		color: var(--mod-accent-strong);
+	}
+
+	.mod3-title {
+		font-size: 1.65rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--mod-ink);
+		margin: 0 0 1.25rem;
+		max-width: 72rem;
+	}
+
+	@media (min-width: 768px) {
+		.mod3-title {
+			font-size: 2.15rem;
+		}
+	}
+
+	.mod3-intro {
+		display: flex;
+		align-items: stretch;
+		gap: 1rem;
+	}
+
+	.mod3-intro-rule {
+		width: 3px;
+		flex-shrink: 0;
+		border-radius: 2px;
+		background: var(--mod-accent);
+		opacity: 0.6;
+	}
+
+	.mod3-intro-text {
+		font-size: 0.95rem;
+		line-height: 1.7;
+		color: var(--mod-ink-2);
+		margin: 0;
+	}
+
+	/* ── List arrows ── */
+	.mod3-arrow {
+		color: var(--mod-accent);
+		flex-shrink: 0;
+	}
+
+	/* ── Leadership level cards ── */
+	.mod3-level-card {
+		padding: 1rem;
+		border-radius: 8px;
+		background: var(--mod-surface);
+		border: 1px solid var(--mod-border);
+		border-left: 3px solid var(--mod-accent-muted);
+		transition:
+			border-color 140ms ease,
+			box-shadow 140ms ease;
+	}
+
+	.mod3-level-card:hover {
+		border-left-color: var(--mod-accent);
+		box-shadow: 0 2px 8px rgba(108, 166, 81, 0.08);
+	}
+
+	:global(html.dark) .mod3-level-card {
+		background: var(--mod-surface);
+		border-color: var(--mod-border);
+		border-left-color: var(--mod-accent-muted);
+	}
+
+	:global(html.dark) .mod3-level-card:hover {
+		border-left-color: var(--mod-accent);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	}
+
+	:global(html.dark) .mod3-level-card p {
+		color: var(--mod-ink-2) !important;
+	}
+
+	.mod3-level-label {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--mod-accent);
+		margin: 0 0 0.25rem;
+	}
+
+	:global(html.dark) .mod3-level-label {
+		color: var(--mod-accent);
+	}
+
+	/* ── Key Insight cards ── */
+	.mod3-insight {
+		border-radius: 10px;
+		padding: 1.25rem;
+		background: var(--mod-canvas-tint);
+		border-left: 3px solid var(--mod-accent);
+	}
+
+	:global(html.dark) .mod3-insight {
+		background: var(--mod-canvas-tint);
+		border-left-color: var(--mod-accent);
+	}
+
+	.mod3-insight-label {
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: var(--mod-accent-strong);
+		margin: 0 0 0.4rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	:global(html.dark) .mod3-insight p:not(.mod3-insight-label) {
+		color: var(--mod-ink-2) !important;
+	}
+
+	/* ── Resource / completion cards ── */
+	.mod3-resource-card {
+		background: var(--mod-surface);
+		border: 1px solid var(--mod-border);
+		border-left: 3px solid var(--mod-accent);
+		border-radius: 12px;
+		padding: 1.5rem;
+		transition:
+			transform 140ms ease,
+			box-shadow 140ms ease;
+	}
+
+	.mod3-resource-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(108, 166, 81, 0.08);
+	}
+
+	:global(html.dark) .mod3-resource-card {
+		background: var(--mod-surface);
+		border-color: var(--mod-border);
+		border-left-color: var(--mod-accent);
+	}
+
+	:global(html.dark) .mod3-resource-card:hover {
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+	}
+
+	:global(html.dark) .mod3-resource-card h4 {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark) .mod3-resource-card p {
+		color: var(--mod-ink-2) !important;
+	}
+
+	/* CTA link inside resource card */
+	.mod3-cta-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--mod-accent-strong);
+		text-decoration: none;
+		transition:
+			color 140ms ease,
+			gap 140ms ease;
+	}
+
+	.mod3-cta-link:hover {
+		color: var(--mod-accent);
+		gap: 0.5rem;
+		text-decoration: none;
+	}
+
+	:global(html.dark) .mod3-cta-link {
+		color: var(--mod-accent);
+	}
+
+	:global(html.dark) .mod3-cta-link:hover {
+		color: var(--mod-accent-secondary);
+	}
+
+	/* ── Module navigation ── */
+	.mod3-nav {
+		max-width: 72rem;
+		margin: 3rem auto 1rem;
+		padding-top: 2rem;
+		border-top: 2px solid var(--mod-border);
+	}
+
+	.mod3-nav-prev {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--mod-accent-strong);
+		text-decoration: none;
+		padding: 0.5rem 0;
+		transition: color 140ms ease;
+	}
+
+	.mod3-nav-prev:hover {
+		color: var(--mod-accent);
+		text-decoration: none;
+	}
+
+	:global(html.dark) .mod3-nav-prev {
+		color: var(--mod-accent-strong);
+	}
+
+	.mod3-nav-next {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.6rem 1.25rem;
+		border-radius: 8px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		background: var(--mod-accent-strong);
+		color: #ffffff;
+		text-decoration: none;
+		box-shadow: 0 2px 8px rgba(107, 116, 69, 0.2);
+		transition:
+			background 140ms ease,
+			box-shadow 140ms ease;
+	}
+
+	.mod3-nav-next:hover {
+		background: var(--mod-accent);
+		box-shadow: 0 4px 14px rgba(108, 166, 81, 0.25);
+		text-decoration: none;
+	}
+
+	:global(html.dark) .mod3-nav-next {
+		background: var(--mod-accent);
+		box-shadow: 0 2px 8px rgba(125, 184, 102, 0.25);
+	}
+
+	:global(html.dark) .mod3-nav-next:hover {
+		background: var(--mod-accent-secondary);
+		color: #1e201e;
+	}
+
+	/* ══════════════════════════════════════
+	   COMPONENT OVERRIDES — scoped to .mod3
+	   FlipCard, QuizSingle, QuizMulti, CalloutBox
+	   ══════════════════════════════════════ */
+
+	/* ── CalloutBox: emphasis uses Deep Moss for contrast with white text ── */
+	:global(.mod3 .callout-emphasis) {
+		background: var(--mod-accent-strong) !important;
+	}
+
+	:global(html.dark .mod3 .callout-emphasis) {
+		background: #4a5235 !important;
+	}
+
+	:global(html.dark .mod3 .callout-default) {
+		background: var(--mod-canvas-tint) !important;
+		border-left-color: var(--mod-accent) !important;
+	}
+
+	:global(html.dark .mod3 .callout-default h3) {
+		color: var(--mod-ink) !important;
+	}
+
+	/* ── FlipCard overrides ── */
+	:global(.mod3 .fc-bar-front) {
+		background: var(--mod-accent) !important;
+	}
+
+	:global(.mod3 .fc-bar-back) {
+		background: var(--mod-accent-strong) !important;
+	}
+
+	:global(.mod3 .flip-card-back) {
+		background: var(--mod-canvas-tint) !important;
+	}
+
+	:global(.mod3 .flip-card) {
+		box-shadow:
+			0 1px 4px rgba(108, 166, 81, 0.06),
+			0 0 0 1px rgba(108, 166, 81, 0.12) !important;
+	}
+
+	:global(.mod3 .flip-card:hover) {
+		box-shadow:
+			0 6px 20px rgba(108, 166, 81, 0.1),
+			0 0 0 1px rgba(108, 166, 81, 0.18) !important;
+	}
+
+	:global(.mod3 .flip-card:focus) {
+		outline-color: var(--mod-accent) !important;
+	}
+
+	:global(.mod3 .fc-hint) {
+		color: var(--mod-accent-strong) !important;
+	}
+
+	:global(.mod3 .fc-answer) {
+		color: var(--mod-accent-strong) !important;
+	}
+
+	/* Dark mode FlipCard */
+	:global(html.dark .mod3 .flip-card-front) {
+		background: var(--mod-surface) !important;
+	}
+
+	:global(html.dark .mod3 .flip-card-back) {
+		background: var(--mod-canvas-tint) !important;
+	}
+
+	:global(html.dark .mod3 .flip-card) {
+		box-shadow:
+			0 1px 4px rgba(0, 0, 0, 0.15),
+			0 0 0 1px rgba(108, 166, 81, 0.1) !important;
+	}
+
+	:global(html.dark .mod3 .flip-card:hover) {
+		box-shadow:
+			0 6px 20px rgba(0, 0, 0, 0.25),
+			0 0 0 1px rgba(108, 166, 81, 0.15) !important;
+	}
+
+	:global(html.dark .mod3 .fc-question) {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark .mod3 .fc-answer) {
+		color: var(--mod-ink-2) !important;
+	}
+
+	:global(html.dark .mod3 .fc-hint) {
+		color: var(--mod-accent-strong) !important;
+	}
+
+	/* ── Quiz overrides (radio + checkbox) ── */
+	:global(.mod3 .quiz-radio:checked + .radio-custom) {
+		border-color: var(--mod-accent) !important;
+	}
+
+	:global(.mod3 .quiz-radio:checked + .radio-custom::after) {
+		background: var(--mod-accent-strong) !important;
+	}
+
+	:global(.mod3 .quiz-option:has(.quiz-radio:checked)) {
+		border-color: var(--mod-accent) !important;
+		background: rgba(240, 245, 236, 0.5) !important;
+	}
+
+	:global(.mod3 .quiz-radio:focus + .radio-custom) {
+		outline-color: var(--mod-accent) !important;
+	}
+
+	:global(.mod3 .quiz-checkbox:checked + .checkbox-custom) {
+		background: var(--mod-accent-strong) !important;
+		border-color: var(--mod-accent-strong) !important;
+	}
+
+	:global(.mod3 .quiz-option:has(.quiz-checkbox:checked)) {
+		border-color: var(--mod-accent) !important;
+		background: rgba(240, 245, 236, 0.5) !important;
+	}
+
+	:global(.mod3 .quiz-checkbox:focus + .checkbox-custom) {
+		outline-color: var(--mod-accent) !important;
+	}
+
+	:global(.mod3 .quiz-submit:hover) {
+		background: var(--mod-accent) !important;
+		color: #ffffff !important;
+		border-color: var(--mod-accent) !important;
+	}
+
+	:global(.mod3 .quiz-submit:focus) {
+		outline-color: var(--mod-accent) !important;
+	}
+
+	/* Dark mode quiz */
+	:global(html.dark .mod3 .quiz-single > div, html.dark .mod3 .quiz-multi > div) {
+		background: var(--mod-surface) !important;
+		border-color: var(--mod-border) !important;
+	}
+
+	:global(html.dark .mod3 .quiz-single h4, html.dark .mod3 .quiz-multi h4) {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark .mod3 .quiz-option) {
+		border-color: var(--mod-border) !important;
+		background: var(--mod-surface) !important;
+	}
+
+	:global(html.dark .mod3 .quiz-option span:last-child) {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(
+		html.dark .mod3 .quiz-option:has(.quiz-radio:checked),
+		html.dark .mod3 .quiz-option:has(.quiz-checkbox:checked)
+	) {
+		border-color: var(--mod-accent) !important;
+		background: rgba(34, 38, 32, 0.6) !important;
+	}
+
+	:global(html.dark .mod3 .quiz-submit) {
+		background: var(--mod-surface) !important;
+		color: var(--mod-ink) !important;
+		border-color: var(--mod-border) !important;
+	}
+
+	:global(html.dark .mod3 .quiz-submit:hover) {
+		background: var(--mod-accent) !important;
+		color: #ffffff !important;
+		border-color: var(--mod-accent) !important;
+	}
+
+	/* ── Body text dark mode ── */
+	:global(html.dark) .mod3 p[style*='color: #374151'] {
+		color: var(--mod-ink-2) !important;
+	}
+
+	:global(html.dark) .mod3 h4[style*='color: #1F2937'] {
+		color: var(--mod-ink) !important;
+	}
+
+	:global(html.dark) .mod3 span[style*='color: #374151'],
+	:global(html.dark) .mod3 ul[style*='color: #374151'] {
+		color: var(--mod-ink-2) !important;
+	}
+
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.mod3-hero,
+		.mod3-resource-card,
+		.mod3-level-card,
+		.mod3-back,
+		.mod3-cta-link,
+		.mod3-nav-prev,
+		.mod3-nav-next {
+			transition-duration: 0ms !important;
+		}
+	}
+</style>
