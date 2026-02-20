@@ -60,8 +60,8 @@ const storyHooks: Record<string, string> = {
 		</div>
 
 		<!-- Mission — editorial left rule -->
-		<section class='about-section'>
-			<div class='about-mission-block'>
+		<section class='about-section animate-section'>
+			<div class='about-mission-block animate-card'>
 				<p class='about-body-lead'>
 					EDI McGill is dedicated to strengthening an inclusive and equitable graduate community at
 					McGill University — one grounded in mutual respect, shared responsibility, and collective
@@ -76,11 +76,11 @@ const storyHooks: Record<string, string> = {
 		</section>
 
 		<!-- Our approach — values tiles -->
-		<section class='about-section'>
+		<section class='about-section animate-section'>
 			<h2 class='about-section-title'>Our approach</h2>
-			<div class='about-cards'>
+			<div class='about-cards animate-grid'>
 				<!-- Education -->
-				<div class='about-card'>
+				<div class='about-card animate-card' style='--stagger: 0ms'>
 					<div class='about-card-glyph about-glyph-grid' aria-hidden='true'>
 						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
 							<line x1='0' y1='16' x2='80' y2='16' stroke='currentColor' stroke-width='0.5'></line>
@@ -103,7 +103,7 @@ const storyHooks: Record<string, string> = {
 				</div>
 
 				<!-- Community -->
-				<div class='about-card'>
+				<div class='about-card animate-card' style='--stagger: 100ms'>
 					<div class='about-card-glyph about-glyph-circles' aria-hidden='true'>
 						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
 							<circle cx='30' cy='35' r='22' stroke='currentColor' stroke-width='0.7'></circle>
@@ -121,7 +121,7 @@ const storyHooks: Record<string, string> = {
 				</div>
 
 				<!-- Advocacy -->
-				<div class='about-card'>
+				<div class='about-card animate-card' style='--stagger: 200ms'>
 					<div class='about-card-glyph about-glyph-echo' aria-hidden='true'>
 						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
 							<line x1='28' y1='10' x2='28' y2='70' stroke='currentColor' stroke-width='0.8'></line>
@@ -916,4 +916,118 @@ const storyHooks: Record<string, string> = {
 			transition-duration: 0ms !important;
 		}
 	}
+
+	/* ── Animation System from Participate Page ── */
+	/* Text entrance animation */
+	.about-page-title,
+	.about-anchor {
+		opacity: 0;
+		transform: translateY(14px);
+		animation: heroTextIn 550ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+	}
+
+	.about-page-title {
+		animation-delay: 80ms;
+	}
+	.about-anchor {
+		animation-delay: 200ms;
+	}
+
+	@keyframes heroTextIn {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Card entrance animations */
+	.animate-card {
+		opacity: 0;
+		transform: translateY(18px);
+		transition:
+			opacity 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+			border-color 300ms ease;
+	}
+	.animate-card.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Enhanced hover effects for cards */
+	.animate-card.is-visible:hover {
+		transform: translateY(-2px);
+		box-shadow:
+			0 6px 20px rgba(107, 8, 72, 0.08),
+			0 2px 6px rgba(0, 0, 0, 0.04);
+	}
+
+	.about-card.animate-card .about-card-accent {
+		transition: height 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+	}
+	.about-card.animate-card:hover .about-card-accent {
+		height: 5px;
+	}
+
+	/* Section animations */
+	.animate-section {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 600ms ease,
+			transform 600ms ease;
+	}
+	.animate-section.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.about-page-title,
+		.about-anchor,
+		.animate-card,
+		.animate-section {
+			animation: none !important;
+			transition-duration: 0ms !important;
+			opacity: 1 !important;
+			transform: none !important;
+		}
+	}
 </style>
+
+<script>
+	// Animation initialization from participate page
+	;(function initScrollReveal() {
+		function setup() {
+			const cards = document.querySelectorAll('.animate-card, .animate-section')
+			if (!cards.length) return
+
+			if (!('IntersectionObserver' in window)) {
+				cards.forEach((c) => c.classList.add('is-visible'))
+				return
+			}
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-visible')
+							observer.unobserve(entry.target)
+						}
+					})
+				},
+				{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+			)
+
+			cards.forEach((card) => observer.observe(card))
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setup)
+		} else {
+			setup()
+		}
+		document.addEventListener('astro:page-load', setup)
+	})()
+</script>

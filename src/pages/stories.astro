@@ -64,8 +64,8 @@ try {
 			</p>
 		</div>
 
-		<section class='story-section'>
-			<div class='story-mission-block'>
+		<section class='story-section animate-section'>
+			<div class='story-mission-block animate-card'>
 				<p class='story-body-lead'>
 					These stories help us understand diverse experiences and foster empathy and inclusion.
 					Every voice matters, and every story contributes to a richer understanding of our
@@ -81,9 +81,9 @@ try {
 		<!-- Featured Story -->
 		{
 			featuredStory && (
-				<section class='story-section story-featured-section'>
+				<section class='story-section story-featured-section animate-section'>
 					<h2 class='story-section-title'>Featured story</h2>
-					<a href={`/post/${featuredStory.slug}`} class='story-featured-card group'>
+					<a href={`/post/${featuredStory.slug}`} class='story-featured-card group animate-card'>
 						{featuredStory.data.heroImage && (
 							<div class='story-featured-img'>
 								<Image
@@ -141,7 +141,7 @@ try {
 						{stories
 							.filter((s) => s !== featuredStory)
 							.map((story) => (
-								<a href={`/post/${story.slug}`} class='story-post-card group'>
+								<a href={`/post/${story.slug}`} class='story-post-card group animate-card'>
 									{story.data.heroImage && (
 										<div class='story-post-img'>
 											<Image
@@ -197,7 +197,7 @@ try {
 					<p class='story-grid-sub'>Stories and reflections published on our blog.</p>
 					<div class='story-posts-grid'>
 						{blogStories.map((post) => (
-							<a href={`/post/${post.slug}`} class='story-post-card group'>
+							<a href={`/post/${post.slug}`} class='story-post-card group animate-card'>
 								{post.data.heroImage && (
 									<div class='story-post-img'>
 										<Image
@@ -1035,4 +1035,111 @@ try {
 			transition-duration: 0ms !important;
 		}
 	}
+
+	/* ── Animation System from Participate Page ── */
+	/* Text entrance animation */
+	.story-page-title,
+	.story-anchor {
+		opacity: 0;
+		transform: translateY(14px);
+		animation: heroTextIn 550ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+	}
+
+	.story-page-title {
+		animation-delay: 80ms;
+	}
+	.story-anchor {
+		animation-delay: 200ms;
+	}
+
+	@keyframes heroTextIn {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Card entrance animations */
+	.animate-card {
+		opacity: 0;
+		transform: translateY(18px);
+		transition:
+			opacity 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+			border-color 300ms ease;
+	}
+	.animate-card.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Enhanced hover effects for cards */
+	.animate-card.is-visible:hover {
+		transform: translateY(-2px);
+		box-shadow:
+			0 6px 20px rgba(55, 48, 107, 0.08),
+			0 2px 6px rgba(0, 0, 0, 0.04);
+	}
+
+	/* Section animations */
+	.animate-section {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 600ms ease,
+			transform 600ms ease;
+	}
+	.animate-section.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.story-page-title,
+		.story-anchor,
+		.animate-card,
+		.animate-section {
+			animation: none !important;
+			transition-duration: 0ms !important;
+			opacity: 1 !important;
+			transform: none !important;
+		}
+	}
 </style>
+
+<script>
+	// Animation initialization from participate page
+	;(function initScrollReveal() {
+		function setup() {
+			const cards = document.querySelectorAll('.animate-card, .animate-section')
+			if (!cards.length) return
+
+			if (!('IntersectionObserver' in window)) {
+				cards.forEach((c) => c.classList.add('is-visible'))
+				return
+			}
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-visible')
+							observer.unobserve(entry.target)
+						}
+					})
+				},
+				{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+			)
+
+			cards.forEach((card) => observer.observe(card))
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setup)
+		} else {
+			setup()
+		}
+		document.addEventListener('astro:page-load', setup)
+	})()
+</script>

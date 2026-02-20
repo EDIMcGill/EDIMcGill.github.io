@@ -71,8 +71,8 @@ try {
 		</div>
 
 		<!-- Intro — editorial left rule -->
-		<section class='prog-section'>
-			<div class='prog-mission-block'>
+		<section class='prog-section animate-section'>
+			<div class='prog-mission-block animate-card'>
 				<p class='prog-body-lead'>
 					Join us for engaging programs that bring EDI principles to life. From interactive
 					workshops to thought-provoking panel discussions, our events create spaces for learning,
@@ -86,11 +86,11 @@ try {
 		</section>
 
 		<!-- What we offer — value cards -->
-		<section class='prog-section'>
+		<section class='prog-section animate-section'>
 			<h2 class='prog-section-title'>What we offer</h2>
-			<div class='prog-cards'>
+			<div class='prog-cards animate-grid'>
 				<!-- Workshops -->
-				<div class='prog-card'>
+				<div class='prog-card animate-card' style='--stagger: 0ms'>
 					<div class='prog-card-glyph prog-glyph-grid' aria-hidden='true'>
 						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
 							<rect
@@ -129,7 +129,7 @@ try {
 				</div>
 
 				<!-- Seminars -->
-				<div class='prog-card'>
+				<div class='prog-card animate-card' style='--stagger: 100ms'>
 					<div class='prog-card-glyph prog-glyph-circles' aria-hidden='true'>
 						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
 							<circle cx='40' cy='28' r='18' stroke='currentColor' stroke-width='0.6'></circle>
@@ -147,7 +147,7 @@ try {
 				</div>
 
 				<!-- Community Events -->
-				<div class='prog-card'>
+				<div class='prog-card animate-card' style='--stagger: 200ms'>
 					<div class='prog-card-glyph prog-glyph-echo' aria-hidden='true'>
 						<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
 							<path
@@ -1055,4 +1055,118 @@ try {
 			transition-duration: 0ms !important;
 		}
 	}
+
+	/* ── Animation System from Participate Page ── */
+	/* Text entrance animation */
+	.prog-page-title,
+	.prog-anchor {
+		opacity: 0;
+		transform: translateY(14px);
+		animation: heroTextIn 550ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+	}
+
+	.prog-page-title {
+		animation-delay: 80ms;
+	}
+	.prog-anchor {
+		animation-delay: 200ms;
+	}
+
+	@keyframes heroTextIn {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Card entrance animations */
+	.animate-card {
+		opacity: 0;
+		transform: translateY(18px);
+		transition:
+			opacity 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
+			box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+			border-color 300ms ease;
+	}
+	.animate-card.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Enhanced hover effects for cards */
+	.animate-card.is-visible:hover {
+		transform: translateY(-2px);
+		box-shadow:
+			0 6px 20px rgba(205, 44, 88, 0.08),
+			0 2px 6px rgba(0, 0, 0, 0.04);
+	}
+
+	.prog-card.animate-card .prog-card-accent {
+		transition: height 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+	}
+	.prog-card.animate-card:hover .prog-card-accent {
+		height: 5px;
+	}
+
+	/* Section animations */
+	.animate-section {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 600ms ease,
+			transform 600ms ease;
+	}
+	.animate-section.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.prog-page-title,
+		.prog-anchor,
+		.animate-card,
+		.animate-section {
+			animation: none !important;
+			transition-duration: 0ms !important;
+			opacity: 1 !important;
+			transform: none !important;
+		}
+	}
 </style>
+
+<script>
+	// Animation initialization from participate page
+	;(function initScrollReveal() {
+		function setup() {
+			const cards = document.querySelectorAll('.animate-card, .animate-section')
+			if (!cards.length) return
+
+			if (!('IntersectionObserver' in window)) {
+				cards.forEach((c) => c.classList.add('is-visible'))
+				return
+			}
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-visible')
+							observer.unobserve(entry.target)
+						}
+					})
+				},
+				{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+			)
+
+			cards.forEach((card) => observer.observe(card))
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setup)
+		} else {
+			setup()
+		}
+		document.addEventListener('astro:page-load', setup)
+	})()
+</script>
