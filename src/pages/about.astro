@@ -917,70 +917,72 @@ const storyHooks: Record<string, string> = {
 		}
 	}
 
-	/* ── Animation System from Participate Page ── */
+	/* ── Persistent Slide Animation System ── */
 	/* Text entrance animation */
 	.about-page-title,
 	.about-anchor {
-		opacity: 0;
-		transform: translateY(14px);
-		animation: heroTextIn 550ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+		animation: slideInUp 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 	}
 
 	.about-page-title {
-		animation-delay: 80ms;
+		animation-delay: 100ms;
 	}
 	.about-anchor {
-		animation-delay: 200ms;
+		animation-delay: 250ms;
 	}
 
-	@keyframes heroTextIn {
+	@keyframes slideInUp {
+		from {
+			transform: translateY(30px);
+			opacity: 0;
+		}
 		to {
-			opacity: 1;
 			transform: translateY(0);
+			opacity: 1;
 		}
 	}
 
-	/* Card entrance animations */
+	/* Card slide-in animations - persistent once triggered */
 	.animate-card {
+		transform: translateX(-40px);
 		opacity: 0;
-		transform: translateY(18px);
 		transition:
-			opacity 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
-			transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--stagger, 0ms),
-			box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
-			border-color 300ms ease;
+			transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--stagger, 0ms),
+			opacity 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--stagger, 0ms);
 	}
 	.animate-card.is-visible {
+		transform: translateX(0);
 		opacity: 1;
-		transform: translateY(0);
+		/* Animation stays - no reset */
 	}
 
-	/* Enhanced hover effects for cards */
+	/* Enhanced persistent hover effects */
 	.animate-card.is-visible:hover {
-		transform: translateY(-2px);
+		transform: translateX(5px) scale(1.02);
 		box-shadow:
-			0 6px 20px rgba(107, 8, 72, 0.08),
-			0 2px 6px rgba(0, 0, 0, 0.04);
+			0 8px 25px rgba(107, 8, 72, 0.12),
+			0 3px 10px rgba(0, 0, 0, 0.06);
+		transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 
 	.about-card.animate-card .about-card-accent {
-		transition: height 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+		transition: height 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 	.about-card.animate-card:hover .about-card-accent {
-		height: 5px;
+		height: 6px;
 	}
 
-	/* Section animations */
+	/* Section slide animations */
 	.animate-section {
+		transform: translateX(-50px);
 		opacity: 0;
-		transform: translateY(20px);
 		transition:
-			opacity 600ms ease,
-			transform 600ms ease;
+			transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 	.animate-section.is-visible {
+		transform: translateX(0);
 		opacity: 1;
-		transform: translateY(0);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -997,30 +999,50 @@ const storyHooks: Record<string, string> = {
 </style>
 
 <script>
-	// Animation initialization from participate page
-	;(function initScrollReveal() {
+	// Persistent slide animation system
+	;(function initPersistentSlideReveal() {
 		function setup() {
-			const cards = document.querySelectorAll('.animate-card, .animate-section')
-			if (!cards.length) return
+			const elements = document.querySelectorAll('.animate-card, .animate-section')
+			if (!elements.length) return
+
+			// Check for saved animation states
+			const animatedElements = JSON.parse(sessionStorage.getItem('animatedElements') || '{}')
+
+			// Apply saved states immediately
+			elements.forEach((el, index) => {
+				const elementId = `about-${index}`
+				if (animatedElements[elementId]) {
+					el.classList.add('is-visible')
+				}
+			})
 
 			if (!('IntersectionObserver' in window)) {
-				cards.forEach((c) => c.classList.add('is-visible'))
+				elements.forEach((el, index) => {
+					el.classList.add('is-visible')
+					animatedElements[`about-${index}`] = true
+				})
+				sessionStorage.setItem('animatedElements', JSON.stringify(animatedElements))
 				return
 			}
 
 			const observer = new IntersectionObserver(
 				(entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
+					entries.forEach((entry, entryIndex) => {
+						if (entry.isIntersecting && !entry.target.classList.contains('is-visible')) {
+							const elementIndex = Array.from(elements).indexOf(entry.target)
+							const elementId = `about-${elementIndex}`
+
 							entry.target.classList.add('is-visible')
-							observer.unobserve(entry.target)
+							animatedElements[elementId] = true
+							sessionStorage.setItem('animatedElements', JSON.stringify(animatedElements))
+							// Don't unobserve - keep observing for potential future animations
 						}
 					})
 				},
-				{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+				{ threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
 			)
 
-			cards.forEach((card) => observer.observe(card))
+			elements.forEach((element) => observer.observe(element))
 		}
 
 		if (document.readyState === 'loading') {
