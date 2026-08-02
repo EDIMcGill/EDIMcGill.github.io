@@ -1,0 +1,21 @@
+---
+// filepath: c:\Users\User\Desktop\websites\EDIMcGill.github.io\src\components\learning\SectionDivider.astro
+interface Props {
+	label?: string
+	class?: string
+}
+
+const { label, class: className = '' } = Astro.props as Props
+---
+
+<div class={`my-8 flex items-center gap-4 ${className}`}>
+	<div class='h-px flex-1 bg-slate-200 dark:bg-slate-700'></div>
+	{
+		label && (
+			<span class='text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400'>
+				{label}
+			</span>
+		)
+	}
+	<div class='h-px flex-1 bg-slate-200 dark:bg-slate-700'></div>
+</div>

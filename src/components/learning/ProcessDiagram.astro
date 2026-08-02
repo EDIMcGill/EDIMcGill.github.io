@@ -1,0 +1,32 @@
+---
+// filepath: c:\Users\User\Desktop\websites\EDIMcGill.github.io\src\components\learning\ProcessDiagram.astro
+interface Step {
+	title: string
+	description?: string
+}
+
+interface Props {
+	steps: Step[]
+	class?: string
+}
+
+const { steps, class: className = '' } = Astro.props as Props
+---
+
+<div class={`grid gap-4 md:grid-cols-${Math.min(steps.length, 4)} ${className}`}>
+	{
+		steps.map((step, index) => (
+			<div class='rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-900'>
+				<p class='text-xs font-bold uppercase tracking-wide text-violet-700 dark:text-violet-300'>
+					Step {index + 1}
+				</p>
+				<h3 class='mt-1 font-semibold text-slate-900 dark:text-slate-100'>{step.title}</h3>
+				{step.description && (
+					<p class='mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300'>
+						{step.description}
+					</p>
+				)}
+			</div>
+		))
+	}
+</div>

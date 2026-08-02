@@ -1,0 +1,452 @@
+---
+// filepath: c:\Users\User\Desktop\websites\EDIMcGill.github.io\src\pages\resources\component-lab.astro
+import BaseLayout from '@/layouts/BaseLayout'
+import Accordion from '@/components/learning/Accordion'
+import Timeline from '@/components/learning/Timeline'
+import Stepper from '@/components/learning/Stepper'
+import KeyTakeaways from '@/components/learning/KeyTakeaways'
+import ReflectionPrompt from '@/components/learning/ReflectionPrompt'
+import ScenarioCard from '@/components/learning/ScenarioCard'
+import GlossaryTerm from '@/components/learning/GlossaryTerm'
+import CaseStudyBlock from '@/components/learning/CaseStudyBlock'
+import ComparisonTable from '@/components/learning/ComparisonTable'
+import ResourceList from '@/components/learning/ResourceList'
+import QuoteBlock from '@/components/learning/QuoteBlock'
+import CheckpointBanner from '@/components/learning/CheckpointBanner'
+import ShortAnswerQuiz from '@/components/learning/ShortAnswerQuiz'
+import TabbedContent from '@/components/learning/TabbedContent'
+import ModuleNav from '@/components/learning/ModuleNav'
+import AccessibilityNote from '@/components/learning/AccessibilityNote'
+import CTAButton from '@/components/CTAButton'
+
+import InfoCard from '@/components/learning/InfoCard'
+import WarningCallout from '@/components/learning/WarningCallout'
+import LearningObjective from '@/components/learning/LearningObjective'
+import SectionDivider from '@/components/learning/SectionDivider'
+import HintBox from '@/components/learning/HintBox'
+import SelfCheck from '@/components/learning/SelfCheck'
+import ProgressBar from '@/components/learning/ProgressBar'
+import ProcessDiagram from '@/components/learning/ProcessDiagram'
+import DragToRank from '@/components/learning/DragToRank'
+import ScenarioReveal from '@/components/learning/ScenarioReveal'
+import EvidenceCard from '@/components/learning/EvidenceCard'
+import CitationList from '@/components/learning/CitationList'
+import PronunciationTag from '@/components/learning/PronunciationTag'
+
+const title = 'Component Lab'
+const description = 'A test page for learning components'
+---
+
+<BaseLayout title={title} description={description}>
+	<main class='mx-auto max-w-6xl px-4 py-12'>
+		<section
+			class='rounded-3xl bg-gradient-to-r from-[#473472] to-[#53629e] p-8 text-white shadow-xl md:p-10'
+		>
+			<p class='text-sm font-semibold uppercase tracking-[0.2em] text-white/80'>
+				Learning components
+			</p>
+			<h1 class='mt-3 text-4xl font-bold md:text-5xl'>{title}</h1>
+			<p class='mt-4 max-w-3xl text-lg text-white/90'>{description}</p>
+
+			<div class='mt-6 flex flex-wrap gap-4'>
+				<CTAButton href='#accordion' variant='primary'>Go to components</CTAButton>
+				<CTAButton href='#nav' variant='secondary'>View navigation</CTAButton>
+			</div>
+		</section>
+
+		<div class='mt-10 grid gap-8'>
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Learning Objectives</h2>
+				<div class='mt-4'>
+					<LearningObjective
+						objectives={[
+							'Preview the learning component library.',
+							'Check spacing, typography, and color usage.',
+							'Verify components work in a course module layout.'
+						]}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Checkpoint Banner</h2>
+				<div class='mt-4'>
+					<CheckpointBanner title='Checkpoint' status='All components loaded successfully.'>
+						Use this page to verify spacing, colors, and layout behavior.
+					</CheckpointBanner>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>CTA Buttons</h2>
+				<div class='mt-4 flex flex-wrap gap-4'>
+					<CTAButton href='#' variant='primary'>Primary CTA</CTAButton>
+					<CTAButton href='#' variant='secondary'>Secondary CTA</CTAButton>
+					<CTAButton href='#' variant='ghost'>Ghost CTA</CTAButton>
+				</div>
+			</section>
+
+			<section
+				id='accordion'
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Accordion</h2>
+				<div class='mt-4'>
+					<Accordion
+						items={[
+							{
+								title: 'What is EDI?',
+								content: 'EDI stands for Equity, Diversity, and Inclusion.'
+							},
+							{
+								title: 'Why does it matter?',
+								content: 'It supports fairer, safer, and more effective engineering practice.'
+							}
+						]}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Timeline</h2>
+				<div class='mt-4'>
+					<Timeline
+						items={[
+							{
+								title: 'Learn the terms',
+								description: 'Start with definitions and concepts.',
+								meta: 'Step 1'
+							},
+							{
+								title: 'Apply them',
+								description: 'Use the ideas in real scenarios.',
+								meta: 'Step 2'
+							},
+							{
+								title: 'Reflect',
+								description: 'Consider your role and responsibility.',
+								meta: 'Step 3'
+							}
+						]}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Stepper</h2>
+				<div class='mt-4'>
+					<Stepper
+						steps={[
+							{ label: 'Intro', done: true },
+							{ label: 'Practice', active: true },
+							{ label: 'Review' }
+						]}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Key Takeaways</h2>
+				<div class='mt-4'>
+					<KeyTakeaways title='Key takeaways'>
+						<li>EDI is relevant to engineering practice.</li>
+						<li>Language and systems both matter.</li>
+						<li>Reflection supports better decisions.</li>
+					</KeyTakeaways>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Reflection Prompt</h2>
+				<div class='mt-4'>
+					<ReflectionPrompt title='Think about your experience'>
+						Where have you seen inclusion or exclusion affect a team?
+					</ReflectionPrompt>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Scenario Card</h2>
+				<div class='mt-4'>
+					<ScenarioCard title='Team meeting scenario' level='Scenario'>
+						A team member is repeatedly interrupted during meetings. What should the facilitator do?
+					</ScenarioCard>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Glossary Term</h2>
+				<p class='mt-4 text-slate-700 dark:text-slate-300'>
+					<GlossaryTerm
+						term='Equity'
+						definition='Providing what each person needs to have a fair opportunity to succeed.'
+					/>{' '}
+					matters in design and policy.
+				</p>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Case Study Block</h2>
+				<div class='mt-4'>
+					<CaseStudyBlock title='Inclusive lab design'>
+						<div slot='context'>
+							A lab redesign needs to support students with different accessibility needs.
+						</div>
+						<div slot='outcome'>
+							The team adds wider paths, clearer labels, and adjustable workstations.
+						</div>
+						The result is a better experience for more users.
+					</CaseStudyBlock>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Comparison Table</h2>
+				<div class='mt-4'>
+					<ComparisonTable
+						leftLabel='Diversity'
+						rightLabel='Equity'
+						rows={[
+							{ left: 'Presence of difference', right: 'Fair access and support' },
+							{ left: 'Who is included', right: 'What people need to succeed' }
+						]}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Resource List</h2>
+				<div class='mt-4'>
+					<ResourceList
+						items={[
+							{ title: 'Course overview', href: '#', description: 'Internal module link.' },
+							{
+								title: 'External reading',
+								href: 'https://example.com',
+								description: 'Sample external resource.',
+								external: true
+							}
+						]}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Quote Block</h2>
+				<div class='mt-4'>
+					<QuoteBlock
+						quote='Small design choices can have large inclusion impacts.'
+						author='Engineering educator'
+						role='Instructor'
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Short Answer Quiz</h2>
+				<div class='mt-4'>
+					<ShortAnswerQuiz
+						question='In one sentence, why is EDI important in engineering?'
+						placeholder='Write your response...'
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Tabbed Content</h2>
+				<div class='mt-4'>
+					<TabbedContent
+						tabs={[
+							{ label: 'Definition', content: 'This is the definition tab.' },
+							{ label: 'Example', content: 'This is the example tab.' },
+							{ label: 'Pitfall', content: 'This is the pitfall tab.' }
+						]}
+					/>
+				</div>
+			</section>
+
+			<SectionDivider label='Additional tests' />
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Info Card</h2>
+				<div class='mt-4'>
+					<InfoCard title='What this component does' subtitle='Compact concept summary'>
+						Use this for short explanatory content.
+					</InfoCard>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Warning Callout</h2>
+				<div class='mt-4'>
+					<WarningCallout title='Common mistake'>
+						Avoid treating diversity and equity as interchangeable terms.
+					</WarningCallout>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Hint Box</h2>
+				<div class='mt-4'>
+					<HintBox>Look for who benefits and who is excluded when evaluating a system.</HintBox>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Self Check</h2>
+				<div class='mt-4'>
+					<SelfCheck title='Can you explain this concept?'>
+						Try defining equity without using the word fairness.
+					</SelfCheck>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Progress Bar</h2>
+				<div class='mt-4'>
+					<ProgressBar value={68} label='Module completion' />
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Process Diagram</h2>
+				<div class='mt-4'>
+					<ProcessDiagram
+						steps={[
+							{ title: 'Introduce the concept', description: 'Define the term clearly.' },
+							{ title: 'Apply it', description: 'Use it in a scenario or example.' },
+							{ title: 'Reflect', description: 'Connect it to practice.' }
+						]}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Drag to Rank</h2>
+				<div class='mt-4'>
+					<DragToRank
+						title='Rank these ideas from broadest to most specific'
+						items={['Inclusion', 'Equity', 'Diversity']}
+					/>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Scenario Reveal</h2>
+				<div class='mt-4'>
+					<ScenarioReveal title='Reveal the response'>
+						<p>
+							Scenario: A team creates a tool that works well for some users but excludes others.
+						</p>
+						<p class='mt-3'>
+							Response: include accessibility checks early, gather feedback, and revise the design.
+						</p>
+					</ScenarioReveal>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Evidence Card</h2>
+				<div class='mt-4'>
+					<EvidenceCard claim='Inclusive design improves usability for more people.'>
+						<ul class='list-disc space-y-2 pl-5'>
+							<li>Accessibility features reduce barriers.</li>
+							<li>Clear language improves comprehension.</li>
+							<li>Testing with diverse users reveals hidden issues.</li>
+						</ul>
+					</EvidenceCard>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Citation List</h2>
+				<div class='mt-4'>
+					<CitationList>
+						<li>Author, A. (2026). <em>Example source</em>.</li>
+						<li>Author, B. (2025). <em>Another example source</em>.</li>
+					</CitationList>
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Pronunciation Tag</h2>
+				<div class='mt-4'>
+					<PronunciationTag term='Equity' pronunciation='ˈiː-kwə-tee' />
+				</div>
+			</section>
+
+			<section
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Accessibility Note</h2>
+				<div class='mt-4'>
+					<AccessibilityNote>
+						Check heading order, contrast, keyboard focus, and descriptive link text.
+					</AccessibilityNote>
+				</div>
+			</section>
+
+			<section
+				id='nav'
+				class='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900'
+			>
+				<h2 class='text-xl font-bold text-slate-900 dark:text-slate-100'>Navigation</h2>
+				<div class='mt-4'>
+					<ModuleNav prevHref='#' prevLabel='Previous test' nextHref='#' nextLabel='Next test' />
+				</div>
+			</section>
+		</div>
+	</main>
+</BaseLayout>
