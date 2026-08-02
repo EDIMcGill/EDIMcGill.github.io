@@ -1,0 +1,47 @@
+---
+// filepath: c:\Users\User\Desktop\websites\EDIMcGill.github.io\src\components\learning\ModuleNav.astro
+interface Props {
+	prevHref?: string
+	prevLabel?: string
+	nextHref?: string
+	nextLabel?: string
+	class?: string
+}
+
+const {
+	prevHref,
+	prevLabel = 'Previous',
+	nextHref,
+	nextLabel = 'Next',
+	class: className = ''
+} = Astro.props as Props
+---
+
+<nav
+	class={`flex items-center justify-between gap-4 rounded-2xl border-t border-slate-200 pt-6 dark:border-slate-700 ${className}`}
+>
+	{
+		prevHref ? (
+			<a
+				href={prevHref}
+				class='text-sm font-semibold text-violet-700 hover:underline dark:text-violet-300'
+			>
+				← {prevLabel}
+			</a>
+		) : (
+			<span />
+		)
+	}
+	{
+		nextHref ? (
+			<a
+				href={nextHref}
+				class='text-sm font-semibold text-violet-700 hover:underline dark:text-violet-300'
+			>
+				{nextLabel} →
+			</a>
+		) : (
+			<span />
+		)
+	}
+</nav>
